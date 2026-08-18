@@ -1,0 +1,74 @@
+<!-- ============= stima indicativa: quattro domande ============= -->
+<section class="stima" id="preventivo" aria-labelledby="stima-titolo">
+  <div class="contenitore">
+    <div class="stima__testa">
+      <p class="etichetta">Quanto viene, più o meno</p>
+      <h2 class="stima__titolo" id="stima-titolo">Fatti un'idea in quattro domande.</h2>
+      <p class="stima__frase">
+        Nessuno vuole telefonare per sentirsi dire «dipende». Rispondi qui e
+        vedi subito l'ordine di grandezza. Poi, se ha senso, ci sentiamo.
+      </p>
+    </div>
+
+    <form class="stima__forma" data-stima>
+      <fieldset class="stima__gruppo">
+        <legend class="stima__domanda">Che cosa c'è da fare?</legend>
+        <div class="stima__scelte">
+          <label class="scelta"><input type="radio" name="opera" value="stanza" checked><span>Una stanza</span></label>
+          <label class="scelta"><input type="radio" name="opera" value="casa"><span>Tutta la casa</span></label>
+          <label class="scelta"><input type="radio" name="opera" value="facciata"><span>Una facciata</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="stima__gruppo">
+        <legend class="stima__domanda">
+          <span data-etichetta-misura>Quanti metri quadri di pavimento?</span>
+        </legend>
+        <div class="stima__misura">
+          <input class="stima__cursore" type="range" name="mq" min="10" max="200" step="5" value="20"
+                 aria-describedby="stima-mq">
+          <output class="stima__valore" id="stima-mq" for="mq"><b data-mq>20</b> m²</output>
+        </div>
+        <p class="stima__aiuto" data-aiuto-misura>
+          Una camera da letto sta di solito fra 12 e 18 m², un soggiorno fra 20 e 30.
+        </p>
+      </fieldset>
+
+      <fieldset class="stima__gruppo" data-solo-interni>
+        <legend class="stima__domanda">Anche i soffitti?</legend>
+        <div class="stima__scelte">
+          <label class="scelta"><input type="radio" name="soffitti" value="si" checked><span>Sì</span></label>
+          <label class="scelta"><input type="radio" name="soffitti" value="no"><span>No, solo pareti</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="stima__gruppo" data-solo-interni>
+        <legend class="stima__domanda">Che finitura?</legend>
+        <div class="stima__scelte">
+          <label class="scelta"><input type="radio" name="finitura" value="liscia" checked><span>Tutto opaco lavabile</span></label>
+          <label class="scelta"><input type="radio" name="finitura" value="decorativa"><span>Con una parete decorativa</span></label>
+        </div>
+        <p class="stima__aiuto" data-aiuto-finitura>
+          Le finiture decorative del campionario — spatolato, velatura, sabbiato,
+          cemento — si fanno quasi sempre su una parete sola: è lì che rendono.
+        </p>
+      </fieldset>
+    </form>
+
+    <div class="stima__esito" data-esito aria-live="polite">
+      <div class="stima__cifre">
+        <p class="stima__etichetta-esito">Ordine di grandezza</p>
+        <p class="stima__cifra"><b data-cifra>500 – 790 €</b></p>
+        <p class="stima__dettaglio" data-dettaglio>circa 72 m² di superficie da tinteggiare</p>
+      </div>
+      <div class="stima__chiosa">
+        <p class="stima__avvertenza">
+          È una stima, non un preventivo: dipende da quanto è messa male la parete,
+          da quante mani servono e da come si arriva in alto. Il preventivo vero
+          lo scriviamo dopo il sopralluogo, ed è gratuito.
+        </p>
+        <a class="bottone bottone--pieno bottone--chiaro" href="contatti.html#parliamone">Chiedi il preventivo vero</a>
+      </div>
+    </div>
+  </div>
+</section>

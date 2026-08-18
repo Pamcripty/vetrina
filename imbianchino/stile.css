@@ -1,0 +1,933 @@
+/* =================================================================
+   Mano di Fondo — progetto dimostrativo di Sito in Vista
+   Direzione: "Campionario" — comanda la fotografia; il colore è
+   ridotto a un solo accento. Una sola larghezza, margini uniformi, poche spaziature
+   ripetute, nessun elemento ruotato o verticale.
+   ================================================================= */
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('font/archivo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('font/archivo-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  /* --- la carta: neutra, non compete con le fotografie --- */
+  --calce: #f4f1ea;
+  --gesso: #ffffff;
+  --grafite: #23211e;
+  --fumo: #6e6a63;
+  --linea: rgba(35, 33, 30, 0.14);
+  --linea-forte: rgba(35, 33, 30, 0.3);
+
+  /* --- un solo accento: il campionario ora è fotografico ---
+     --terra vale per le superfici e i segni grafici.
+     --terra-testo è la stessa tinta appena più scura: serve per il
+     testo piccolo, dove #b4553a si ferma a 4,33:1 e non passa AA. */
+  --terra: #b4553a;
+  --terra-testo: #af5238;
+
+  /* --- impianto: una larghezza, un margine, quattro spaziature --- */
+  --contenitore: 1200px;
+  --margine: clamp(1.25rem, 5vw, 3rem);
+  --s1: 0.5rem;
+  --s2: 1rem;
+  --s3: 2rem;
+  --s4: 3.5rem;
+  --s5: 6rem;
+
+  --font: 'Archivo', ui-sans-serif, system-ui, 'Segoe UI', Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 6rem; }
+
+body {
+  margin: 0;
+  background: var(--calce);
+  color: var(--grafite);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3, p, figure, ul, ol, li, dl { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+img, picture, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+:focus-visible { outline: 3px solid var(--grafite); outline-offset: 3px; }
+
+.via-schermo {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+.salta {
+  position: fixed; top: .5rem; left: .5rem; z-index: 100;
+  background: var(--grafite); color: var(--calce);
+  padding: .75rem 1.25rem; font-size: .9rem;
+  transform: translateY(-160%); transition: transform .2s ease;
+}
+.salta:focus-visible { transform: none; }
+
+/* la larghezza è una sola, in tutta la pagina */
+.contenitore {
+  width: 100%;
+  max-width: var(--contenitore);
+  margin-inline: auto;
+  padding-inline: var(--margine);
+}
+
+/* =================================================================
+   Dichiarazione del concept — in cima, scorre via con la pagina
+   ================================================================= */
+.avviso { background: var(--grafite); color: var(--calce); }
+.avviso__interno {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s2); min-height: 2.25rem;
+  font-size: .8125rem; letter-spacing: .01em;
+}
+.avviso__testo { color: rgba(244, 241, 234, .82); }
+.avviso__link {
+  display: inline-flex; align-items: center; gap: .4rem;
+  color: var(--calce); white-space: nowrap;
+  border-bottom: 1px solid rgba(244, 241, 234, .4);
+  padding-bottom: 1px;
+}
+.avviso__link:hover { border-bottom-color: var(--calce); }
+.avviso__corto { display: none; }
+@media (max-width: 34rem) {
+  .avviso__lungo { display: none; }
+  .avviso__corto { display: inline; }
+}
+
+/* =================================================================
+   Testata
+   ================================================================= */
+.testata {
+  position: sticky; top: 0; z-index: 60;
+  background: var(--calce);
+  border-bottom: 1px solid transparent;
+  transition: border-color .25s ease, background-color .25s ease;
+}
+/* opaca anche in scorrimento: dietro passano i campioni di finitura
+   e in trasparenza si vedevano attraverso */
+.testata[data-attaccata] { border-bottom-color: var(--linea); box-shadow: 0 12px 24px -22px rgba(35, 33, 30, .7); }
+
+.testata__interno {
+  display: flex; align-items: center; gap: var(--s3);
+  min-height: 4.25rem;
+}
+
+.marchio { display: grid; gap: .1rem; flex: none; }
+.marchio__nome {
+  font-size: 1.3rem; font-weight: 600; font-stretch: 115%;
+  letter-spacing: -.015em; line-height: 1.05;
+}
+.marchio__mestiere {
+  font-size: .72rem; font-stretch: 88%; font-weight: 500;
+  letter-spacing: .11em; text-transform: uppercase; color: var(--fumo);
+}
+
+.menu { margin-inline-start: auto; }
+.menu ul { display: flex; align-items: center; gap: var(--s3); }
+/* stessa scatola per link e bottone: altrimenti il bottone,
+   che ha metriche proprie, si siede più in alto dei link accanto */
+.menu a,
+.menu__voce-tasto {
+  display: inline-block; line-height: 1.2;
+  font-size: .95rem; font-weight: 500; padding-block: .4rem;
+  border-bottom: 2px solid transparent;
+}
+.menu__voce-tasto { font-family: inherit; color: inherit; cursor: pointer; }
+.menu a:hover,
+.menu__voce-tasto:hover { border-bottom-color: var(--grafite); }
+
+.testata__coda { display: flex; align-items: center; gap: var(--s2); flex: none; }
+
+.menu-tasto { display: none; padding: .6rem; margin-inline-end: -.6rem; }
+.menu-tasto__barre { display: grid; gap: 4px; width: 22px; }
+.menu-tasto__barre i { display: block; height: 2px; background: var(--grafite); transition: transform .25s ease, opacity .25s ease; }
+.menu-tasto[aria-expanded='true'] i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu-tasto[aria-expanded='true'] i:nth-child(2) { opacity: 0; }
+.menu-tasto[aria-expanded='true'] i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* =================================================================
+   Bottoni — due soli tipi, ripetuti ovunque
+   ================================================================= */
+.bottone {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .85rem 1.4rem; font-size: .95rem; font-weight: 600;
+  letter-spacing: .01em; border: 2px solid var(--grafite);
+  transition: background-color .2s ease, color .2s ease;
+  text-align: center;
+}
+.bottone--pieno { background: var(--grafite); color: var(--calce); }
+.bottone--pieno:hover { background: #3a362f; border-color: #3a362f; }
+.bottone--contorno { background: transparent; color: var(--grafite); }
+.bottone--contorno:hover { background: var(--grafite); color: var(--calce); }
+
+.azioni { display: flex; flex-wrap: wrap; gap: var(--s2); }
+
+/* =================================================================
+   Apertura — la fotografia è la prima cosa che si vede
+   ================================================================= */
+.apertura { position: relative; display: grid; }
+.apertura__foto { grid-area: 1 / 1; }
+.apertura__foto img { width: 100%; height: 100%; object-fit: cover; }
+
+.apertura__testo { grid-area: 1 / 1; align-self: center; position: relative; z-index: 1; }
+
+/* velatura chiara sulla parete di sinistra: garantisce la lettura del testo scuro */
+.apertura__foto::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(244, 241, 234, .93) 0%,
+    rgba(244, 241, 234, .89) 18%,
+    rgba(244, 241, 234, .76) 31%,
+    rgba(244, 241, 234, .52) 42%,
+    rgba(244, 241, 234, .27) 52%,
+    rgba(244, 241, 234, .09) 62%,
+    rgba(244, 241, 234, 0) 72%
+  );
+}
+
+.soprattitolo {
+  font-size: .78rem; font-weight: 600; font-stretch: 88%;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--fumo);
+  margin-bottom: var(--s2);
+}
+.apertura__titolo {
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  font-weight: 600; font-stretch: 112%;
+  line-height: 1.04; letter-spacing: -.028em;
+  max-width: 33rem;
+}
+.apertura__frase {
+  margin-top: var(--s2);
+  max-width: 38ch; font-size: 1.1rem; line-height: 1.55; color: #43403a;
+}
+.apertura__testo .azioni { margin-top: var(--s3); }
+
+@media (min-width: 52.0625rem) {
+  .apertura { min-height: min(78vh, 40rem); }
+  .apertura__foto img { position: absolute; inset: 0; }
+}
+
+@media (max-width: 52rem) {
+  /* sul telefono: fotografia sopra, testo sotto. Nessuna sovrapposizione. */
+  .apertura { grid-template-rows: auto auto; }
+  .apertura__foto { grid-area: 1 / 1; }
+  .apertura__foto::after { display: none; }
+  .apertura__foto img { aspect-ratio: 4 / 5; }
+  .apertura__testo { grid-area: 2 / 1; padding-block: var(--s3) var(--s1); }
+  .apertura__titolo { max-width: 100%; }
+  .apertura__frase { max-width: 100%; }
+  .apertura__testo .azioni { margin-top: var(--s3); }
+  .azioni .bottone { flex: 1 1 12rem; }
+}
+
+/* =================================================================
+   Il campionario — campioni di finitura, targa bianca sotto.
+   Come una mazzetta vera: il nome non sta mai sopra la superficie.
+   ================================================================= */
+.campionario { padding-block: var(--s4) 0; }
+.campionario__titolo {
+  margin-top: .35rem;
+  font-size: clamp(1.5rem, 3.4vw, 2.15rem);
+  font-weight: 600; font-stretch: 110%;
+  line-height: 1.1; letter-spacing: -.02em;
+}
+.campionario__frase {
+  margin-top: var(--s2); margin-bottom: var(--s3);
+  max-width: 46ch; color: #43403a; line-height: 1.6;
+}
+.campionario__altro {
+  margin-top: var(--s3);
+  max-width: 60ch; font-size: .9rem; color: var(--fumo); line-height: 1.6;
+}
+.campionario__pista { width: 100%; }
+.campionario__lista {
+  width: 100%; max-width: var(--contenitore); margin-inline: auto;
+  padding-inline: var(--margine);
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s2);
+}
+/* height + 1fr sulla targa: se un nome va a capo, le schede accanto
+   restano comunque alte uguali e i bordi bianchi si allineano */
+.campione {
+  display: grid; grid-template-rows: auto 1fr; gap: 0; height: 100%;
+  background: var(--gesso);
+  border: 1px solid var(--linea);
+}
+/* La superficie è una fotografia: le serve area, non un filo di colore.
+   height: auto è indispensabile — gli attributi width/height dell'immagine
+   valgono come altezza vera e altrimenti vincerebbero sull'aspect-ratio. */
+.campione__superficie {
+  display: block; width: 100%; height: auto; aspect-ratio: 1 / 1;
+  object-fit: cover; background: var(--linea);
+}
+.campione__targa {
+  display: grid; gap: .15rem;
+  padding: .7rem .8rem .8rem;
+  font-size: .875rem; line-height: 1.25; font-weight: 500;
+}
+.campione__targa b {
+  font-size: .68rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .14em; color: var(--fumo);
+}
+
+@media (max-width: 62rem) {
+  /* si sfoglia con il pollice, come una mazzetta */
+  .campionario__pista {
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    scroll-padding-inline-start: var(--margine);
+  }
+  .campionario__pista::-webkit-scrollbar { display: none; }
+  .campionario__lista {
+    display: inline-flex; width: auto; max-width: none;
+    gap: var(--s2); padding-block-end: var(--s1);
+  }
+  /* il terzo campione deve sporgere abbastanza da dire "si scorre" */
+  .campionario__lista > li { flex: 0 0 clamp(9rem, 38vw, 11rem); scroll-snap-align: start; }
+}
+
+/* =================================================================
+   Sezioni
+   ================================================================= */
+.lavori { padding-block: var(--s5); }
+
+.sezione__testa { margin-bottom: var(--s4); }
+.etichetta {
+  font-size: .78rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--fumo);
+  margin-bottom: var(--s2);
+}
+.sezione__titolo {
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  font-weight: 600; font-stretch: 110%;
+  line-height: 1.06; letter-spacing: -.024em;
+}
+.sezione__frase {
+  margin-top: var(--s2); max-width: 46ch; color: #43403a; line-height: 1.6;
+}
+
+/* =================================================================
+   Confronto prima / dopo
+   ================================================================= */
+.lavoro + .lavoro { margin-top: var(--s4); }
+.lavoro--grande { margin-bottom: var(--s4); }
+
+.confronto {
+  position: relative;
+  aspect-ratio: 3 / 2;          /* spazio riservato: la pagina non salta */
+  overflow: hidden;
+  background: var(--gesso);
+  border: 1px solid var(--linea);
+  touch-action: pan-y;          /* trascinare il cursore non blocca lo scorrimento */
+}
+.confronto__foto {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.confronto__prima {
+  position: absolute; inset: 0;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.confronto__linea {
+  position: absolute; inset-block: 0; left: var(--pos);
+  width: 2px; background: var(--gesso); translate: -1px 0;
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(35, 33, 30, .18);
+}
+.confronto__linea i {
+  position: absolute; top: 50%; left: 50%;
+  translate: -50% -50%;
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  background: var(--gesso);
+  box-shadow: 0 2px 10px rgba(35, 33, 30, .25);
+}
+.confronto__linea i::before,
+.confronto__linea i::after {
+  content: ''; position: absolute; top: 50%; translate: 0 -50%;
+  width: 0; height: 0; border-block: 5px solid transparent;
+}
+.confronto__linea i::before { left: .6rem; border-right: 6px solid var(--grafite); }
+.confronto__linea i::after { right: .6rem; border-left: 6px solid var(--grafite); }
+
+.confronto__targhetta {
+  position: absolute; bottom: var(--s2);
+  padding: .3rem .7rem;
+  font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .12em; text-transform: uppercase;
+  background: rgba(35, 33, 30, .78); color: var(--calce);
+  pointer-events: none;
+}
+.confronto__targhetta--sinistra { left: var(--s2); }
+.confronto__targhetta--destra { right: var(--s2); }
+
+/* il cursore vero è un input range: tastiera e touch funzionano da soli */
+/* Il cursore è invisibile per trasparenza, non con opacity: 0.
+   Così può portare da sé il proprio contorno di messa a fuoco,
+   senza dipendere da :has() sul contenitore. */
+.confronto__cursore {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; margin: 0;
+  cursor: col-resize;
+  appearance: none; background: transparent; color: transparent;
+}
+.confronto__cursore::-webkit-slider-runnable-track { background: transparent; border: 0; }
+.confronto__cursore::-webkit-slider-thumb { appearance: none; width: 3rem; height: 100%; background: transparent; border: 0; }
+.confronto__cursore::-moz-range-track { background: transparent; border: 0; }
+.confronto__cursore::-moz-range-thumb { width: 3rem; height: 100%; border: 0; background: transparent; }
+.confronto__cursore:focus-visible { outline: 3px solid var(--grafite); outline-offset: -3px; }
+
+.lavoro__didascalia {
+  display: grid; gap: .15rem;
+  margin-top: var(--s2); padding-top: var(--s2);
+  border-top: 1px solid var(--linea);
+}
+.lavoro__nome { font-weight: 600; font-size: 1.05rem; }
+.lavoro__nota { color: var(--fumo); font-size: .95rem; }
+
+@media (max-width: 52rem) {
+  .lavori { padding-block: var(--s4); }
+  .confronto { aspect-ratio: 4 / 3; }
+  .confronto__linea i { width: 3.25rem; height: 3.25rem; }
+}
+
+/* =================================================================
+   Pannello dimostrativo dei contatti
+   ================================================================= */
+.pannello {
+  width: min(30rem, calc(100vw - 2rem));
+  padding: var(--s3);
+  border: 0; border-top: 6px solid var(--terra);
+  background: var(--gesso); color: var(--grafite);
+  box-shadow: 0 24px 60px -20px rgba(35, 33, 30, .45);
+}
+.pannello::backdrop { background: rgba(35, 33, 30, .55); }
+.pannello[open] { animation: entra .22s ease both; }
+@keyframes entra { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.pannello__chiudi-forma { position: absolute; top: .5rem; right: .5rem; margin: 0; }
+.pannello__chiudi { padding: .5rem .7rem; font-size: 1rem; color: var(--fumo); line-height: 1; }
+.pannello__chiudi:hover { color: var(--grafite); }
+
+.pannello__etichetta {
+  font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--terra);
+  margin-bottom: var(--s1);
+}
+.pannello__titolo {
+  font-size: 1.5rem; font-weight: 600; font-stretch: 108%;
+  line-height: 1.15; letter-spacing: -.02em;
+}
+.pannello__testo { margin-top: var(--s2); color: #43403a; font-size: 1rem; line-height: 1.55; }
+.pannello__messaggio {
+  margin-top: var(--s2); padding: var(--s2);
+  background: var(--calce); border-left: 3px solid var(--linea-forte);
+  font-size: .95rem; line-height: 1.5; color: #43403a;
+}
+.pannello__coda {
+  margin-top: var(--s3); padding-top: var(--s3);
+  border-top: 1px solid var(--linea);
+  display: grid; gap: var(--s2); justify-items: start;
+}
+.pannello__invito { font-weight: 600; }
+@media (max-width: 34rem) {
+  .pannello__coda { justify-items: stretch; }
+}
+
+/* =================================================================
+   Contatto sempre a portata — mai sopra i contenuti
+   ================================================================= */
+.contatto-fisso {
+  position: fixed; z-index: 50;
+  display: flex; opacity: 0; pointer-events: none;
+  transition: opacity .3s ease, transform .3s ease;
+}
+.contatto-fisso[data-visibile] { opacity: 1; pointer-events: auto; }
+.contatto-fisso__voce {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  font-size: .95rem; font-weight: 600;
+}
+.contatto-fisso__segno { width: 1.15rem; height: 1.15rem; fill: currentColor; flex: none; }
+
+@media (min-width: 62.0625rem) {
+  /* Da questa larghezza il pulsante di contatto è nella testata, che
+     resta sempre in vista: niente elemento galleggiante, quindi niente
+     sovrapposizioni sui contenuti. */
+  .contatto-fisso { display: none; }
+}
+
+@media (max-width: 62rem) {
+  /* Qui la testata nasconde il proprio pulsante: il contatto passa a una
+     barra in fondo, orizzontale, che riserva il proprio spazio. */
+  .contatto-fisso {
+    inset-inline: 0; bottom: 0;
+    background: var(--gesso); border-top: 1px solid var(--linea);
+    transform: translateY(100%);
+    box-shadow: 0 -6px 20px -12px rgba(35, 33, 30, .4);
+  }
+  .contatto-fisso[data-visibile] { transform: none; }
+  .contatto-fisso__voce { flex: 1; padding: 1rem .5rem; }
+  .contatto-fisso__voce--primaria { background: var(--grafite); color: var(--calce); }
+  body { padding-bottom: 3.75rem; }
+}
+
+/* =================================================================
+   Menu sul telefono
+   ================================================================= */
+@media (max-width: 62rem) {
+  .menu-tasto { display: block; }
+  .testata__azione { display: none; }
+  /* il menu esce dal flusso, quindi non spinge più nulla:
+     l'allineamento a destra passa alla coda della testata */
+  .testata__coda { margin-inline-start: auto; }
+  .menu {
+    position: absolute; inset-inline: 0; top: 100%;
+    background: var(--calce); border-bottom: 1px solid var(--linea);
+    display: none; padding: var(--s1) var(--margine) var(--s3);
+    box-shadow: 0 20px 32px -26px rgba(35, 33, 30, .6);
+  }
+  .menu[data-aperto] { display: block; }
+  .menu ul { flex-direction: column; align-items: stretch; gap: 0; }
+  .menu li + li { border-top: 1px solid var(--linea); }
+  .menu a,
+  .menu__voce-tasto { display: block; width: 100%; text-align: start; padding-block: .9rem; font-size: 1.1rem; border-bottom: 0; }
+}
+
+/* =================================================================
+   Movimento: poco, breve, e disattivabile
+   ================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* =================================================================
+   Pagine interne — intestazione
+   ================================================================= */
+.intestazione { padding-block: var(--s4) var(--s3); }
+.intestazione__titolo {
+  margin-top: .35rem;
+  font-size: clamp(2rem, 5.2vw, 3.4rem);
+  font-weight: 600; font-stretch: 110%;
+  line-height: 1.04; letter-spacing: -.025em;
+}
+.intestazione__frase {
+  margin-top: var(--s2); max-width: 54ch;
+  font-size: 1.075rem; color: #43403a; line-height: 1.65;
+}
+
+/* coda di sezione: il link che porta alla pagina intera */
+.sezione__coda { margin-top: var(--s3); }
+.collegamento {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-weight: 600; font-size: .95rem;
+  border-bottom: 2px solid var(--grafite); padding-bottom: 2px;
+}
+.collegamento:hover { color: var(--terra-testo); border-bottom-color: var(--terra-testo); }
+
+/* =================================================================
+   I passi in home — sei riquadri, nessuna freccia decorativa
+   ================================================================= */
+.metodo-breve { padding-block: var(--s5) 0; }
+.passi {
+  margin-top: var(--s4);
+  display: grid; gap: 1px;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--linea);
+  border: 1px solid var(--linea);
+}
+.passo { background: var(--calce); padding: var(--s3); }
+.passo__numero {
+  display: block; font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .16em; color: var(--terra-testo);
+}
+.passo__nome {
+  margin-top: .6rem; font-size: 1.1rem; font-weight: 600; font-stretch: 105%;
+  letter-spacing: -.01em;
+}
+.passo__testo { margin-top: .4rem; font-size: .95rem; color: #43403a; line-height: 1.55; }
+
+/* =================================================================
+   La stima indicativa
+   ================================================================= */
+.stima { padding-block: var(--s5) 0; }
+.stima__testa { max-width: 54ch; }
+.stima__titolo {
+  margin-top: .35rem;
+  font-size: clamp(1.75rem, 4.2vw, 2.6rem);
+  font-weight: 600; font-stretch: 110%;
+  line-height: 1.06; letter-spacing: -.024em;
+}
+.stima__frase { margin-top: var(--s2); color: #43403a; line-height: 1.6; }
+
+.stima__forma {
+  margin-top: var(--s4);
+  counter-reset: domanda;
+  display: grid; gap: var(--s3);
+}
+.stima__gruppo { border: 0; padding: 0; margin: 0; min-width: 0; }
+.stima__gruppo[hidden] { display: none; }
+.stima__domanda {
+  display: flex; align-items: baseline; gap: .7rem;
+  padding: 0; font-size: 1.05rem; font-weight: 600; font-stretch: 105%;
+}
+/* il numero è un contatore: se una domanda non serve, la numerazione
+   si richiude da sola invece di saltare un passaggio */
+.stima__gruppo { counter-increment: domanda; }
+.stima__domanda::before {
+  content: counter(domanda);
+  flex: none; width: 1.6rem; height: 1.6rem;
+  display: grid; place-items: center;
+  background: var(--grafite); color: var(--calce);
+  font-size: .78rem; font-weight: 700; font-stretch: 88%;
+  transform: translateY(.15rem);
+}
+.stima__scelte { display: flex; flex-wrap: wrap; gap: var(--s1); margin-top: var(--s2); }
+.scelta { position: relative; }
+.scelta input {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; opacity: 0; cursor: pointer;
+}
+.scelta span {
+  display: block; padding: .7rem 1.1rem;
+  background: var(--gesso); border: 1px solid var(--linea);
+  font-size: .95rem; font-weight: 500;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.scelta input:checked + span {
+  background: var(--grafite); color: var(--calce); border-color: var(--grafite);
+}
+.scelta input:focus-visible + span { outline: 3px solid var(--grafite); outline-offset: 3px; }
+.scelta:hover span { border-color: var(--linea-forte); }
+
+.stima__misura { display: flex; align-items: center; gap: var(--s3); margin-top: var(--s2); }
+.stima__cursore { flex: 1; min-width: 0; accent-color: var(--grafite); height: 1.6rem; }
+.stima__valore { flex: none; font-size: 1.05rem; color: var(--fumo); }
+.stima__valore b {
+  font-size: 1.6rem; font-weight: 700; font-stretch: 105%;
+  color: var(--grafite); font-variant-numeric: tabular-nums;
+}
+.stima__aiuto { margin-top: .6rem; font-size: .875rem; color: var(--fumo); line-height: 1.5; }
+
+.stima__esito {
+  margin-top: var(--s3);
+  background: var(--grafite); color: var(--calce);
+  padding: var(--s3);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s3) var(--s4); align-items: start;
+}
+.stima__chiosa { display: grid; justify-items: start; align-content: start; }
+.stima__etichetta-esito {
+  font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .16em; text-transform: uppercase; color: rgba(244, 241, 234, .7);
+}
+.stima__cifra { margin-top: .5rem; }
+.stima__cifra b {
+  font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; font-stretch: 105%;
+  letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+}
+.stima__dettaglio { margin-top: .3rem; color: rgba(244, 241, 234, .82); }
+.stima__avvertenza {
+  max-width: 60ch; font-size: .9rem; color: rgba(244, 241, 234, .78); line-height: 1.6;
+}
+.stima__chiosa .bottone { margin-top: var(--s3); }
+
+/* =================================================================
+   Zona servita — un elenco, non una mappa finta
+   ================================================================= */
+.zona { padding-block: var(--s5) 0; }
+.zona__interno {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s4); align-items: start;
+}
+.zona__elenco {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+  border-top: 1px solid var(--linea);
+}
+.zona__elenco li {
+  padding: .7rem .2rem; border-bottom: 1px solid var(--linea);
+  font-size: 1rem; font-weight: 500;
+}
+
+/* =================================================================
+   Domande frequenti — <details> nativo, funziona senza JavaScript
+   ================================================================= */
+.domande { padding-block: var(--s5) 0; }
+.domande__elenco { margin-top: var(--s3); border-top: 1px solid var(--linea); }
+.domanda { border-bottom: 1px solid var(--linea); }
+.domanda__testa {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2);
+  padding-block: var(--s2); cursor: pointer;
+  font-size: 1.05rem; font-weight: 600; font-stretch: 105%;
+  list-style: none;
+}
+.domanda__testa::-webkit-details-marker { display: none; }
+.domanda__testa::after {
+  content: ''; flex: none; width: .7rem; height: .7rem;
+  border-right: 2px solid var(--grafite); border-bottom: 2px solid var(--grafite);
+  transform: rotate(45deg) translateY(-.15rem); transition: transform .2s ease;
+}
+.domanda[open] .domanda__testa::after { transform: rotate(-135deg) translateY(-.15rem); }
+.domanda__testa:hover { color: var(--terra-testo); }
+.domanda__testa:hover::after { border-color: var(--terra-testo); }
+.domanda__corpo { padding-bottom: var(--s2); max-width: 68ch; }
+.domanda__corpo p { color: #43403a; line-height: 1.65; }
+
+/* =================================================================
+   Riquadro di nota — una sola idea, sfondo bianco
+   ================================================================= */
+.riquadro { padding-block: var(--s5) 0; }
+.riquadro__interno {
+  background: var(--gesso); border: 1px solid var(--linea);
+  padding: var(--s3);
+}
+.riquadro__titolo {
+  font-size: 1.25rem; font-weight: 600; font-stretch: 105%; letter-spacing: -.015em;
+}
+.riquadro__testo { margin-top: var(--s2); max-width: 70ch; color: #43403a; line-height: 1.65; }
+
+/* =================================================================
+   Chiusura — l'ultima cosa che si legge
+   ================================================================= */
+.chiusura {
+  margin-top: var(--s5);
+  background: var(--grafite); color: var(--calce);
+  padding-block: var(--s5);
+}
+.chiusura__titolo {
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  font-weight: 600; font-stretch: 110%;
+  line-height: 1.04; letter-spacing: -.025em;
+}
+.chiusura__frase {
+  margin-top: var(--s2); max-width: 50ch;
+  color: rgba(244, 241, 234, .82); line-height: 1.65;
+}
+.chiusura .azioni { margin-top: var(--s3); }
+.bottone--chiaro { border-color: var(--calce); }
+.bottone--chiaro.bottone--pieno { background: var(--calce); color: var(--grafite); }
+.bottone--chiaro.bottone--pieno:hover { background: var(--gesso); border-color: var(--gesso); }
+.bottone--chiaro.bottone--contorno { color: var(--calce); }
+.bottone--chiaro.bottone--contorno:hover { background: var(--calce); color: var(--grafite); }
+
+/* =================================================================
+   Piede
+   ================================================================= */
+.piede { background: var(--grafite); color: var(--calce); padding-block: var(--s4) var(--s3); }
+.piede__interno {
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--s3);
+  padding-bottom: var(--s3);
+}
+.piede__nome { display: block; font-size: 1.3rem; font-weight: 600; font-stretch: 115%; letter-spacing: -.015em; }
+.piede__mestiere {
+  display: block; margin-top: .15rem;
+  font-size: .72rem; font-stretch: 88%; font-weight: 500;
+  letter-spacing: .11em; text-transform: uppercase; color: rgba(244, 241, 234, .62);
+}
+.piede__zona { margin-top: var(--s2); color: rgba(244, 241, 234, .78); font-size: .95rem; }
+.piede__titolo {
+  font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .16em; text-transform: uppercase; color: rgba(244, 241, 234, .62);
+}
+.piede__colonna ul { margin-top: var(--s2); display: grid; gap: .5rem; }
+.piede__colonna a { font-size: .95rem; color: rgba(244, 241, 234, .88); border-bottom: 1px solid transparent; }
+.piede__colonna a:hover { border-bottom-color: rgba(244, 241, 234, .6); }
+.piede__riga {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: var(--s2); padding-top: var(--s3);
+  border-top: 1px solid rgba(244, 241, 234, .22);
+  font-size: .85rem; color: rgba(244, 241, 234, .68);
+}
+.piede__riga b { color: rgba(244, 241, 234, .88); font-weight: 600; }
+.piede__riga a { color: var(--calce); border-bottom: 1px solid rgba(244, 241, 234, .4); padding-bottom: 1px; }
+.piede__riga a:hover { border-bottom-color: var(--calce); }
+
+/* =================================================================
+   Pagina Lavori — la scheda del caso accanto alle fotografie
+   ================================================================= */
+.caso + .caso { margin-top: var(--s5); padding-top: var(--s5); border-top: 1px solid var(--linea); }
+.caso__testo { margin-top: var(--s3); }
+.caso__titolo {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 600; font-stretch: 105%; letter-spacing: -.018em;
+}
+.scheda {
+  margin-top: var(--s3);
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s3) var(--s4);
+}
+.scheda__voce-nome {
+  font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--terra-testo);
+}
+.scheda__voce-testo { margin: .5rem 0 0; color: #43403a; line-height: 1.65; }
+
+.nota { padding-block: var(--s5) 0; }
+.nota__testo {
+  max-width: 62ch; padding-left: var(--s2);
+  border-left: 3px solid var(--terra);
+  color: var(--fumo); line-height: 1.65;
+}
+
+/* =================================================================
+   Pagina Servizi — tre colonne: che cos'è, che comprende, quanto
+   ================================================================= */
+.servizi { padding-block: var(--s3) 0; }
+.servizio {
+  display: grid; grid-template-columns: 1.15fr 1fr .85fr; gap: var(--s4);
+  padding-block: var(--s4);
+  border-top: 1px solid var(--linea);
+  align-items: start;
+}
+.servizio:last-child { border-bottom: 1px solid var(--linea); }
+.servizio__numero {
+  display: block; font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .16em; color: var(--terra-testo);
+}
+.servizio__nome {
+  margin-top: .5rem;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 600; font-stretch: 105%; letter-spacing: -.018em; line-height: 1.15;
+}
+.servizio__sommario { margin-top: var(--s2); color: #43403a; line-height: 1.6; }
+.servizio__titoletto {
+  font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--fumo);
+}
+.servizio__voci { margin-top: var(--s2); display: grid; gap: .6rem; }
+.servizio__voci li {
+  position: relative; padding-left: 1.1rem;
+  font-size: .95rem; color: #43403a; line-height: 1.55;
+}
+.servizio__voci li::before {
+  content: ''; position: absolute; left: 0; top: .55rem;
+  width: .4rem; height: 1px; background: var(--grafite);
+}
+.servizio__prezzo { background: var(--gesso); border: 1px solid var(--linea); padding: var(--s2); }
+.servizio__cifra {
+  margin-top: .5rem; font-size: 1.05rem; font-weight: 600; font-stretch: 105%;
+  line-height: 1.3;
+}
+.servizio__nota { margin-top: .6rem; font-size: .875rem; color: var(--fumo); line-height: 1.55; }
+
+/* =================================================================
+   Pagina Come lavoriamo — le tappe, una sotto l'altra
+   ================================================================= */
+.tappe { padding-block: var(--s3) 0; }
+.tappe__elenco { display: grid; }
+.tappa { padding-block: var(--s4); border-top: 1px solid var(--linea); }
+.tappa:last-child { border-bottom: 1px solid var(--linea); }
+.tappa__testa { display: flex; align-items: flex-start; gap: var(--s2); }
+.tappa__numero {
+  flex: none; width: 2.4rem; height: 2.4rem;
+  display: grid; place-items: center;
+  background: var(--grafite); color: var(--calce);
+  font-size: .8rem; font-weight: 700; font-stretch: 88%; letter-spacing: .06em;
+}
+.tappa__nome {
+  font-size: clamp(1.25rem, 2.8vw, 1.6rem);
+  font-weight: 600; font-stretch: 105%; letter-spacing: -.018em; line-height: 1.15;
+}
+.tappa__occhiello { margin-top: .2rem; color: var(--terra-testo); font-size: .95rem; font-weight: 500; }
+.tappa__testo {
+  margin-top: var(--s2); margin-left: calc(2.4rem + var(--s2));
+  max-width: 68ch; color: #43403a; line-height: 1.7;
+}
+
+/* =================================================================
+   Pagina Contatti — tre vie, quella buona in evidenza
+   ================================================================= */
+.contatti { padding-block: var(--s3) 0; }
+.contatti__interno {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2);
+  align-items: stretch;
+}
+.via {
+  display: flex; flex-direction: column; align-items: flex-start;
+  background: var(--gesso); border: 1px solid var(--linea);
+  padding: var(--s3);
+}
+.via--primaria { background: var(--grafite); color: var(--calce); border-color: var(--grafite); }
+.via__etichetta {
+  font-size: .72rem; font-weight: 700; font-stretch: 88%;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--fumo);
+}
+.via--primaria .via__etichetta { color: rgba(244, 241, 234, .7); }
+.via__nome {
+  margin-top: .5rem;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  font-weight: 600; font-stretch: 105%; letter-spacing: -.018em;
+}
+.via__testo { margin-top: var(--s2); margin-bottom: var(--s3); color: #43403a; line-height: 1.6; }
+.via--primaria .via__testo { color: rgba(244, 241, 234, .82); }
+.via .bottone { margin-top: auto; }
+
+/* =================================================================
+   Telefono e tablet — le griglie si richiudono
+   ================================================================= */
+@media (max-width: 62rem) {
+  .passi { grid-template-columns: repeat(2, 1fr); }
+  .servizio { grid-template-columns: 1fr 1fr; gap: var(--s3); }
+  .servizio__intestazione { grid-column: 1 / -1; }
+  .contatti__interno { grid-template-columns: 1fr 1fr; }
+  .via--primaria { grid-column: 1 / -1; }
+  .piede__interno { grid-template-columns: 1fr 1fr; }
+  .piede__marchio { grid-column: 1 / -1; }
+}
+
+@media (max-width: 46rem) {
+  /* due colonne di passi sotto i 46rem stringono troppo il testo:
+     a 360 px una parola lunga usciva dal riquadro */
+  .passi { grid-template-columns: 1fr; }
+  .zona__interno { grid-template-columns: 1fr; gap: var(--s3); }
+  .scheda { grid-template-columns: 1fr; gap: var(--s3); }
+  .servizio { grid-template-columns: 1fr; }
+  .contatti__interno { grid-template-columns: 1fr; }
+  .stima__misura { flex-wrap: wrap; gap: var(--s2); }
+  .stima__cursore { flex: 1 0 100%; order: 2; }
+  .stima__esito { padding: var(--s2); grid-template-columns: 1fr; }
+  .stima__chiosa {
+    padding-top: var(--s2);
+    border-top: 1px solid rgba(244, 241, 234, .22);
+  }
+  /* il testo della tappa torna a filo, senza il rientro del numero */
+  .tappa__testo { margin-left: 0; }
+  .piede__interno { grid-template-columns: 1fr; gap: var(--s3); }
+}
+
+@media (max-width: 34rem) {
+  .scelta span { padding: .65rem .9rem; font-size: .9rem; }
+  .azioni .bottone { width: 100%; }
+}
+.caso__sommario { margin-top: .4rem; color: var(--fumo); }

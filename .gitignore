@@ -1,0 +1,4 @@
+node_modules/
+
+# il sito costruito: si rigenera con  node imbianchino/costruisci.js
+imbianchino/sito/
