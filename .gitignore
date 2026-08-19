@@ -1,4 +1,5 @@
 node_modules/
 
-# il sito costruito: si rigenera con  node imbianchino/costruisci.js
+# i siti costruiti: si rigenerano con  node <cartella>/costruisci.js
 imbianchino/sito/
+idraulico/sito/

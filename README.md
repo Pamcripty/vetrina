@@ -9,8 +9,15 @@ propri contenuti, propri file. Nessun modello riciclato fra un settore e l'altro
 | Cartella | Settore | Pacchetto |
 |---|---|---|
 | `imbianchino/` | Tinteggiature e decorazioni | Sito Professionale |
-| *(da fare)* | Idraulico | Sito Essenziale |
+| `idraulico/` | Idraulica e riscaldamento | Sito Essenziale |
 | *(da fare)* | Centro estetico | Lancio in Vista |
+
+I due siti fatti non si somigliano di proposito. L'imbianchino si vende
+con le fotografie: carta color calce, carattere Archivo, campionario di
+finiture, cursori prima/dopo. L'idraulico no — chi lo cerca ha una
+perdita in corso — e allora niente fotografie: testata scura, carattere
+IBM Plex, cifre monospaziate, disegni tecnici, e due strade fin dalla
+prima schermata.
 
 ---
 
@@ -25,21 +32,34 @@ mostrare come funziona uno strumento di stima, non a fare concorrenza a nessuno.
 
 ---
 
+## Come si costruiscono
+
+Ogni cartella ha il proprio assemblatore e si costruisce da sola:
+
+```bash
+node imbianchino/costruisci.js     # → imbianchino/sito/
+node idraulico/costruisci.js       # → idraulico/sito/
+```
+
+Le cartelle `sito/` sono **generate**: non si modificano a mano e non
+stanno nel repository. Poi si serve la radice:
+
+```bash
+python3 -m http.server 4180
+# → http://localhost:4180/imbianchino/sito/
+# → http://localhost:4180/idraulico/sito/
+```
+
+---
+
 ## Il sito dell'imbianchino
 
 Cinque pagine: home, lavori, servizi, come lavoriamo, contatti.
 
 ```bash
-npm install                          # solo la prima volta (serve per le immagini)
+npm install                              # solo la prima volta (serve per le immagini)
 node imbianchino/strumenti/immagini.js   # dalle foto master genera AVIF e WebP
-node imbianchino/costruisci.js           # assembla le pagine in imbianchino/sito/
-```
-
-Poi apri `imbianchino/sito/index.html`, o servi la cartella:
-
-```bash
-python3 -m http.server 4180
-# → http://localhost:4180/imbianchino/sito/
+node imbianchino/costruisci.js           # assembla le pagine
 ```
 
 ### Dove si modifica cosa
@@ -52,9 +72,6 @@ python3 -m http.server 4180
 | `imbianchino/sito.js` | cursore prima/dopo, menu, stima del prezzo |
 | `imbianchino/master/` | le fotografie originali, ad alta risoluzione |
 | `imbianchino/immagini/` | le versioni generate, quelle che il sito serve |
-
-`imbianchino/sito/` è **generato**: non si modifica a mano e non sta nel
-repository. Si rifà con `node imbianchino/costruisci.js`.
 
 ### Le pagine
 
@@ -86,6 +103,55 @@ misure che servono, in AVIF e WebP: più larghezze per ogni foto, un ritaglio
 verticale del hero per il telefono, e un ritaglio centrale per i campioni di
 finitura — senza, alla dimensione in cui compaiono la grana sparirebbe.
 Rigenera solo ciò che manca o è più vecchio del master.
+
+---
+
+## Il sito dell'idraulico
+
+Due pagine: la principale e **Prima che arrivi**, la guida da aprire
+col telefono in mano mentre esce acqua. Nessuna immagine da generare:
+i disegni sono SVG scritti dentro la pagina.
+
+```bash
+node idraulico/costruisci.js
+```
+
+### Dove si modifica cosa
+
+| Percorso | Contenuto |
+|---|---|
+| `idraulico/pagine/` | le due pagine |
+| `idraulico/parti/` | testata, piede, verifica della zona, chiamata |
+| `idraulico/stile.css` | tutto il foglio di stile |
+| `idraulico/sito.js` | verifica della zona, orario, menu, pannello |
+
+### Le tariffe
+
+Stanno nel testo di `idraulico/pagine/index.html`, nella sezione
+`.tariffe`: 45 € l'uscita e la prima mezz'ora, 35 € all'ora dopo,
++50% la sera e nei festivi, materiali a parte.
+
+### I comuni serviti
+
+In cima a `idraulico/sito.js`, con i minuti di viaggio. Aggiungerne
+uno è una riga:
+
+```js
+var ZONA = [
+  ['Bovolone', 5], ['Salizzole', 10], ['Isola Rizza', 12],
+  // …
+];
+```
+
+La ricerca ignora accenti e maiuscole e accetta nomi scritti a metà.
+L'elenco completo in fondo alla sezione è generato dallo stesso array,
+quindi non può disallinearsi.
+
+### L'insegna aperto/chiuso
+
+`idraulico/sito.js` decide se l'attività è aperta confrontando l'ora
+di **Europe/Rome** — non quella del dispositivo di chi guarda — con
+`APRE` e `CHIUDE`.
 
 ---
 

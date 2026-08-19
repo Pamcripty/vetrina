@@ -1,0 +1,38 @@
+<!-- ================= verifica della zona =====================
+     La seconda domanda dopo il prezzo: «ci arrivi?». Meglio
+     rispondere in due secondi che far scorrere un elenco. -->
+<section class="zona" id="zona">
+  <div class="contenitore">
+    <div class="sezione__testa">
+      <p class="etichetta">Zona</p>
+      <h2 class="sezione__titolo">Ci arrivo?</h2>
+      <p class="sezione__frase">
+        Scrivi il tuo comune. I tempi sono quelli di una giornata normale,
+        con il furgone già carico: nelle ore di punta aggiungi un quarto d'ora.
+      </p>
+    </div>
+
+    <form class="zona__forma" data-zona autocomplete="off">
+      <label class="zona__campo">
+        <span class="via-schermo">Il tuo comune</span>
+        <input class="zona__testo" type="text" name="comune" placeholder="Per esempio: Bovolone"
+               list="comuni" aria-describedby="zona-esito" data-comune>
+      </label>
+      <datalist id="comuni" data-elenco></datalist>
+    </form>
+
+    <div class="zona__esito" id="zona-esito" aria-live="polite" data-esito>
+      <p class="zona__stato" data-stato>Scrivi il nome del comune</p>
+      <p class="zona__dettaglio" data-dettaglio>Copro Bovolone e i comuni della Bassa Veronese.</p>
+    </div>
+
+    <div class="zona__tutti">
+      <p class="zona__titoletto">Tutti i comuni coperti</p>
+      <ul class="zona__elenco" data-tutti></ul>
+      <p class="nota-piccola">
+        Fuori da questi comuni non vengo per le urgenze: arriverei tardi e
+        non servirebbe a niente. Per un lavoro programmato, invece, chiedi pure.
+      </p>
+    </div>
+  </div>
+</section>

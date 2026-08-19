@@ -1,0 +1,175 @@
+<!--@ titolo: Prima che arrivi — A Piombo -->
+<!--@ descrizione: Che cosa fare nei primi minuti di una perdita: chiudere l'acqua, mettere in sicurezza, limitare i danni. Progetto dimostrativo di Sito in Vista. -->
+<!--@ qui-emergenza: aria-current="page" -->
+<!doctype html>
+<html lang="it">
+<head>
+<!--@parte testa-->
+</head>
+<body>
+
+<a class="salta" href="#contenuto">Salta al contenuto</a>
+
+<!--@parte avviso-->
+<!--@parte testata-->
+
+<main id="contenuto">
+
+  <section class="guida-testa">
+    <div class="contenitore">
+      <p class="etichetta etichetta--urgenza">Prima che arrivi</p>
+      <h1 class="guida-testa__titolo">I primi cinque minuti<br>contano più di me.</h1>
+      <p class="guida-testa__frase">
+        Fra la tua telefonata e il mio furgone passa del tempo. Quello che fai
+        adesso decide se domani asciughi un pavimento o rifai un soffitto.
+        Leggi solo il punto che ti serve.
+      </p>
+      <div class="guida-testa__scorciatoie">
+        <a class="pillola" href="#acqua">Perde acqua</a>
+        <a class="pillola" href="#gas">Odore di gas</a>
+        <a class="pillola" href="#scarico">Scarico che risale</a>
+        <a class="pillola" href="#caldaia">Caldaia bloccata</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== acqua =========================== -->
+  <section class="guida" id="acqua">
+    <div class="contenitore guida__interno">
+      <div class="guida__testo">
+        <p class="guida__numero">01</p>
+        <h2 class="guida__titolo">Chiudere l'acqua</h2>
+        <p class="guida__frase">
+          È la cosa che ferma il danno. Tutto il resto può aspettare cinque minuti,
+          questa no.
+        </p>
+
+        <h3 class="guida__sotto">Dove sta il rubinetto generale</h3>
+        <p>Nelle case della zona, quasi sempre in uno di questi quattro posti:</p>
+        <ul class="guida__elenco">
+          <li><b>Sotto il lavello della cucina</b>, contro il muro, spesso dietro le bottiglie del detersivo.</li>
+          <li><b>Nel bagno</b>, dentro lo sportello di ispezione vicino al water o sotto il lavabo.</li>
+          <li><b>Nel pozzetto del contatore</b>, in giardino o sul marciapiede, con il coperchio di ghisa.</li>
+          <li><b>In cantina o nel box</b>, sulla colonna che sale, se sei in condominio.</li>
+        </ul>
+
+        <h3 class="guida__sotto">Come si chiude</h3>
+        <p>
+          Se è una <b>manopola tonda</b>, si gira in senso orario fino a fine corsa —
+          può volerci qualche giro. Se è una <b>levetta</b>, si porta di traverso al
+          tubo: parallela vuol dire aperto, perpendicolare vuol dire chiuso.
+        </p>
+        <p class="guida__avvertenza">
+          Se la manopola è dura e non cede, non forzarla con una pinza: sui rubinetti
+          vecchi si spezza il perno e da un problema ne fai due. Chiama e dimmelo,
+          arrivo con il ricambio.
+        </p>
+
+        <h3 class="guida__sotto">Poi apri un rubinetto in basso</h3>
+        <p>
+          Chiuso il generale, apri il rubinetto più basso di casa — di solito quello
+          della cucina o del bagno a piano terra. Scarica l'acqua rimasta nei tubi e
+          la perdita rallenta subito invece di continuare a gocciolare per mezz'ora.
+        </p>
+      </div>
+
+      <figure class="disegno">
+        <svg viewBox="0 0 320 320" role="img" aria-labelledby="disegno-valvola">
+          <title id="disegno-valvola">Due disegni della stessa valvola a levetta. In alto la levetta è distesa lungo il tubo e la valvola è aperta. In basso la levetta è alzata di traverso al tubo e la valvola è chiusa.</title>
+
+          <!-- aperta: la levetta è distesa lungo il tubo -->
+          <rect x="10" y="56" width="300" height="28" class="dis-tubo"/>
+          <rect x="124" y="42" width="72" height="56" rx="3" class="dis-corpo"/>
+          <rect x="158" y="61" width="70" height="18" rx="4" class="dis-leva"/>
+          <circle cx="160" cy="70" r="9" class="dis-perno"/>
+          <text x="160" y="130" class="dis-etichetta" text-anchor="middle">APERTO</text>
+          <text x="160" y="150" class="dis-nota" text-anchor="middle">levetta distesa lungo il tubo</text>
+
+          <!-- chiusa: la levetta è alzata di traverso -->
+          <rect x="10" y="211" width="300" height="28" class="dis-tubo"/>
+          <rect x="124" y="197" width="72" height="56" rx="3" class="dis-corpo"/>
+          <rect x="151" y="171" width="18" height="70" rx="4" class="dis-leva"/>
+          <circle cx="160" cy="225" r="9" class="dis-perno"/>
+          <text x="160" y="285" class="dis-etichetta" text-anchor="middle">CHIUSO</text>
+          <text x="160" y="305" class="dis-nota" text-anchor="middle">levetta alzata di traverso</text>
+        </svg>
+        <figcaption class="disegno__didascalia">
+          La valvola a levetta: distesa lungo il tubo è aperta, alzata di
+          traverso è chiusa. Su una manopola tonda, invece, si gira e basta.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- =========================== gas ============================ -->
+  <section class="guida guida--allerta" id="gas">
+    <div class="contenitore">
+      <p class="guida__numero">02</p>
+      <h2 class="guida__titolo">Se senti odore di gas</h2>
+      <p class="guida__frase">
+        Questo non è un intervento da idraulico: è un'emergenza. Fai queste cose
+        e chiama il pronto intervento gas del tuo distributore, non me.
+      </p>
+      <ol class="guida__ordinata">
+        <li><b>Non toccare interruttori.</b> Né accendere, né spegnere: la scintilla di un interruttore basta. Vale anche per il telefono, che va usato fuori casa.</li>
+        <li><b>Apri le finestre</b> e spalanca la porta di casa.</li>
+        <li><b>Chiudi il rubinetto del gas</b>, che sta vicino al contatore o accanto alla caldaia. Stessa regola della levetta: di traverso è chiuso.</li>
+        <li><b>Esci e chiama da fuori</b> il numero di pronto intervento del distributore, che trovi stampato sulla bolletta del gas.</li>
+      </ol>
+      <p class="guida__avvertenza">
+        Quando il pericolo è passato e serve riparare, allora chiama me.
+        Prima no: non sarei io la persona giusta e ti farei perdere minuti.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================= scarico =========================== -->
+  <section class="guida" id="scarico">
+    <div class="contenitore">
+      <p class="guida__numero">03</p>
+      <h2 class="guida__titolo">Se lo scarico risale</h2>
+      <p class="guida__frase">
+        L'acqua che torna su da doccia o water quando scarichi altrove non è un
+        intasamento del tuo sifone: è più a valle, spesso nella colonna comune.
+      </p>
+      <ul class="guida__elenco">
+        <li><b>Smetti di usare l'acqua</b> in tutta la casa: ogni scarico peggiora quello che risale.</li>
+        <li><b>Non versare acidi.</b> Se l'acqua non scende, il disotturante resta lì e diventa un problema per chi ci mette le mani — cioè per me. Dimmelo se lo hai già fatto: cambio i guanti e la maschera.</li>
+        <li><b>Metti asciugamani vecchi</b> attorno alla base del water e alla piletta della doccia.</li>
+        <li><b>Se sei in condominio, avvisa l'amministratore.</b> Se la colonna è comune, la spesa è comune: meglio saperlo prima che dopo.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================= caldaia =========================== -->
+  <section class="guida" id="caldaia">
+    <div class="contenitore">
+      <p class="guida__numero">04</p>
+      <h2 class="guida__titolo">Se la caldaia si è bloccata</h2>
+      <p class="guida__frase">
+        Prima di chiamare, due controlli da trenta secondi che risolvono una
+        buona parte dei blocchi. Se non bastano, allora è il caso.
+      </p>
+      <ul class="guida__elenco">
+        <li><b>Guarda la pressione</b> sul manometro. Sotto 1 bar la caldaia si mette in blocco: si riapre piano il rubinetto di carico fino a 1,2–1,5, poi si richiude bene. Se cala di nuovo dopo qualche giorno, c'è una perdita da cercare.</li>
+        <li><b>Prova a sbloccare una volta sola.</b> Il tasto con il simbolo del reset, premuto una volta. Se si blocca di nuovo, smetti: il blocco ripetuto è un sintomo, e insistere può fare danni.</li>
+        <li><b>D'inverno, controlla lo scarico condensa.</b> Il tubetto di plastica che esce dalla caldaia può gelare e mandarla in blocco. Un panno con acqua tiepida — non bollente — lo sgela.</li>
+      </ul>
+      <p class="guida__avvertenza">
+        Se senti odore di bruciato o vedi acqua sotto la caldaia, non riavviarla:
+        stacca la corrente e chiama.
+      </p>
+    </div>
+  </section>
+
+<!--@parte chiamare-->
+
+</main>
+
+<!--@parte pannello-->
+<!--@parte barra-fissa-->
+<!--@parte piede-->
+<!--@parte coda-->
+
+</body>
+</html>

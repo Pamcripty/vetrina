@@ -1,0 +1,690 @@
+/* =================================================================
+   A Piombo — progetto dimostrativo di Sito in Vista.
+
+   Direzione: "istruzioni ben stampate". Niente fotografie: chi cerca
+   un idraulico non guarda le immagini, cerca due numeri e una
+   risposta. Comandano la griglia, i bordi e le cifre.
+
+   Il colore fa un lavoro, non decora: rosso ciò che è urgente, blu
+   ciò che si programma — come i segni caldo e freddo su un rubinetto.
+   ================================================================= */
+
+@font-face {
+  font-family: 'Plex Sans';
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url('font/plex-sans-400-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Plex Sans';
+  font-style: normal; font-weight: 600; font-display: swap;
+  src: url('font/plex-sans-600-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Plex Mono';
+  font-style: normal; font-weight: 600; font-display: swap;
+  src: url('font/plex-mono-600-latin.woff2') format('woff2');
+}
+
+:root {
+  --carta: #eef1f4;
+  --pannello: #ffffff;
+  --inchiostro: #101418;
+  --testo: #2a3138;
+  --acciaio: #5a6672;
+  --riga: rgba(16, 20, 24, .13);
+  --riga-forte: rgba(16, 20, 24, .28);
+
+  /* i due colori funzionali: caldo = adesso, freddo = programmato */
+  --segnale: #b8321f;
+  --segnale-chiaro: #ff8465;   /* la stessa idea, ma su fondo scuro */
+  --profondo: #1b4b73;
+
+  --contenitore: 1120px;
+  --margine: clamp(1.25rem, 5vw, 2.5rem);
+  --s1: .5rem;
+  --s2: 1rem;
+  --s3: 1.75rem;
+  --s4: 3rem;
+  --s5: 5rem;
+
+  --font: 'Plex Sans', ui-sans-serif, system-ui, 'Segoe UI', Arial, sans-serif;
+  --cifre: 'Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 6rem; }
+
+body {
+  margin: 0;
+  background: var(--carta);
+  color: var(--testo);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3, p, figure, ul, ol, li, dl { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+img, picture, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+:focus-visible { outline: 3px solid var(--segnale); outline-offset: 2px; }
+
+.via-schermo {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.salta {
+  position: fixed; top: .5rem; left: .5rem; z-index: 100;
+  background: var(--inchiostro); color: var(--carta);
+  padding: .75rem 1.25rem; font-size: .9rem;
+  transform: translateY(-160%); transition: transform .2s ease;
+}
+.salta:focus-visible { transform: none; }
+
+.contenitore {
+  width: 100%; max-width: var(--contenitore);
+  margin-inline: auto; padding-inline: var(--margine);
+}
+
+.soprattitolo, .etichetta {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--acciaio);
+}
+.etichetta--urgenza { color: var(--segnale); }
+
+.sezione__titolo {
+  margin-top: .4rem;
+  font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+  font-weight: 600; line-height: 1.12; letter-spacing: -.02em;
+  color: var(--inchiostro);
+}
+.sezione__frase { margin-top: var(--s2); max-width: 56ch; line-height: 1.65; }
+.sezione__testa { margin-bottom: var(--s3); }
+.sezione__coda { margin-top: var(--s3); }
+
+.collegamento {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-weight: 600; color: var(--profondo);
+  border-bottom: 2px solid var(--profondo); padding-bottom: 2px;
+}
+.collegamento:hover { color: var(--segnale); border-bottom-color: var(--segnale); }
+
+.nota-piccola {
+  margin-top: var(--s3); max-width: 62ch;
+  font-size: .875rem; color: var(--acciaio); line-height: 1.6;
+}
+
+/* =================================================================
+   Dichiarazione del concept
+   ================================================================= */
+.avviso { background: var(--inchiostro); color: var(--carta); }
+.avviso__interno {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s2); min-height: 2.25rem; font-size: .8125rem;
+}
+.avviso__testo { color: rgba(238, 241, 244, .78); }
+.avviso__link {
+  display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap;
+  border-bottom: 1px solid rgba(238, 241, 244, .4); padding-bottom: 1px;
+}
+.avviso__link:hover { border-bottom-color: var(--carta); }
+.avviso__corto { display: none; }
+@media (max-width: 34rem) {
+  .avviso__lungo { display: none; }
+  .avviso__corto { display: inline; }
+}
+
+/* =================================================================
+   Testata — scura, con il numero sempre in vista
+   ================================================================= */
+.testata {
+  position: sticky; top: 0; z-index: 60;
+  background: var(--inchiostro); color: var(--carta);
+}
+.testata[data-attaccata] { box-shadow: 0 10px 30px -20px rgba(0, 0, 0, .9); }
+.testata__interno {
+  display: flex; align-items: center; gap: var(--s3);
+  min-height: 4.5rem;
+}
+
+.marchio { display: flex; align-items: center; gap: .7rem; flex: none; }
+.marchio__segno { width: 1.9rem; height: 1.9rem; flex: none; }
+.marchio__segno svg { width: 100%; height: 100%; fill: var(--carta); }
+.marchio__perno { fill: var(--segnale-chiaro); }
+.marchio__testo { display: grid; gap: .05rem; }
+.marchio__nome { font-size: 1.2rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.1; }
+.marchio__mestiere {
+  font-size: .7rem; font-weight: 400; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(238, 241, 244, .62);
+}
+
+.menu { margin-inline-start: auto; }
+.menu ul { display: flex; align-items: center; gap: var(--s3); }
+.menu a {
+  display: inline-block; line-height: 1.2;
+  font-size: .95rem; padding-block: .4rem;
+  border-bottom: 2px solid transparent;
+  color: rgba(238, 241, 244, .88);
+}
+.menu a:hover, .menu a[aria-current] { color: var(--carta); border-bottom-color: var(--segnale-chiaro); }
+
+/* il pulsante che conta */
+.chiamata {
+  display: flex; align-items: center; gap: .6rem; flex: none;
+  background: var(--segnale); color: #fff;
+  padding: .6rem 1.1rem;
+  transition: background-color .2s ease;
+}
+.chiamata:hover { background: #9e2b1a; }
+.chiamata__segno { width: 1.15rem; height: 1.15rem; flex: none; }
+.chiamata__segno svg { width: 100%; height: 100%; fill: currentColor; }
+.chiamata__testo { display: grid; gap: .05rem; line-height: 1.15; }
+.chiamata__testo b { font-size: .95rem; font-weight: 600; }
+/* .82 di opacità si ferma esattamente a 4,50:1 sul rosso, cioè al
+   limite: per una scritta che dice se sono aperto o chiuso non basta */
+.chiamata__nota { font-size: .72rem; color: rgba(255, 255, 255, .92); }
+
+.menu-tasto { display: none; padding: .6rem; margin-inline-end: -.6rem; }
+.menu-tasto__barre { display: grid; gap: 4px; width: 22px; }
+.menu-tasto__barre i { display: block; height: 2px; background: var(--carta); transition: transform .25s ease, opacity .25s ease; }
+.menu-tasto[aria-expanded='true'] i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu-tasto[aria-expanded='true'] i:nth-child(2) { opacity: 0; }
+.menu-tasto[aria-expanded='true'] i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* =================================================================
+   Bottoni
+   ================================================================= */
+.bottone {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .8rem 1.3rem; font-size: .95rem; font-weight: 600;
+  border: 2px solid var(--inchiostro);
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.bottone svg { width: 1.1rem; height: 1.1rem; fill: currentColor; flex: none; }
+.bottone--pieno { background: var(--segnale); border-color: var(--segnale); color: #fff; }
+.bottone--pieno:hover { background: #9e2b1a; border-color: #9e2b1a; }
+.bottone--contorno { background: transparent; color: var(--inchiostro); }
+.bottone--contorno:hover { background: var(--inchiostro); color: var(--carta); }
+.bottone--grande { padding: 1rem 1.6rem; font-size: 1.05rem; }
+
+/* =================================================================
+   Il bivio — due strade, colorate come i segni di un rubinetto
+   ================================================================= */
+.bivio { padding-block: var(--s4) var(--s5); }
+.bivio__titolo {
+  margin-top: .4rem;
+  font-size: clamp(2rem, 5.5vw, 3.4rem);
+  font-weight: 600; line-height: 1.04; letter-spacing: -.028em;
+  color: var(--inchiostro);
+}
+.bivio__vie {
+  margin-top: var(--s4);
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2);
+}
+.via {
+  display: grid; align-content: start; gap: .5rem;
+  padding: var(--s3);
+  background: var(--pannello);
+  border: 1px solid var(--riga);
+  border-top: 5px solid var(--tinta);
+  transition: border-color .2s ease, transform .2s ease;
+}
+.via:hover { transform: translateY(-2px); border-inline-color: var(--riga-forte); border-bottom-color: var(--riga-forte); }
+.via--urgenza { --tinta: var(--segnale); }
+.via--programmato { --tinta: var(--profondo); }
+.via__etichetta {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--tinta);
+}
+.via__titolo {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 600; line-height: 1.15; letter-spacing: -.018em; color: var(--inchiostro);
+}
+.via__testo { margin-top: .3rem; line-height: 1.6; }
+.via__azione {
+  margin-top: var(--s2); font-weight: 600; color: var(--tinta);
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+
+/* =================================================================
+   L'emergenza in breve — tre passi, numeri grossi
+   ================================================================= */
+.adesso { padding-block: var(--s5) 0; }
+.adesso__testa { max-width: 56ch; margin-bottom: var(--s3); }
+.passi-rapidi {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2);
+}
+.passo-rapido {
+  padding: var(--s3);
+  background: var(--pannello);
+  border: 1px solid var(--riga);
+  border-left: 4px solid var(--segnale);
+}
+.passo-rapido__numero {
+  display: block; font-family: var(--cifre);
+  font-size: 1.6rem; font-weight: 600; color: var(--segnale); line-height: 1;
+}
+.passo-rapido__nome {
+  margin-top: .7rem; font-size: 1.05rem; font-weight: 600;
+  line-height: 1.25; color: var(--inchiostro);
+}
+.passo-rapido__testo { margin-top: .4rem; font-size: .95rem; line-height: 1.55; }
+
+/* =================================================================
+   Le tariffe — la domanda che nessuno fa volentieri
+   ================================================================= */
+.costi { padding-block: var(--s5) 0; }
+.tariffe {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px;
+  background: var(--riga); border: 1px solid var(--riga);
+}
+.tariffa { background: var(--pannello); padding: var(--s3); }
+.tariffa__voce {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--acciaio);
+}
+.tariffa__cifra {
+  margin-top: .5rem; font-family: var(--cifre);
+  font-size: clamp(1.75rem, 4vw, 2.4rem); font-weight: 600;
+  color: var(--inchiostro); line-height: 1; letter-spacing: -.02em;
+}
+/* l'euro e l'unità tornano al carattere di testo: in monospaziato
+   l'euro lascia un buco dopo la cifra, e «a parte» non è un numero */
+.tariffa__valuta {
+  font-family: var(--font); font-size: .6em; font-weight: 600;
+  margin-left: .15em; vertical-align: .12em;
+}
+.tariffa__unita {
+  display: block; margin-top: .2rem;
+  font-family: var(--font); font-size: .85rem; font-weight: 400;
+  color: var(--acciaio); letter-spacing: 0;
+}
+.tariffa__cifra--parola {
+  font-family: var(--font); font-size: clamp(1.4rem, 2.6vw, 1.75rem);
+  letter-spacing: -.01em;
+}
+.tariffa__nota { margin-top: .7rem; font-size: .9rem; color: var(--testo); line-height: 1.55; }
+
+.riquadro { margin-top: var(--s3); }
+.riquadro--chiaro {
+  background: var(--pannello); border: 1px solid var(--riga);
+  border-left: 4px solid var(--profondo); padding: var(--s3);
+}
+.riquadro__titolo { font-size: 1.15rem; font-weight: 600; color: var(--inchiostro); }
+.riquadro__testo { margin-top: .6rem; max-width: 70ch; line-height: 1.65; }
+
+/* =================================================================
+   Gli interventi
+   ================================================================= */
+.interventi { padding-block: var(--s5) 0; }
+.interventi__elenco {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px;
+  background: var(--riga); border: 1px solid var(--riga);
+}
+.intervento { background: var(--pannello); padding: var(--s3); display: grid; align-content: start; }
+.intervento__nome {
+  font-size: 1.15rem; font-weight: 600; line-height: 1.25; color: var(--inchiostro);
+}
+.intervento__testo { margin-top: .6rem; font-size: .95rem; line-height: 1.6; }
+.intervento__tempo {
+  margin-top: var(--s2); padding-top: var(--s2);
+  border-top: 1px solid var(--riga);
+  font-family: var(--cifre); font-size: .95rem; font-weight: 600; color: var(--inchiostro);
+}
+.intervento__etichetta {
+  display: block; font-family: var(--font);
+  font-size: .68rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--acciaio); margin-bottom: .15rem;
+}
+
+/* =================================================================
+   La zona — si scrive il comune, si ha la risposta
+   ================================================================= */
+.zona { padding-block: var(--s5) 0; }
+.zona__forma { margin-top: var(--s3); max-width: 30rem; }
+.zona__campo { display: block; }
+.zona__testo {
+  width: 100%; font: inherit; color: var(--inchiostro);
+  padding: .9rem 1rem;
+  background: var(--pannello);
+  border: 2px solid var(--riga-forte);
+}
+.zona__testo::placeholder { color: var(--acciaio); }
+.zona__testo:focus-visible { outline: 3px solid var(--segnale); outline-offset: 2px; border-color: var(--inchiostro); }
+
+/* Finché non c'è una risposta l'esito resta un suggerimento, non un
+   riquadro: un pannello vuoto in pagina è solo rumore. */
+.zona__esito {
+  margin-top: var(--s2); max-width: 30rem;
+  padding: var(--s2) 0;
+}
+.zona__esito[data-trovato],
+.zona__esito[data-fuori] {
+  padding: var(--s2) var(--s3);
+  background: var(--pannello);
+  border: 1px solid var(--riga);
+  border-left: 4px solid var(--riga-forte);
+}
+.zona__esito[data-trovato] { border-left-color: var(--profondo); }
+.zona__esito[data-fuori] { border-left-color: var(--segnale); }
+.zona__stato { font-size: 1.05rem; color: var(--acciaio); }
+.zona__esito[data-trovato] .zona__stato,
+.zona__esito[data-fuori] .zona__stato { font-size: 1.1rem; font-weight: 600; color: var(--inchiostro); }
+.zona__dettaglio { margin-top: .3rem; font-size: .95rem; line-height: 1.55; }
+
+.zona__tutti { margin-top: var(--s4); }
+.zona__titoletto {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--acciaio);
+}
+/* Lo spazio fra le colonne non è estetica: senza, i minuti di una
+   colonna toccano il nome della successiva e non si capisce più a
+   quale comune appartengano. */
+.zona__elenco {
+  margin-top: var(--s2);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--s4);
+  border-top: 1px solid var(--riga);
+}
+.zona__elenco li {
+  display: flex; align-items: baseline; justify-content: space-between; gap: .5rem;
+  padding: .55rem 0; border-bottom: 1px solid var(--riga);
+  font-size: .95rem;
+}
+.zona__minuti { font-family: var(--cifre); font-size: .85rem; color: var(--acciaio); }
+
+/* =================================================================
+   La telefonata — quattro cose da dire
+   ================================================================= */
+.telefonata { padding-block: var(--s5) 0; }
+.lista-numerata { counter-reset: voce; display: grid; gap: var(--s2); max-width: 68ch; }
+.lista-numerata li {
+  counter-increment: voce;
+  position: relative; padding-left: 2.6rem;
+  line-height: 1.65;
+}
+.lista-numerata li::before {
+  content: counter(voce);
+  position: absolute; left: 0; top: .15rem;
+  width: 1.8rem; height: 1.8rem;
+  display: grid; place-items: center;
+  background: var(--inchiostro); color: var(--carta);
+  font-family: var(--cifre); font-size: .85rem; font-weight: 600;
+}
+.lista-numerata b { color: var(--inchiostro); }
+
+/* =================================================================
+   Domande frequenti
+   ================================================================= */
+.domande { padding-block: var(--s5) 0; }
+.domande__elenco { border-top: 1px solid var(--riga); }
+.domanda { border-bottom: 1px solid var(--riga); }
+.domanda__testa {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2);
+  padding-block: var(--s2); cursor: pointer; list-style: none;
+  font-size: 1.05rem; font-weight: 600; color: var(--inchiostro);
+}
+.domanda__testa::-webkit-details-marker { display: none; }
+.domanda__testa::after {
+  content: ''; flex: none; width: .65rem; height: .65rem;
+  border-right: 2px solid var(--acciaio); border-bottom: 2px solid var(--acciaio);
+  transform: rotate(45deg) translateY(-.15rem); transition: transform .2s ease;
+}
+.domanda[open] .domanda__testa::after { transform: rotate(-135deg) translateY(-.15rem); }
+.domanda__testa:hover { color: var(--segnale); }
+.domanda__testa:hover::after { border-color: var(--segnale); }
+.domanda__corpo { padding-bottom: var(--s2); max-width: 70ch; }
+.domanda__corpo p { line-height: 1.7; }
+
+/* =================================================================
+   Chiamare — la chiusura di ogni pagina
+   ================================================================= */
+.chiamare {
+  margin-top: var(--s5);
+  background: var(--inchiostro); color: var(--carta);
+  padding-block: var(--s5);
+}
+.chiamare__interno {
+  display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--s4); align-items: start;
+}
+.chiamare__titolo {
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  font-weight: 600; line-height: 1.05; letter-spacing: -.028em;
+}
+.chiamare__frase { margin-top: var(--s2); max-width: 46ch; color: rgba(238, 241, 244, .8); line-height: 1.65; }
+.chiamare__orario {
+  margin-top: var(--s3);
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--cifre); font-size: .95rem; font-weight: 600;
+}
+.chiamare__orario::before {
+  content: ''; width: .6rem; height: .6rem; border-radius: 50%;
+  background: var(--segnale-chiaro);
+}
+[data-orario][data-aperto='true']::before { background: #6ec48a; }
+.chiamare__azioni { display: grid; justify-items: start; gap: var(--s2); }
+.chiamare__azioni .bottone--contorno { border-color: var(--carta); color: var(--carta); }
+.chiamare__azioni .bottone--contorno:hover { background: var(--carta); color: var(--inchiostro); }
+.chiamare__nota { font-size: .9rem; color: rgba(238, 241, 244, .7); line-height: 1.6; max-width: 40ch; }
+
+/* la nota nell'intestazione: pallino solo dove c'è spazio */
+.chiamata__nota::before { content: none; }
+
+/* =================================================================
+   Barra fissa sul telefono
+   ================================================================= */
+.barra-fissa {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: 50;
+  display: none;
+  background: var(--pannello); border-top: 1px solid var(--riga);
+  transform: translateY(100%); transition: transform .3s ease;
+  box-shadow: 0 -8px 24px -16px rgba(16, 20, 24, .6);
+}
+.barra-fissa[data-visibile] { transform: none; }
+.barra-fissa__voce {
+  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: 1rem .5rem; font-size: .95rem; font-weight: 600; color: var(--inchiostro);
+}
+.barra-fissa__voce svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
+.barra-fissa__voce--chiamata { background: var(--segnale); color: #fff; }
+
+/* =================================================================
+   Pagina della guida
+   ================================================================= */
+.guida-testa { padding-block: var(--s4) var(--s3); }
+.guida-testa__titolo {
+  margin-top: .4rem;
+  font-size: clamp(1.9rem, 5vw, 3.1rem);
+  font-weight: 600; line-height: 1.06; letter-spacing: -.028em; color: var(--inchiostro);
+}
+.guida-testa__frase { margin-top: var(--s2); max-width: 58ch; line-height: 1.65; }
+.guida-testa__scorciatoie { margin-top: var(--s3); display: flex; flex-wrap: wrap; gap: var(--s1); }
+.pillola {
+  display: inline-block; padding: .5rem 1rem;
+  background: var(--pannello); border: 1px solid var(--riga-forte);
+  font-size: .95rem; font-weight: 600; color: var(--inchiostro);
+}
+.pillola:hover { background: var(--inchiostro); color: var(--carta); border-color: var(--inchiostro); }
+
+.guida { padding-block: var(--s4); border-top: 1px solid var(--riga); }
+.guida__interno { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--s4); align-items: start; }
+.guida__numero {
+  font-family: var(--cifre); font-size: .95rem; font-weight: 600;
+  letter-spacing: .1em; color: var(--segnale);
+}
+.guida__titolo {
+  margin-top: .3rem;
+  font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+  font-weight: 600; line-height: 1.12; letter-spacing: -.022em; color: var(--inchiostro);
+}
+.guida__frase { margin-top: var(--s2); max-width: 60ch; line-height: 1.65; }
+.guida__sotto {
+  margin-top: var(--s3); margin-bottom: .4rem;
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--acciaio);
+}
+.guida p { max-width: 66ch; line-height: 1.7; }
+.guida p + p { margin-top: var(--s2); }
+.guida__elenco, .guida__ordinata { margin-top: var(--s2); display: grid; gap: .7rem; max-width: 66ch; }
+.guida__elenco li { position: relative; padding-left: 1.2rem; line-height: 1.65; }
+.guida__elenco li::before {
+  content: ''; position: absolute; left: 0; top: .68rem;
+  width: .5rem; height: 2px; background: var(--acciaio);
+}
+.guida__ordinata { counter-reset: passo; }
+.guida__ordinata li {
+  counter-increment: passo; position: relative; padding-left: 2.4rem; line-height: 1.65;
+}
+.guida__ordinata li::before {
+  content: counter(passo);
+  position: absolute; left: 0; top: .1rem;
+  width: 1.7rem; height: 1.7rem; display: grid; place-items: center;
+  background: var(--segnale); color: #fff;
+  font-family: var(--cifre); font-size: .8rem; font-weight: 600;
+}
+.guida b { color: var(--inchiostro); }
+.guida__avvertenza {
+  margin-top: var(--s3); padding: var(--s2) var(--s3);
+  background: var(--pannello); border-left: 4px solid var(--segnale);
+  font-size: .95rem; line-height: 1.65;
+}
+.guida--allerta { background: var(--pannello); }
+
+/* il disegno: spiega più di una fotografia, e non finge di essere una */
+.disegno { background: var(--pannello); border: 1px solid var(--riga); padding: var(--s3); }
+.disegno svg { width: 100%; height: auto; }
+.dis-tubo { fill: #cfd6dd; }
+.dis-corpo { fill: var(--acciaio); }
+/* stesso manico in tutti e due i disegni: a distinguere aperto da
+   chiuso è l'orientamento, non il colore */
+.dis-leva { fill: var(--segnale); }
+.dis-perno { fill: var(--pannello); }
+.dis-etichetta {
+  font-family: 'Plex Mono', monospace; font-size: 15px; font-weight: 600;
+  letter-spacing: .12em; fill: var(--inchiostro);
+}
+.dis-nota { font-family: 'Plex Sans', sans-serif; font-size: 13px; fill: var(--acciaio); }
+.disegno__didascalia { margin-top: var(--s2); font-size: .875rem; color: var(--acciaio); line-height: 1.55; }
+
+/* =================================================================
+   Piede
+   ================================================================= */
+.piede { background: var(--inchiostro); color: var(--carta); padding-block: var(--s4) var(--s3); }
+.piede__interno {
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: var(--s3);
+  padding-bottom: var(--s3);
+}
+.piede__nome { display: block; font-size: 1.2rem; font-weight: 600; letter-spacing: -.01em; }
+.piede__mestiere {
+  display: block; margin-top: .1rem;
+  font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(238, 241, 244, .6);
+}
+.piede__zona { margin-top: var(--s2); font-size: .95rem; color: rgba(238, 241, 244, .78); }
+.piede__titolo {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: rgba(238, 241, 244, .6);
+}
+.piede__colonna ul { margin-top: var(--s2); display: grid; gap: .5rem; }
+.piede__colonna a { font-size: .95rem; color: rgba(238, 241, 244, .88); border-bottom: 1px solid transparent; }
+.piede__colonna a:hover { border-bottom-color: rgba(238, 241, 244, .6); }
+.piede__riga {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: var(--s2); padding-top: var(--s3);
+  border-top: 1px solid rgba(238, 241, 244, .2);
+  font-size: .85rem; color: rgba(238, 241, 244, .68);
+}
+.piede__riga b { color: rgba(238, 241, 244, .88); font-weight: 600; }
+.piede__riga a { border-bottom: 1px solid rgba(238, 241, 244, .4); padding-bottom: 1px; }
+
+/* =================================================================
+   Pannello dimostrativo
+   ================================================================= */
+.pannello {
+  width: min(34rem, calc(100vw - 2rem));
+  padding: var(--s4) var(--s3) var(--s3);
+  background: var(--pannello); color: var(--testo);
+  border: 0; border-top: 5px solid var(--segnale);
+  box-shadow: 0 30px 60px -30px rgba(16, 20, 24, .6);
+}
+.pannello::backdrop { background: rgba(16, 20, 24, .6); }
+.pannello__chiudi-forma { position: absolute; top: .75rem; right: .75rem; margin: 0; }
+.pannello__chiudi { padding: .5rem; font-size: 1.1rem; color: var(--acciaio); line-height: 1; }
+.pannello__chiudi:hover { color: var(--inchiostro); }
+.pannello__etichetta {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--segnale);
+}
+.pannello__titolo {
+  margin-top: .4rem; font-size: 1.5rem; font-weight: 600;
+  letter-spacing: -.02em; color: var(--inchiostro);
+}
+.pannello__testo { margin-top: var(--s2); line-height: 1.65; }
+.pannello__coda { margin-top: var(--s3); padding-top: var(--s3); border-top: 1px solid var(--riga); }
+.pannello__invito { font-weight: 600; color: var(--inchiostro); margin-bottom: var(--s2); }
+
+/* =================================================================
+   Schermi stretti — le griglie si richiudono, la chiamata scende
+   in fondo dove arriva il pollice
+   ================================================================= */
+@media (max-width: 62rem) {
+  .menu-tasto { display: block; }
+  .menu {
+    position: absolute; inset-inline: 0; top: 100%;
+    background: var(--inchiostro);
+    display: none; padding: var(--s1) var(--margine) var(--s3);
+    box-shadow: 0 20px 32px -24px rgba(0, 0, 0, .9);
+  }
+  .menu[data-aperto] { display: block; }
+  .menu ul { flex-direction: column; align-items: stretch; gap: 0; }
+  .menu li + li { border-top: 1px solid rgba(238, 241, 244, .16); }
+  .menu a { display: block; padding-block: .9rem; font-size: 1.05rem; border-bottom: 0; }
+  .chiamata { margin-inline-start: auto; }
+  .chiamata__testo b { font-size: .9rem; }
+
+  .interventi__elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tariffe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .zona__elenco { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .guida__interno { grid-template-columns: 1fr; }
+  .chiamare__interno { grid-template-columns: 1fr; gap: var(--s3); }
+  .piede__interno { grid-template-columns: 1fr 1fr; }
+  .piede__interno > :first-child { grid-column: 1 / -1; }
+
+  /* la barra fissa entra in gioco: le riservo lo spazio */
+  .barra-fissa { display: flex; }
+  body { padding-bottom: 3.5rem; }
+}
+
+@media (max-width: 46rem) {
+  .bivio__vie { grid-template-columns: 1fr; }
+  .passi-rapidi { grid-template-columns: 1fr; }
+  .interventi__elenco { grid-template-columns: 1fr; }
+  .zona__elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .piede__interno { grid-template-columns: 1fr; }
+  /* la nota sotto "Chiama ora" ruba larghezza al marchio */
+  .chiamata__nota { display: none; }
+  .chiamata { padding: .6rem .9rem; }
+}
+
+@media (max-width: 34rem) {
+  .tariffe { grid-template-columns: 1fr; }
+  .marchio__mestiere { display: none; }
+  .chiamata__testo b { font-size: 0; }
+  .chiamata__testo b::after { content: 'Chiama'; font-size: .95rem; }
+  .chiamare__azioni .bottone { width: 100%; }
+}
+
+/* =================================================================
+   Movimento: poco, breve, e disattivabile
+   ================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
