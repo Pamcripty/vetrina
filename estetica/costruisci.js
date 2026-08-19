@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* =================================================================
-   Assembla le pagine del sito.
+   Assembla le pagine del sito (estetica).
 
    Le pagine stanno in  pagine/*.html  e sono HTML normale, con due
    sole aggiunte:
@@ -12,8 +12,8 @@
    Dentro le parti funzionano le stesse due cose, così la testata sa
    quale voce di menu è quella corrente.
 
-   Uso:  node imbianchino/costruisci.js
-   Esce in:  imbianchino/sito/
+   Uso:  node estetica/costruisci.js
+   Esce in:  estetica/sito/
    ================================================================= */
 
 import { readFile, readdir, mkdir, writeFile, cp, rm } from 'node:fs/promises';
@@ -97,7 +97,7 @@ async function costruisci() {
   if (mancanti.size) {
     throw new Error('riferimenti a file che non esistono:\n     ' + [...mancanti].join('\n     '));
   }
-  console.log(`\n  ${pagine.length} pagine in imbianchino/sito/`);
+  console.log(`\n  ${pagine.length} pagine in estetica/sito/`);
 }
 
 costruisci().catch((e) => {

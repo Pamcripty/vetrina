@@ -1,0 +1,221 @@
+<!--@ titolo: L'Ora Buona — Centro estetico a Cerea -->
+<!--@ descrizione: Viso, corpo, epilazione, mani e piedi. Durate e prezzi in chiaro, e una richiesta di appuntamento che si compone da sola. Progetto dimostrativo di Sito in Vista. -->
+<!doctype html>
+<html lang="it">
+<head>
+<!--@parte testa-->
+</head>
+<body>
+
+<a class="salta" href="#contenuto">Salta al contenuto</a>
+
+<!--@parte avviso-->
+<!--@parte testata-->
+
+<main id="contenuto">
+
+  <!-- ======================== apertura ========================= -->
+  <section class="apertura">
+    <picture class="apertura__foto">
+      <source media="(max-width: 52rem)" type="image/avif"
+              srcset="immagini/hero-cabina-alto-640.avif 640w, immagini/hero-cabina-alto-810.avif 810w, immagini/hero-cabina-alto-1080.avif 1080w" sizes="100vw">
+      <source media="(max-width: 52rem)" type="image/webp"
+              srcset="immagini/hero-cabina-alto-640.webp 640w, immagini/hero-cabina-alto-810.webp 810w, immagini/hero-cabina-alto-1080.webp 1080w" sizes="100vw">
+      <source type="image/avif"
+              srcset="immagini/hero-cabina-900.avif 900w, immagini/hero-cabina-1200.avif 1200w, immagini/hero-cabina-1800.avif 1800w, immagini/hero-cabina-2400.avif 2400w" sizes="100vw">
+      <img src="immagini/hero-cabina-1200.webp"
+           srcset="immagini/hero-cabina-900.webp 900w, immagini/hero-cabina-1200.webp 1200w, immagini/hero-cabina-1800.webp 1800w, immagini/hero-cabina-2400.webp 2400w" sizes="100vw"
+           width="2400" height="1350" fetchpriority="high" decoding="async"
+           alt="Una cabina del centro vista dalla porta: lettino con telo bianco, luce calda da una lampada a parete, un mobile basso in legno chiaro.">
+    </picture>
+    <div class="contenitore apertura__interno">
+      <div class="apertura__testo">
+      <p class="soprattitolo">Cerea, provincia di Verona</p>
+      <h1 class="apertura__titolo">Un'ora che<br>ti torna utile.</h1>
+      <p class="apertura__frase">
+        Viso, corpo, epilazione, mani e piedi. Niente pacchetti da comprare
+        a scatola chiusa e niente abbonamenti: si prenota quello che serve,
+        si sa quanto dura e quanto viene.
+      </p>
+      <div class="azioni">
+        <a class="bottone bottone--lume" href="prenota.html">Prenota un'ora</a>
+        <a class="bottone bottone--contorno" href="trattamenti.html">Guarda il listino</a>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== il tempo che serve ==================== -->
+  <section class="tempi">
+    <div class="contenitore">
+      <div class="sezione__testa">
+        <p class="etichetta">Quanto tempo hai</p>
+        <h2 class="sezione__titolo">Si prenota il tempo,<br>non il pacchetto.</h2>
+        <p class="sezione__frase">
+          La domanda vera non è «quanto costa», è «quanto ci metto».
+          Ecco che cosa entra in mezz'ora, in un'ora, in una mattina.
+        </p>
+      </div>
+
+      <div class="fasce">
+        <article class="fascia">
+          <p class="fascia__tempo">30<span class="fascia__unita">minuti</span></p>
+          <h3 class="fascia__nome">La pausa corta</h3>
+          <p class="fascia__testo">
+            Sopracciglia, baffetto, ascelle, una maschera viso. Le cose che
+            si incastrano nella pausa pranzo senza correre.
+          </p>
+        </article>
+        <article class="fascia fascia--rilievo">
+          <p class="fascia__tempo">60<span class="fascia__unita">minuti</span></p>
+          <h3 class="fascia__nome">L'ora buona</h3>
+          <p class="fascia__testo">
+            Una pulizia del viso, un massaggio, una manicure, gambe complete
+            più qualcosa. È la misura più richiesta, ed è quella da cui il
+            centro prende il nome.
+          </p>
+        </article>
+        <article class="fascia">
+          <p class="fascia__tempo">2<span class="fascia__unita">ore</span></p>
+          <h3 class="fascia__nome">Con calma</h3>
+          <p class="fascia__testo">
+            Ricostruzione unghie, oppure due o tre trattamenti insieme.
+            Oltre le due ore e mezza conviene dividere in due volte:
+            te lo diciamo noi.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= i gruppi di trattamenti ================= -->
+  <section class="gruppi">
+    <div class="contenitore">
+      <div class="sezione__testa">
+        <p class="etichetta">Trattamenti</p>
+        <h2 class="sezione__titolo">Quattro cose,<br>fatte bene.</h2>
+      </div>
+
+      <div class="gruppi__elenco">
+        <a class="tessera" href="trattamenti.html#viso">
+          <picture class="tessera__foto">
+          <source type="image/avif" srcset="immagini/gruppo-viso-560.avif 560w, immagini/gruppo-viso-800.avif 800w, immagini/gruppo-viso-1200.avif 1200w" sizes="(min-width: 62.0625rem) 510px, (min-width: 46rem) 46vw, 90vw">
+          <img src="immagini/gruppo-viso-1200.webp"
+               srcset="immagini/gruppo-viso-560.webp 560w, immagini/gruppo-viso-800.webp 800w, immagini/gruppo-viso-1200.webp 1200w" sizes="(min-width: 62.0625rem) 510px, (min-width: 46rem) 46vw, 90vw"
+               width="1600" height="1200" loading="lazy" decoding="async"
+               alt="Ciotola di ceramica con maschera all'argilla e pennello da estetista su un piano chiaro.">
+        </picture>
+          <h3 class="tessera__nome">Viso</h3>
+          <p class="tessera__testo">Pulizia, idratazione, anti-età. Si comincia sempre guardando la pelle e chiedendo cosa usi a casa.</p>
+          <span class="tessera__dati">da 30 minuti · da 30 €</span>
+        </a>
+        <a class="tessera" href="trattamenti.html#corpo">
+          <picture class="tessera__foto">
+          <source type="image/avif" srcset="immagini/gruppo-corpo-560.avif 560w, immagini/gruppo-corpo-800.avif 800w, immagini/gruppo-corpo-1200.avif 1200w" sizes="(min-width: 62.0625rem) 510px, (min-width: 46rem) 46vw, 90vw">
+          <img src="immagini/gruppo-corpo-1200.webp"
+               srcset="immagini/gruppo-corpo-560.webp 560w, immagini/gruppo-corpo-800.webp 800w, immagini/gruppo-corpo-1200.webp 1200w" sizes="(min-width: 62.0625rem) 510px, (min-width: 46rem) 46vw, 90vw"
+               width="1600" height="1200" loading="lazy" decoding="async"
+               alt="Bottiglietta di olio da massaggio in vetro ambrato accanto a due asciugamani arrotolati.">
+        </picture>
+          <h3 class="tessera__nome">Corpo e massaggi</h3>
+          <p class="tessera__testo">Rilassante, decontratturante, drenante, scrub. Sul lettino, con la musica bassa e senza chiacchiere se non ne hai voglia.</p>
+          <span class="tessera__dati">da 40 minuti · da 40 €</span>
+        </a>
+        <a class="tessera" href="trattamenti.html#epilazione">
+          <picture class="tessera__foto">
+          <source type="image/avif" srcset="immagini/gruppo-epilazione-560.avif 560w, immagini/gruppo-epilazione-800.avif 800w, immagini/gruppo-epilazione-1200.avif 1200w" sizes="(min-width: 62.0625rem) 510px, (min-width: 46rem) 46vw, 90vw">
+          <img src="immagini/gruppo-epilazione-1200.webp"
+               srcset="immagini/gruppo-epilazione-560.webp 560w, immagini/gruppo-epilazione-800.webp 800w, immagini/gruppo-epilazione-1200.webp 1200w" sizes="(min-width: 62.0625rem) 510px, (min-width: 46rem) 46vw, 90vw"
+               width="1600" height="1200" loading="lazy" decoding="async"
+               alt="Vasetto di cera depilatoria color miele con due spatole di legno accanto.">
+        </picture>
+          <h3 class="tessera__nome">Epilazione</h3>
+          <p class="tessera__testo">Cera a caldo o tiepida secondo la zona e la pelle. Le zone piccole si incastrano in mezz'ora.</p>
+          <span class="tessera__dati">da 10 minuti · da 8 €</span>
+        </a>
+        <a class="tessera" href="trattamenti.html#mani-piedi">
+          <picture class="tessera__foto">
+          <source type="image/avif" srcset="immagini/gruppo-mani-piedi-560.avif 560w, immagini/gruppo-mani-piedi-800.avif 800w, immagini/gruppo-mani-piedi-1200.avif 1200w" sizes="(min-width: 62.0625rem) 510px, (min-width: 46rem) 46vw, 90vw">
+          <img src="immagini/gruppo-mani-piedi-1200.webp"
+               srcset="immagini/gruppo-mani-piedi-560.webp 560w, immagini/gruppo-mani-piedi-800.webp 800w, immagini/gruppo-mani-piedi-1200.webp 1200w" sizes="(min-width: 62.0625rem) 510px, (min-width: 46rem) 46vw, 90vw"
+               width="1600" height="1200" loading="lazy" decoding="async"
+               alt="Cinque boccette di smalto allineate, con lima di vetro e forbicine da manicure.">
+        </picture>
+          <h3 class="tessera__nome">Mani e piedi</h3>
+          <p class="tessera__testo">Manicure, semipermanente, pedicure estetico, ricostruzione. Con gli strumenti sterilizzati in autoclave, ogni volta.</p>
+          <span class="tessera__dati">da 22 €</span>
+        </a>
+      </div>
+
+      <p class="sezione__coda">
+        <a class="collegamento" href="trattamenti.html">Il listino completo, con tutte le durate <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+
+<!--@parte compositore-->
+
+  <!-- ====================== la prima volta ===================== -->
+  <section class="prima-volta">
+    <div class="contenitore">
+      <div class="sezione__testa">
+        <p class="etichetta">La prima volta</p>
+        <h2 class="sezione__titolo">Che cosa succede<br>quando arrivi.</h2>
+        <p class="sezione__frase">
+          Se non sei mai stata in un centro estetico — o non ti sei trovata
+          bene nell'ultimo — probabilmente è questo che vuoi sapere.
+        </p>
+      </div>
+
+      <ol class="momenti">
+        <li class="momento-voce">
+          <span class="momento-voce__numero">01</span>
+          <h3 class="momento-voce__nome">Cinque minuti a parlare</h3>
+          <p class="momento-voce__testo">Prima di toccare qualcosa chiediamo cosa usi a casa, se prendi farmaci che cambiano la pelle, se hai allergie. Non è burocrazia: cambia il prodotto che scegliamo.</p>
+        </li>
+        <li class="momento-voce">
+          <span class="momento-voce__numero">02</span>
+          <h3 class="momento-voce__nome">Ti diciamo cosa faremo</h3>
+          <p class="momento-voce__testo">Passo per passo, e quanto durerà davvero. Se una cosa può dare fastidio lo diciamo prima, non mentre la facciamo.</p>
+        </li>
+        <li class="momento-voce">
+          <span class="momento-voce__numero">03</span>
+          <h3 class="momento-voce__nome">Puoi stare zitta</h3>
+          <p class="momento-voce__testo">Molte persone vengono qui per un'ora di silenzio. Se non hai voglia di parlare, dillo: nessuno se la prende.</p>
+        </li>
+        <li class="momento-voce">
+          <span class="momento-voce__numero">04</span>
+          <h3 class="momento-voce__nome">Alla fine, due indicazioni</h3>
+          <p class="momento-voce__testo">Che cosa evitare nelle ore successive e ogni quanto ha senso tornare. Se la risposta è «fra tre mesi», diciamo tre mesi.</p>
+        </li>
+      </ol>
+
+      <p class="sezione__coda">
+        <a class="collegamento" href="il-centro.html">Il centro, e chi ci lavora <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================== chiusura ========================= -->
+  <section class="chiusura">
+    <div class="contenitore chiusura__interno">
+      <h2 class="chiusura__titolo">Ci vediamo?</h2>
+      <p class="chiusura__frase">
+        Scrivi quando ti verrebbe comodo. Se l'ora che chiedi è occupata
+        ti proponiamo la più vicina, non ti lasciamo in sospeso.
+      </p>
+      <div class="azioni">
+        <a class="bottone bottone--lume bottone--grande" href="prenota.html">Prenota un'ora</a>
+        <a class="bottone bottone--contorno bottone--grande" href="prenota.html#regole">Prima leggi come funziona</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!--@parte pannello-->
+<!--@parte piede-->
+<!--@parte coda-->
+
+</body>
+</html>

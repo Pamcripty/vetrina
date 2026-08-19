@@ -1,0 +1,646 @@
+/* =================================================================
+   L'Ora Buona — progetto dimostrativo di Sito in Vista.
+
+   Direzione: "luce bassa". Un trattamento si vende a tempo e si
+   svolge in penombra, quindi il sito sta su fondo scuro caldo — non
+   nero, non lussuoso: la luce di una lampada accesa in una stanza.
+
+   È il terzo linguaggio del progetto e non ne ripete nessuno:
+   l'imbianchino è carta chiara e fotografie, l'idraulico è griglia
+   tecnica e cifre. Qui comandano lo spazio e il tempo.
+   ================================================================= */
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url('font/fraunces-400-700.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Karla';
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url('font/karla-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Karla';
+  font-style: normal; font-weight: 600; font-display: swap;
+  src: url('font/karla-600.woff2') format('woff2');
+}
+
+:root {
+  --notte: #241d1b;      /* la stanza */
+  --cabina: #2e2522;     /* i piani rialzati */
+  --cabina-alta: #3a2f2b;
+  --luce: #f4ece4;       /* il testo */
+  --tenue: #cbbcb0;      /* il testo secondario */
+  --lume: #e0a878;       /* l'unico accento: una lampada accesa */
+  --riga: rgba(244, 236, 228, .14);
+  --riga-forte: rgba(244, 236, 228, .3);
+
+  --contenitore: 1120px;
+  --margine: clamp(1.25rem, 5vw, 3rem);
+  --s1: .5rem;
+  --s2: 1rem;
+  --s3: 2rem;
+  --s4: 3.5rem;
+  --s5: 6rem;
+
+  --titoli: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --testo: 'Karla', ui-sans-serif, system-ui, 'Segoe UI', Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 6rem; }
+
+body {
+  margin: 0;
+  background: var(--notte);
+  color: var(--luce);
+  font-family: var(--testo);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3, p, figure, ul, ol, li, dl, dd, fieldset, legend { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+fieldset { border: 0; min-width: 0; }
+img, picture, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+:focus-visible { outline: 3px solid var(--lume); outline-offset: 3px; }
+
+.via-schermo {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.salta {
+  position: fixed; top: .5rem; left: .5rem; z-index: 100;
+  background: var(--lume); color: var(--notte);
+  padding: .75rem 1.25rem; font-size: .9rem; font-weight: 600;
+  transform: translateY(-160%); transition: transform .2s ease;
+}
+.salta:focus-visible { transform: none; }
+
+.contenitore {
+  width: 100%; max-width: var(--contenitore);
+  margin-inline: auto; padding-inline: var(--margine);
+}
+
+.soprattitolo, .etichetta {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--lume);
+}
+
+.sezione__titolo {
+  margin-top: .6rem;
+  font-family: var(--titoli);
+  font-size: clamp(1.75rem, 4.2vw, 2.6rem);
+  font-weight: 500; line-height: 1.1; letter-spacing: -.012em;
+}
+.sezione__frase { margin-top: var(--s2); max-width: 54ch; color: var(--tenue); }
+.sezione__testa { margin-bottom: var(--s4); }
+.sezione__coda { margin-top: var(--s4); }
+
+.collegamento {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-weight: 600; color: var(--lume);
+  border-bottom: 1px solid var(--lume); padding-bottom: 3px;
+}
+.collegamento:hover { color: var(--luce); border-bottom-color: var(--luce); }
+
+.nota-piccola { margin-top: var(--s3); max-width: 62ch; font-size: .9rem; color: var(--tenue); }
+
+/* =================================================================
+   Dichiarazione del concept
+   ================================================================= */
+.avviso { background: var(--cabina-alta); }
+.avviso__interno {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s2); min-height: 2.25rem; font-size: .8125rem;
+}
+.avviso__testo { color: var(--tenue); }
+.avviso__link {
+  display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap;
+  border-bottom: 1px solid var(--riga-forte); padding-bottom: 1px;
+}
+.avviso__link:hover { border-bottom-color: var(--luce); }
+.avviso__corto { display: none; }
+@media (max-width: 34rem) {
+  .avviso__lungo { display: none; }
+  .avviso__corto { display: inline; }
+}
+
+/* =================================================================
+   Testata
+   ================================================================= */
+.testata {
+  position: sticky; top: 0; z-index: 60;
+  background: var(--notte);
+  border-bottom: 1px solid transparent;
+  transition: border-color .25s ease;
+}
+.testata[data-attaccata] { border-bottom-color: var(--riga); }
+.testata__interno { display: flex; align-items: center; gap: var(--s3); min-height: 4.75rem; }
+
+.marchio { display: flex; align-items: center; gap: .8rem; flex: none; }
+.marchio__segno { width: 2rem; height: 2rem; flex: none; color: var(--lume); }
+.marchio__segno svg { width: 100%; height: 100%; }
+.marchio__testo { display: grid; gap: .1rem; }
+.marchio__nome {
+  font-family: var(--titoli); font-size: 1.35rem; font-weight: 500;
+  letter-spacing: -.01em; line-height: 1.05;
+}
+.marchio__mestiere {
+  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--tenue);
+}
+
+.menu { margin-inline-start: auto; }
+.menu ul { display: flex; align-items: center; gap: var(--s3); }
+.menu a {
+  display: inline-block; line-height: 1.2;
+  font-size: .95rem; padding-block: .4rem;
+  border-bottom: 1px solid transparent; color: var(--tenue);
+}
+.menu a:hover, .menu a[aria-current] { color: var(--luce); border-bottom-color: var(--lume); }
+
+.menu-tasto { display: none; padding: .6rem; margin-inline-end: -.6rem; }
+.menu-tasto__barre { display: grid; gap: 4px; width: 22px; }
+.menu-tasto__barre i { display: block; height: 1px; background: var(--luce); transition: transform .25s ease, opacity .25s ease; }
+.menu-tasto[aria-expanded='true'] i:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.menu-tasto[aria-expanded='true'] i:nth-child(2) { opacity: 0; }
+.menu-tasto[aria-expanded='true'] i:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+/* =================================================================
+   Bottoni
+   ================================================================= */
+.bottone {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .8rem 1.5rem; font-size: .95rem; font-weight: 600;
+  border: 1px solid var(--riga-forte);
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.bottone--lume { background: var(--lume); border-color: var(--lume); color: var(--notte); }
+.bottone--lume:hover { background: #eec096; border-color: #eec096; }
+.bottone--contorno { color: var(--luce); }
+.bottone--contorno:hover { background: var(--luce); border-color: var(--luce); color: var(--notte); }
+.bottone--grande { padding: 1rem 1.8rem; font-size: 1.05rem; }
+.bottone--pieno-largo { width: 100%; }
+.bottone:disabled { opacity: .4; cursor: not-allowed; }
+.bottone:disabled:hover { background: var(--lume); border-color: var(--lume); }
+
+.azioni { display: flex; flex-wrap: wrap; gap: var(--s2); }
+
+/* =================================================================
+   Apertura — spazio, non fotografie: qui il vuoto è il messaggio
+   ================================================================= */
+.apertura { padding-block: var(--s5) var(--s4); }
+.apertura__testo { max-width: 46ch; }
+.apertura__titolo {
+  margin-top: .8rem;
+  font-family: var(--titoli);
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  font-weight: 400; line-height: 1.02; letter-spacing: -.022em;
+}
+.apertura__frase { margin-top: var(--s3); color: var(--tenue); font-size: 1.1rem; }
+.apertura .azioni { margin-top: var(--s4); }
+
+/* =================================================================
+   Le fasce di tempo — il numero è il protagonista
+   ================================================================= */
+.tempi { padding-block: var(--s5) 0; }
+.fasce { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); }
+.fascia {
+  padding: var(--s3);
+  background: var(--cabina);
+  border: 1px solid var(--riga);
+}
+.fascia--rilievo { background: var(--cabina-alta); border-color: var(--lume); }
+.fascia__tempo {
+  display: flex; align-items: baseline; gap: .4rem;
+  font-family: var(--titoli); font-size: 3.2rem; font-weight: 400;
+  line-height: 1; color: var(--lume); letter-spacing: -.03em;
+}
+.fascia__unita {
+  font-family: var(--testo); font-size: .8rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--tenue);
+}
+.fascia__nome {
+  margin-top: var(--s2);
+  font-family: var(--titoli); font-size: 1.3rem; font-weight: 500; letter-spacing: -.01em;
+}
+.fascia__testo { margin-top: .5rem; font-size: .95rem; color: var(--tenue); }
+
+/* =================================================================
+   I quattro gruppi
+   ================================================================= */
+.gruppi { padding-block: var(--s5) 0; }
+.gruppi__elenco { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); }
+.tessera {
+  display: grid; align-content: start; gap: .5rem;
+  padding: var(--s3);
+  border: 1px solid var(--riga);
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.tessera:hover { border-color: var(--lume); background: var(--cabina); }
+.tessera__nome {
+  font-family: var(--titoli); font-size: 1.5rem; font-weight: 500; letter-spacing: -.012em;
+}
+.tessera__testo { color: var(--tenue); font-size: .95rem; }
+.tessera__dati {
+  margin-top: var(--s2); padding-top: var(--s2);
+  border-top: 1px solid var(--riga);
+  font-size: .85rem; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--lume);
+}
+
+/* =================================================================
+   Il compositore della richiesta
+   ================================================================= */
+.compositore { padding-block: var(--s5) 0; }
+.compositore__interno {
+  display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--s3);
+  align-items: start;
+}
+.scelte { display: grid; gap: var(--s3); }
+.scelte__gruppo { display: grid; gap: 0; }
+.scelte__titolo {
+  padding: 0 0 .6rem;
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--lume);
+  border-bottom: 1px solid var(--riga);
+  width: 100%;
+}
+.scelta {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .8rem;
+  padding: .7rem .2rem;
+  border-bottom: 1px solid var(--riga);
+  cursor: pointer;
+}
+.scelta:hover { color: var(--lume); }
+.scelta input {
+  width: 1.1rem; height: 1.1rem; margin: 0;
+  accent-color: var(--lume); cursor: pointer;
+}
+.scelta__nome { font-size: 1rem; }
+.scelta__dati { font-size: .875rem; color: var(--tenue); white-space: nowrap; }
+.scelta__dati b { color: var(--luce); font-weight: 600; }
+.scelta:has(input:checked) { color: var(--lume); }
+.scelta:has(input:checked) .scelta__dati b { color: var(--lume); }
+
+.momento { margin-top: var(--s3); }
+.momento__domanda {
+  padding: 0 0 .8rem;
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--lume);
+}
+.momento__scelte { display: flex; flex-wrap: wrap; gap: var(--s1); }
+.pastiglia { position: relative; }
+.pastiglia input {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer;
+}
+.pastiglia span {
+  display: block; padding: .55rem 1rem;
+  border: 1px solid var(--riga-forte); font-size: .9rem;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.pastiglia input:checked + span { background: var(--luce); color: var(--notte); border-color: var(--luce); }
+.pastiglia input:focus-visible + span { outline: 3px solid var(--lume); outline-offset: 3px; }
+.pastiglia:hover span { border-color: var(--luce); }
+
+.compositore__esito {
+  position: sticky; top: 6rem;
+  padding: var(--s3);
+  background: var(--cabina-alta);
+  border: 1px solid var(--riga);
+}
+.esito__etichetta {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--lume);
+}
+.esito__vuoto { margin-top: var(--s2); color: var(--tenue); font-size: .95rem; }
+.esito__elenco { margin-top: var(--s2); display: grid; gap: .5rem; }
+.esito__elenco li {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2);
+  font-size: .95rem;
+}
+.esito__riga-dati { color: var(--tenue); font-size: .875rem; white-space: nowrap; }
+.esito__totali {
+  margin-top: var(--s3); padding-top: var(--s3);
+  border-top: 1px solid var(--riga);
+  display: grid; gap: var(--s2);
+}
+.esito__totali > div { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2); }
+.esito__totali dt {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--tenue);
+}
+.esito__totali dd {
+  font-family: var(--titoli); font-size: 1.5rem; font-weight: 500;
+  letter-spacing: -.015em; color: var(--lume); text-align: right;
+}
+.esito__avviso {
+  margin-top: var(--s2); padding: var(--s2);
+  background: var(--notte); border-left: 2px solid var(--lume);
+  font-size: .875rem; color: var(--tenue);
+}
+.compositore__esito .bottone { margin-top: var(--s3); }
+.esito__nota { margin-top: var(--s2); font-size: .8125rem; color: var(--tenue); }
+.compositore__ripiego { display: none; margin-top: var(--s3); }
+
+/* =================================================================
+   La prima volta — quattro momenti
+   ================================================================= */
+.prima-volta { padding-block: var(--s5) 0; }
+.momenti { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s3); }
+.momento-voce { border-top: 1px solid var(--lume); padding-top: var(--s2); }
+.momento-voce__numero {
+  font-family: var(--titoli); font-size: .95rem; font-weight: 600;
+  letter-spacing: .1em; color: var(--lume);
+}
+.momento-voce__nome {
+  margin-top: .5rem;
+  font-family: var(--titoli); font-size: 1.2rem; font-weight: 500; line-height: 1.2;
+}
+.momento-voce__testo { margin-top: .5rem; font-size: .95rem; color: var(--tenue); }
+
+/* =================================================================
+   Chiusura
+   ================================================================= */
+.chiusura { margin-top: var(--s5); padding-block: var(--s5); background: var(--cabina); }
+.chiusura__titolo {
+  font-family: var(--titoli);
+  font-size: clamp(2rem, 5.5vw, 3.4rem);
+  font-weight: 400; line-height: 1.04; letter-spacing: -.022em;
+}
+.chiusura__frase { margin-top: var(--s2); max-width: 48ch; color: var(--tenue); }
+.chiusura .azioni { margin-top: var(--s4); }
+
+/* =================================================================
+   Pagine interne — intestazione
+   ================================================================= */
+.intestazione { padding-block: var(--s5) var(--s4); }
+.intestazione__titolo {
+  margin-top: .8rem;
+  font-family: var(--titoli);
+  font-size: clamp(2.1rem, 5.6vw, 3.6rem);
+  font-weight: 400; line-height: 1.04; letter-spacing: -.022em;
+}
+.intestazione__frase { margin-top: var(--s3); max-width: 56ch; color: var(--tenue); font-size: 1.075rem; }
+
+/* =================================================================
+   Il listino
+   ================================================================= */
+.listino { padding-block: 0 var(--s4); }
+.gruppo + .gruppo { margin-top: var(--s5); }
+.gruppo__nome {
+  font-family: var(--titoli); font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  font-weight: 500; letter-spacing: -.012em;
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--lume);
+}
+.gruppo__voci { margin-top: var(--s1); }
+.voce {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: baseline; gap: var(--s3);
+  padding: var(--s2) 0; border-bottom: 1px solid var(--riga);
+}
+.voce__nome { font-size: 1.05rem; }
+.voce__durata { font-size: .9rem; color: var(--tenue); white-space: nowrap; }
+.voce__prezzo {
+  font-family: var(--titoli); font-size: 1.25rem; font-weight: 500;
+  color: var(--lume); white-space: nowrap; min-width: 4ch; text-align: right;
+}
+
+/* =================================================================
+   Riquadri di nota
+   ================================================================= */
+.riquadri { padding-block: var(--s4) 0; }
+.riquadri__interno { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); }
+.riquadro { padding: var(--s3); background: var(--cabina); border: 1px solid var(--riga); }
+.riquadro__titolo {
+  font-family: var(--titoli); font-size: 1.2rem; font-weight: 500; letter-spacing: -.01em;
+}
+.riquadro__testo { margin-top: var(--s2); font-size: .95rem; color: var(--tenue); }
+.riquadro__testo b { color: var(--luce); font-weight: 600; }
+
+/* =================================================================
+   Le regole
+   ================================================================= */
+.regole { padding-block: var(--s5) 0; }
+.regole__elenco { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3); }
+.regola { border-top: 1px solid var(--lume); padding-top: var(--s2); }
+.regola__nome { font-family: var(--titoli); font-size: 1.3rem; font-weight: 500; letter-spacing: -.01em; }
+.regola__testo { margin-top: .6rem; color: var(--tenue); }
+.regola__testo b { color: var(--luce); font-weight: 600; }
+
+/* =================================================================
+   Gli orari
+   ================================================================= */
+.orari { padding-block: var(--s5) 0; }
+.orari__interno { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); align-items: start; }
+.orari__tabella { border-top: 1px solid var(--riga); }
+.orari__riga {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2);
+  padding: .7rem 0; border-bottom: 1px solid var(--riga);
+}
+.orari__riga dt { font-weight: 600; }
+.orari__riga dd { color: var(--tenue); }
+.orari__chiuso { color: var(--tenue); font-style: italic; }
+
+/* =================================================================
+   Come si lavora
+   ================================================================= */
+.principi { padding-block: 0 0; }
+.principi__elenco { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3); }
+.principio { padding: var(--s3); background: var(--cabina); border: 1px solid var(--riga); }
+.principio__nome {
+  font-family: var(--titoli); font-size: 1.35rem; font-weight: 500; letter-spacing: -.012em;
+}
+.principio__testo { margin-top: var(--s2); color: var(--tenue); }
+
+/* =================================================================
+   Utile / non serve
+   ================================================================= */
+.pratico { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); }
+.pratico__titolo {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--lume);
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--lume);
+}
+.pratico__elenco { margin-top: var(--s2); display: grid; gap: var(--s2); }
+.pratico__elenco li { position: relative; padding-left: 1.3rem; color: var(--tenue); }
+.pratico__elenco li::before {
+  content: ''; position: absolute; left: 0; top: .72rem;
+  width: .5rem; height: 1px; background: var(--lume);
+}
+
+/* =================================================================
+   Domande
+   ================================================================= */
+.domande { padding-block: var(--s5) 0; }
+.domande__elenco { border-top: 1px solid var(--riga); }
+.domanda { border-bottom: 1px solid var(--riga); }
+.domanda__testa {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2);
+  padding-block: var(--s2); cursor: pointer; list-style: none;
+  font-family: var(--titoli); font-size: 1.15rem; font-weight: 500;
+}
+.domanda__testa::-webkit-details-marker { display: none; }
+.domanda__testa::after {
+  content: ''; flex: none; width: .6rem; height: .6rem;
+  border-right: 1px solid var(--lume); border-bottom: 1px solid var(--lume);
+  transform: rotate(45deg) translateY(-.15rem); transition: transform .2s ease;
+}
+.domanda[open] .domanda__testa::after { transform: rotate(-135deg) translateY(-.15rem); }
+.domanda__testa:hover { color: var(--lume); }
+.domanda__corpo { padding-bottom: var(--s2); max-width: 70ch; }
+.domanda__corpo p { color: var(--tenue); }
+
+/* =================================================================
+   Piede
+   ================================================================= */
+.piede { background: var(--cabina-alta); padding-block: var(--s4) var(--s3); }
+.piede__interno { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: var(--s3); padding-bottom: var(--s3); }
+.piede__nome { display: block; font-family: var(--titoli); font-size: 1.35rem; font-weight: 500; }
+.piede__mestiere {
+  display: block; margin-top: .15rem;
+  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--tenue);
+}
+.piede__zona { margin-top: var(--s2); font-size: .95rem; color: var(--tenue); }
+.piede__titolo {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--lume);
+}
+.piede__colonna ul { margin-top: var(--s2); display: grid; gap: .5rem; }
+.piede__colonna a { font-size: .95rem; color: var(--tenue); border-bottom: 1px solid transparent; }
+.piede__colonna a:hover { color: var(--luce); border-bottom-color: var(--riga-forte); }
+.piede__riga {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: var(--s2); padding-top: var(--s3); border-top: 1px solid var(--riga);
+  font-size: .85rem; color: var(--tenue);
+}
+.piede__riga b { color: var(--luce); font-weight: 600; }
+.piede__riga a { color: var(--luce); border-bottom: 1px solid var(--riga-forte); padding-bottom: 1px; }
+
+/* =================================================================
+   Pannello dimostrativo
+   ================================================================= */
+.pannello {
+  width: min(34rem, calc(100vw - 2rem));
+  padding: var(--s4) var(--s3) var(--s3);
+  background: var(--cabina-alta); color: var(--luce);
+  border: 1px solid var(--riga-forte);
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .9);
+}
+.pannello::backdrop { background: rgba(20, 15, 13, .74); }
+.pannello__chiudi-forma { position: absolute; top: .75rem; right: .75rem; margin: 0; }
+.pannello__chiudi { padding: .5rem; font-size: 1.1rem; color: var(--tenue); line-height: 1; }
+.pannello__chiudi:hover { color: var(--luce); }
+.pannello__etichetta {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--lume);
+}
+.pannello__titolo {
+  margin-top: .5rem; font-family: var(--titoli);
+  font-size: 1.6rem; font-weight: 500; letter-spacing: -.015em;
+}
+.pannello__testo { margin-top: var(--s2); color: var(--tenue); }
+.pannello__messaggio {
+  margin-top: var(--s2); padding: var(--s2);
+  background: var(--notte); border-left: 2px solid var(--lume);
+  font-size: .95rem;
+}
+.pannello__coda { margin-top: var(--s3); padding-top: var(--s3); border-top: 1px solid var(--riga); }
+.pannello__invito { font-weight: 600; margin-bottom: var(--s2); }
+
+/* =================================================================
+   Schermi stretti
+   ================================================================= */
+@media (max-width: 62rem) {
+  .menu-tasto { display: block; }
+  .testata__azione { display: none; }
+  .testata__coda, .menu { margin-inline-start: auto; }
+  .menu {
+    position: absolute; inset-inline: 0; top: 100%;
+    background: var(--cabina); border-bottom: 1px solid var(--riga);
+    display: none; padding: var(--s1) var(--margine) var(--s3);
+  }
+  .menu[data-aperto] { display: block; }
+  .menu ul { flex-direction: column; align-items: stretch; gap: 0; }
+  .menu li + li { border-top: 1px solid var(--riga); }
+  .menu a { display: block; padding-block: .9rem; font-size: 1.05rem; border-bottom: 0; }
+
+  .fasce { grid-template-columns: 1fr; }
+  .momenti { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .riquadri__interno { grid-template-columns: 1fr; }
+  .compositore__interno { grid-template-columns: 1fr; }
+  .compositore__esito { position: static; }
+  .orari__interno { grid-template-columns: 1fr; gap: var(--s3); }
+  .piede__interno { grid-template-columns: 1fr 1fr; }
+  .piede__interno > :first-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 46rem) {
+  .gruppi__elenco { grid-template-columns: 1fr; }
+  .momenti { grid-template-columns: 1fr; }
+  .regole__elenco { grid-template-columns: 1fr; }
+  .principi__elenco { grid-template-columns: 1fr; }
+  .pratico { grid-template-columns: 1fr; gap: var(--s3); }
+  .piede__interno { grid-template-columns: 1fr; }
+  /* durata e prezzo scendono sotto il nome invece di stringerlo */
+  .voce { grid-template-columns: 1fr auto; gap: .3rem var(--s2); }
+  .voce__nome { grid-column: 1 / -1; }
+  .voce__durata { grid-column: 1; }
+  .voce__prezzo { grid-column: 2; }
+  .azioni .bottone { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* =================================================================
+   Le fotografie
+   ================================================================= */
+.apertura { position: relative; display: grid; padding-block: 0; }
+.apertura__foto { grid-area: 1 / 1; }
+.apertura__foto img { width: 100%; height: 100%; object-fit: cover; }
+.apertura__interno {
+  grid-area: 1 / 1; align-self: center; position: relative; z-index: 1;
+  padding-block: var(--s5);
+}
+/* velo scuro sul lato del testo: la fotografia è chiara e il testo
+   chiaro sopra non si leggerebbe */
+.apertura::after {
+  content: ''; grid-area: 1 / 1;
+  background: linear-gradient(90deg,
+    rgba(36, 29, 27, .96) 0%,
+    rgba(36, 29, 27, .93) 24%,
+    rgba(36, 29, 27, .82) 42%,
+    rgba(36, 29, 27, .55) 60%,
+    rgba(36, 29, 27, .22) 78%,
+    rgba(36, 29, 27, .06) 100%);
+}
+
+/* max-width: none è indispensabile: il reset limita picture al 100%
+   della scatola di contenuto, e i margini negativi venivano annullati */
+.tessera__foto {
+  margin: calc(var(--s3) * -1) calc(var(--s3) * -1) var(--s2);
+  max-width: none;
+}
+.tessera__foto img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* la fotografia dell'ambiente: a tutta larghezza, con il fondo che
+   la riprende sotto invece di lasciarla galleggiare */
+.ambiente { margin-block: 0 var(--s5); }
+.ambiente__foto img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.ambiente__didascalia {
+  max-width: var(--contenitore); margin-inline: auto;
+  padding: var(--s2) var(--margine) 0;
+  font-size: .875rem; color: var(--tenue);
+}

@@ -3,3 +3,4 @@ node_modules/
 # i siti costruiti: si rigenerano con  node <cartella>/costruisci.js
 imbianchino/sito/
 idraulico/sito/
+estetica/sito/

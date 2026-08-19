@@ -17,6 +17,7 @@
    ================================================================= */
 
 import { readFile, readdir, mkdir, writeFile, cp, rm } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -67,11 +68,34 @@ async function costruisci() {
     console.log(`  ✓ ${file}  ${(Buffer.byteLength(html) / 1024).toFixed(1)} kB`);
   }
 
-  for (const cartella of ['font']) {
-    await cp(path.join(QUI, cartella), path.join(FUORI, cartella), { recursive: true });
+  /* Copia le cartelle di risorse che esistono davvero: se un sito non
+     ha immagini non è un errore, se le ha devono finire nell'uscita. */
+  for (const cartella of ['immagini', 'font']) {
+    const da = path.join(QUI, cartella);
+    if (existsSync(da)) await cp(da, path.join(FUORI, cartella), { recursive: true });
   }
   for (const f of ['stile.css', 'sito.js']) {
     await cp(path.join(QUI, f), path.join(FUORI, f));
+  }
+
+  /* Ogni riferimento locale deve puntare a un file che esiste. Un 404
+     su un'immagine non si vede nei log del costruttore e in pagina
+     lascia solo un riquadro rotto: meglio fermarsi qui. */
+  const mancanti = new Set();
+  for (const file of pagine) {
+    const html = await readFile(path.join(FUORI, file), 'utf8');
+    for (const m of html.matchAll(/(?:src|href)="([^"#:]+\.[a-z0-9]{2,5})"/g)) {
+      if (!existsSync(path.join(FUORI, m[1]))) mancanti.add(`${file} → ${m[1]}`);
+    }
+    for (const m of html.matchAll(/srcset="([^"]+)"/g)) {
+      for (const voce of m[1].split(',')) {
+        const rel = voce.trim().split(/\s+/)[0];
+        if (rel && !existsSync(path.join(FUORI, rel))) mancanti.add(`${file} → ${rel}`);
+      }
+    }
+  }
+  if (mancanti.size) {
+    throw new Error('riferimenti a file che non esistono:\n     ' + [...mancanti].join('\n     '));
   }
   console.log(`\n  ${pagine.length} pagine in idraulico/sito/`);
 }

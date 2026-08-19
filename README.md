@@ -10,14 +10,19 @@ propri contenuti, propri file. Nessun modello riciclato fra un settore e l'altro
 |---|---|---|
 | `imbianchino/` | Tinteggiature e decorazioni | Sito Professionale |
 | `idraulico/` | Idraulica e riscaldamento | Sito Essenziale |
-| *(da fare)* | Centro estetico | Lancio in Vista |
+| `estetica/` | Estetica e benessere | Lancio in Vista |
 
-I due siti fatti non si somigliano di proposito. L'imbianchino si vende
-con le fotografie: carta color calce, carattere Archivo, campionario di
-finiture, cursori prima/dopo. L'idraulico no — chi lo cerca ha una
-perdita in corso — e allora niente fotografie: testata scura, carattere
-IBM Plex, cifre monospaziate, disegni tecnici, e due strade fin dalla
-prima schermata.
+I tre siti non si somigliano di proposito, e la differenza parte da come
+si vende quel mestiere.
+
+- **Imbianchino** — si vende con le fotografie: carta color calce,
+  carattere Archivo, campionario di finiture, cursori prima/dopo.
+- **Idraulico** — chi lo cerca ha una perdita in corso, non guarda le
+  immagini: niente fotografie, testata scura, IBM Plex, cifre
+  monospaziate, disegni tecnici, e due strade fin dalla prima schermata.
+- **Centro estetico** — si vende a tempo e si svolge in penombra: fondo
+  scuro caldo, Fraunces, fotografie d'ambiente, e il tempo scritto
+  accanto a ogni voce.
 
 ---
 
@@ -39,7 +44,13 @@ Ogni cartella ha il proprio assemblatore e si costruisce da sola:
 ```bash
 node imbianchino/costruisci.js     # → imbianchino/sito/
 node idraulico/costruisci.js       # → idraulico/sito/
+node estetica/costruisci.js        # → estetica/sito/
 ```
+
+Il costruttore, alla fine, verifica che ogni riferimento locale delle
+pagine — `src`, `href`, ogni voce di ogni `srcset` — punti a un file che
+esiste davvero, e si ferma se ne manca uno. Un'immagine che dà 404 non
+si vede nei log e in pagina lascia solo un riquadro rotto.
 
 Le cartelle `sito/` sono **generate**: non si modificano a mano e non
 stanno nel repository. Poi si serve la radice:
@@ -48,6 +59,7 @@ stanno nel repository. Poi si serve la radice:
 python3 -m http.server 4180
 # → http://localhost:4180/imbianchino/sito/
 # → http://localhost:4180/idraulico/sito/
+# → http://localhost:4180/estetica/sito/
 ```
 
 ---
@@ -152,6 +164,55 @@ quindi non può disallinearsi.
 `idraulico/sito.js` decide se l'attività è aperta confrontando l'ora
 di **Europe/Rome** — non quella del dispositivo di chi guarda — con
 `APRE` e `CHIUDE`.
+
+---
+
+## Il sito del centro estetico
+
+Quattro pagine: home, trattamenti, prenota, il centro.
+
+```bash
+node estetica/strumenti/immagini.js   # dalle foto master genera AVIF e WebP
+node estetica/costruisci.js
+```
+
+### Dove si modifica cosa
+
+| Percorso | Contenuto |
+|---|---|
+| `estetica/pagine/` | le quattro pagine |
+| `estetica/parti/` | testata, piede, compositore della richiesta |
+| `estetica/stile.css` | tutto il foglio di stile |
+| `estetica/sito.js` | listino, compositore, menu, pannello |
+| `estetica/master/` | le sei fotografie originali |
+
+### Il listino
+
+Sta in cima a `estetica/sito.js`, con durata in minuti e prezzo in euro.
+Da lì nascono **sia** il compositore della richiesta **sia** il listino
+della pagina Trattamenti, che così non possono disallinearsi — c'è un
+controllo che verifica che mostrino le stesse voci.
+
+```js
+var LISTINO = [
+  { id: 'viso', gruppo: 'Viso', voci: [
+    ['Pulizia del viso', 60, 55],
+    // …
+  ]},
+];
+var SEDUTA_LUNGA = 150;   // oltre, si consiglia di dividere in due volte
+```
+
+L'identificatore del gruppo sta nei dati e non si ricava dal nome: così
+un link non può puntare a un'ancora che non esiste.
+
+### Le fotografie
+
+Sono chiare e ariose, il sito è scuro. Non vengono scurite con un filtro
+— si rovinerebbe ciò che le rende belle. Nell'apertura è un velo sfumato
+sul lato del testo a portarle dentro la pagina; nelle schede la luce
+delle nature morte contro il fondo scuro le fa sembrare oggetti
+illuminati in una stanza buia.
 
 ---
 

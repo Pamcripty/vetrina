@@ -1,0 +1,179 @@
+<!--@ titolo: Il centro — L'Ora Buona -->
+<!--@ descrizione: Chi ci lavora, com'è fatto il posto, che cosa succede la prima volta e le domande che ci fanno più spesso. Progetto dimostrativo di Sito in Vista. -->
+<!--@ qui-centro: aria-current="page" -->
+<!doctype html>
+<html lang="it">
+<head>
+<!--@parte testa-->
+</head>
+<body>
+
+<a class="salta" href="#contenuto">Salta al contenuto</a>
+
+<!--@parte avviso-->
+<!--@parte testata-->
+
+<main id="contenuto">
+
+  <section class="intestazione">
+    <div class="contenitore">
+      <p class="etichetta">Il centro</p>
+      <h1 class="intestazione__titolo">Due cabine,<br>una porta che si chiude.</h1>
+      <p class="intestazione__frase">
+        Un centro piccolo, dove non c'è un banco con la fila e non si urla
+        da una stanza all'altra. Chi entra trova la persona che ha
+        prenotato, non un turno.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= l'ambiente ======================== -->
+  <section class="ambiente">
+    <picture class="ambiente__foto">
+      <source type="image/avif"
+              srcset="immagini/il-centro-900.avif 900w, immagini/il-centro-1200.avif 1200w, immagini/il-centro-1800.avif 1800w, immagini/il-centro-2400.avif 2400w" sizes="100vw">
+      <img src="immagini/il-centro-1200.webp"
+           srcset="immagini/il-centro-900.webp 900w, immagini/il-centro-1200.webp 1200w, immagini/il-centro-1800.webp 1800w, immagini/il-centro-2400.webp 2400w" sizes="100vw"
+           width="2400" height="1350" loading="lazy" decoding="async"
+           alt="L'ingresso visto dall'interno: una tenda di lino socchiusa separa la zona d'attesa dalle cabine, con una poltroncina e un tavolino basso.">
+    </picture>
+    <p class="ambiente__didascalia">
+      L'ingresso, con la tenda che separa l'attesa dalle cabine.
+    </p>
+  </section>
+
+  <!-- ====================== come si lavora ===================== -->
+  <section class="principi">
+    <div class="contenitore">
+      <div class="principi__elenco">
+        <article class="principio">
+          <h2 class="principio__nome">Un appuntamento per volta</h2>
+          <p class="principio__testo">
+            Non ci sono due clienti sovrapposte nella stessa cabina. Se il
+            tuo trattamento dura un'ora, quell'ora è tua: non ci alziamo a
+            metà per andare a rispondere al telefono.
+          </p>
+        </article>
+        <article class="principio">
+          <h2 class="principio__nome">Ti diciamo anche di no</h2>
+          <p class="principio__testo">
+            Se una cosa che chiedi non ha senso adesso — la pelle è
+            irritata, la stagione è sbagliata, il risultato non sarebbe
+            quello che speri — lo diciamo e proponiamo altro. Vendere una
+            seduta inutile è il modo più veloce per non rivederti.
+          </p>
+        </article>
+        <article class="principio">
+          <h2 class="principio__nome">Niente vendite in cabina</h2>
+          <p class="principio__testo">
+            Sul lettino non si vendono prodotti. Se qualcosa serve davvero
+            lo diciamo alla fine, alla cassa, e puoi comprarlo dove vuoi:
+            ti scriviamo cosa cercare.
+          </p>
+        </article>
+        <article class="principio">
+          <h2 class="principio__nome">Igiene visibile</h2>
+          <p class="principio__testo">
+            Spatole della cera monouso, strumenti sterilizzati in autoclave
+            dopo ogni cliente, teli monouso. Se vuoi vedere l'autoclave,
+            te la mostriamo: sta lì, non è un segreto.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= la prima volta ==================== -->
+  <section class="prima-volta" id="prima-volta">
+    <div class="contenitore">
+      <div class="sezione__testa">
+        <p class="etichetta">La prima volta</p>
+        <h2 class="sezione__titolo">Che cosa portare,<br>e cosa non serve.</h2>
+      </div>
+
+      <div class="pratico">
+        <div class="pratico__colonna">
+          <p class="pratico__titolo">Utile</p>
+          <ul class="pratico__elenco">
+            <li>Il nome dei prodotti che usi a casa, o una foto delle confezioni.</li>
+            <li>Se prendi farmaci che cambiano la pelle — per esempio per l'acne — dircelo cambia quello che possiamo fare.</li>
+            <li>Per l'epilazione, peli lunghi almeno mezzo centimetro: più corti, la cera non li prende.</li>
+            <li>Per manicure e pedicure, arriva senza smalto se puoi. Se non fai in tempo lo togliamo noi.</li>
+          </ul>
+        </div>
+        <div class="pratico__colonna">
+          <p class="pratico__titolo">Non serve</p>
+          <ul class="pratico__elenco">
+            <li>Truccarti prima di un trattamento viso: lo togliamo comunque.</li>
+            <li>Arrivare mezz'ora prima. Dieci minuti bastano e avanzano.</li>
+            <li>Prepararti discorsi. Se non hai voglia di parlare, non parliamo.</li>
+            <li>Scusarti per come sono le unghie o la pelle. Le vediamo tutti i giorni, in tutte le condizioni.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= domande ========================= -->
+  <section class="domande" id="domande">
+    <div class="contenitore">
+      <div class="sezione__testa">
+        <p class="etichetta">Domande</p>
+        <h2 class="sezione__titolo">Quelle vere.</h2>
+      </div>
+
+      <div class="domande__elenco">
+        <details class="domanda">
+          <summary class="domanda__testa"><span>Fa male l'epilazione con la cera?</span></summary>
+          <div class="domanda__corpo"><p>Un po' sì, soprattutto le prime volte e in certe zone. Chi dice il contrario mente. Diventa più sopportabile con il tempo, perché il pelo si indebolisce. Se hai la pelle molto sensibile usiamo la cera tiepida, che tira meno.</p></div>
+        </details>
+        <details class="domanda">
+          <summary class="domanda__testa"><span>Posso venire se sono incinta?</span></summary>
+          <div class="domanda__corpo"><p>Per molte cose sì — manicure, pedicure, viso, epilazione. Per altre no: certi massaggi e alcuni trattamenti drenanti si evitano, soprattutto nei primi mesi. Dicci a che punto sei e scegliamo insieme. Se hai avuto complicazioni, chiedi prima al tuo medico.</p></div>
+        </details>
+        <details class="domanda">
+          <summary class="domanda__testa"><span>Quanto dura un semipermanente?</span></summary>
+          <div class="domanda__corpo"><p>Fra le due e le tre settimane, poi si vede la ricrescita. Dipende molto da cosa fai con le mani: chi lavora con acqua e detergenti sta più vicino alle due settimane. Non è un difetto del prodotto, è come cresce l'unghia.</p></div>
+        </details>
+        <details class="domanda">
+          <summary class="domanda__testa"><span>Dopo la pulizia del viso si vede subito?</span></summary>
+          <div class="domanda__corpo"><p>Nell'immediato la pelle può restare arrossata per qualche ora, ed è normale. Il risultato vero si vede il giorno dopo. Per questo non conviene farla la mattina stessa di un matrimonio: meglio tre o quattro giorni prima.</p></div>
+        </details>
+        <details class="domanda">
+          <summary class="domanda__testa"><span>Fate trattamenti agli uomini?</span></summary>
+          <div class="domanda__corpo"><p>Sì, e non è una concessione: schiena, pulizia del viso, manicure e pedicure sono richiesti quanto il resto. Se è la prima volta e la cosa ti mette a disagio, chiedi un orario di quelli tranquilli e ti diciamo quali sono.</p></div>
+        </details>
+        <details class="domanda">
+          <summary class="domanda__testa"><span>Si può venire con i bambini?</span></summary>
+          <div class="domanda__corpo"><p>Sì, ma diciamolo prima: se sappiamo che arrivi con un bambino piccolo teniamo la cabina più grande e non mettiamo un altro appuntamento subito dopo, così non c'è fretta.</p></div>
+        </details>
+        <details class="domanda">
+          <summary class="domanda__testa"><span>Vendete i prodotti che usate?</span></summary>
+          <div class="domanda__corpo"><p>Alcuni sì, ma non li proponiamo durante il trattamento. Se ti serve qualcosa te lo diciamo alla fine e ti scriviamo cosa cercare: puoi comprarlo da noi o altrove, per noi cambia poco.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="chiusura">
+    <div class="contenitore chiusura__interno">
+      <h2 class="chiusura__titolo">Vieni a vedere.</h2>
+      <p class="chiusura__frase">
+        Anche solo per conoscere il posto: si può passare, guardare le
+        cabine e decidere dopo. Non si compra niente entrando.
+      </p>
+      <div class="azioni">
+        <a class="bottone bottone--lume bottone--grande" href="prenota.html">Prenota un'ora</a>
+        <a class="bottone bottone--contorno bottone--grande" href="trattamenti.html">Guarda il listino</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!--@parte pannello-->
+<!--@parte piede-->
+<!--@parte coda-->
+
+</body>
+</html>

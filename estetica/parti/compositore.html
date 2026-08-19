@@ -1,0 +1,70 @@
+<!-- ============ comporre la richiesta di appuntamento ==========
+     Il rimpallo di messaggi — «quanto dura?», «quanto viene?»,
+     «che giorni hai?» — è ciò che fa perdere più tempo a un centro.
+     Qui il cliente lo risolve da solo e arriva con tutto scritto. -->
+<section class="compositore" id="prenota" aria-labelledby="compositore-titolo">
+  <div class="contenitore">
+    <div class="sezione__testa">
+      <p class="etichetta">Prenota</p>
+      <h2 class="sezione__titolo" id="compositore-titolo">Scegli, e sai già<br>quanto tempo ti serve.</h2>
+      <p class="sezione__frase">
+        Segna cosa vorresti fare: vedi subito quanto dura e quanto viene,
+        prima di scrivere. Poi il messaggio è già pronto.
+      </p>
+    </div>
+
+    <div class="compositore__interno">
+      <form class="compositore__forma" data-compositore>
+        <div class="scelte" data-trattamenti></div>
+
+        <fieldset class="momento">
+          <legend class="momento__domanda">Quando ti verrebbe comodo?</legend>
+          <div class="momento__scelte">
+            <label class="pastiglia"><input type="radio" name="momento" value="mattina"><span>Mattina</span></label>
+            <label class="pastiglia"><input type="radio" name="momento" value="pomeriggio"><span>Pomeriggio</span></label>
+            <label class="pastiglia"><input type="radio" name="momento" value="tardo pomeriggio"><span>Dopo le 17</span></label>
+            <label class="pastiglia"><input type="radio" name="momento" value="sabato"><span>Sabato</span></label>
+            <label class="pastiglia"><input type="radio" name="momento" value="quando c'è posto" checked><span>Quando c'è posto</span></label>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="compositore__esito" data-esito aria-live="polite">
+        <p class="esito__etichetta">La tua ora</p>
+        <p class="esito__vuoto" data-vuoto>Segna qualcosa qui accanto e comincio a contare.</p>
+
+        <ul class="esito__elenco" data-elenco hidden></ul>
+
+        <dl class="esito__totali" data-totali hidden>
+          <div>
+            <dt>Tempo in cabina</dt>
+            <dd data-tempo>—</dd>
+          </div>
+          <div>
+            <dt>Circa</dt>
+            <dd data-prezzo>—</dd>
+          </div>
+        </dl>
+
+        <p class="esito__avviso" data-avviso hidden></p>
+
+        <button class="bottone bottone--lume bottone--pieno-largo" type="button" data-invia disabled>
+          Manda la richiesta
+        </button>
+
+        <p class="esito__nota">
+          Il tempo è quello che passi in cabina. I prezzi sono quelli di
+          listino: se ci sono da valutare cose particolari te lo diciamo
+          prima di iniziare, non dopo.
+        </p>
+      </aside>
+    </div>
+
+    <div class="compositore__ripiego">
+      <p class="nota-piccola">
+        Trovi durate e prezzi di ogni trattamento nel
+        <a class="collegamento" href="trattamenti.html">listino completo</a>.
+      </p>
+    </div>
+  </div>
+</section>

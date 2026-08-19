@@ -1,0 +1,32 @@
+<!-- ========================= testata ========================== -->
+<header class="testata" data-testata>
+  <div class="testata__interno contenitore">
+    <a class="marchio" href="index.html">
+      <span class="marchio__segno" aria-hidden="true">
+        <svg viewBox="0 0 32 32" focusable="false">
+          <circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M16 7 v9 h6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+        </svg>
+      </span>
+      <span class="marchio__testo">
+        <span class="marchio__nome">L'Ora Buona</span>
+        <span class="marchio__mestiere">Estetica e benessere · Cerea</span>
+      </span>
+    </a>
+
+    <nav class="menu" id="menu" aria-label="Navigazione principale">
+      <ul>
+        <li><a href="trattamenti.html" {{qui-trattamenti}}>Trattamenti</a></li>
+        <li><a href="il-centro.html" {{qui-centro}}>Il centro</a></li>
+        <li><a href="prenota.html#regole" {{qui-regole}}>Come funziona</a></li>
+      </ul>
+    </nav>
+
+    <a class="bottone bottone--lume testata__azione" href="prenota.html">Prenota</a>
+
+    <button class="menu-tasto" type="button" aria-expanded="false" aria-controls="menu" data-menu>
+      <span class="menu-tasto__barre" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="via-schermo">Apri il menu</span>
+    </button>
+  </div>
+</header>
