@@ -216,6 +216,37 @@ illuminati in una stanza buia.
 
 ---
 
+## Le anteprime del portfolio
+
+`portfolio/master/` contiene le dieci immagini che il portfolio di Sito
+in Vista usa per mostrare i progetti. Sono **tutte 1600×720**: solo così,
+messe in fila, sembrano una serie invece di schermate raccattate.
+
+```bash
+# servono i tre siti costruiti e serviti sulla porta 4180
+node portfolio/strumenti/anteprime.mjs
+```
+
+Lo strumento fa due cose diverse:
+
+- **I tre dimostrativi li fotografa da solo.** Cambia il sito, si
+  rigenera l'anteprima. Per A Piombo non fotografa l'apertura ma la
+  sezione dei prezzi: l'apertura è tipografica e in miniatura
+  sembrerebbe una pagina vuota.
+- **I due siti reali sono online e da qui non sono raggiungibili** — la
+  rete dell'ambiente blocca i domini esterni. I loro screenshot vanno
+  messi a mano in `portfolio/grezzi/` e lo strumento li porta alla
+  stessa misura, ritagliando dal basso: si perde qualche pixel in fondo,
+  mai la parte alta della pagina.
+
+| Progetto | Stato |
+|---|---|
+| FammiUnKilo | online, screenshot consegnati a mano |
+| ZumBox | online, screenshot consegnati a mano |
+| Mano di Fondo · A Piombo · L'Ora Buona | dimostrativi, fotografati dallo strumento |
+
+---
+
 ## Controlli
 
 Gli strumenti di verifica usano Playwright. Servono in sviluppo, non per
