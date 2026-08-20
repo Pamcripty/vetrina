@@ -1,5 +1,5 @@
-<!--@ titolo: Mano di Fondo — Tinteggiature e decorazioni a Legnago e Bassa Veronese -->
-<!--@ descrizione: Tinteggiature interne, finiture decorative, facciate. Preventivo scritto dopo il sopralluogo. Progetto dimostrativo realizzato da Sito in Vista. -->
+<!--@ titolo: {{nome}} — {{mestiere}} a {{citta}} e {{zona}} -->
+<!--@ descrizione: Tinteggiature interne, finiture decorative, facciate. Preventivo scritto dopo il sopralluogo. Progetto dimostrativo realizzato da {{autore-nome}}. -->
 <!doctype html>
 <html lang="it">
 <head>
@@ -34,17 +34,29 @@
 
     <div class="apertura__testo">
       <div class="contenitore">
-        <p class="soprattitolo">Legnago, Bassa Veronese e comuni limitrofi</p>
+        <p class="soprattitolo">{{zona-estesa}}</p>
         <h1 class="apertura__titolo">Casa tua,<br>finita come si deve.</h1>
         <p class="apertura__frase">
           Tinteggiature interne, facciate e finiture decorative. Mobili protetti,
           tempi concordati e comunicazione chiara durante i lavori.
         </p>
         <div class="azioni">
-          <a class="bottone bottone--pieno" href="lavori.html">Guarda i lavori</a>
-          <a class="bottone bottone--contorno" href="#preventivo">Quanto viene, più o meno</a>
+          <a class="bottone bottone--pieno" href="#preventivo">Chiedi una stima gratuita</a>
+          <a class="bottone bottone--contorno" href="lavori.html">Guarda i prima e dopo</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- =================== quattro promesse concrete ============= -->
+  <section class="promesse" aria-label="Che cosa puoi aspettarti">
+    <div class="contenitore">
+      <ul class="promesse__elenco">
+        <li class="promessa"><span class="promessa__segno" aria-hidden="true">01</span><span>Sopralluogo gratuito<small>Senza impegno</small></span></li>
+        <li class="promessa"><span class="promessa__segno" aria-hidden="true">02</span><span>Preventivo scritto<small>Voci chiare, prima</small></span></li>
+        <li class="promessa"><span class="promessa__segno" aria-hidden="true">03</span><span>Casa protetta<small>Copriamo e puliamo</small></span></li>
+        <li class="promessa"><span class="promessa__segno" aria-hidden="true">04</span><span>{{zona}}<small>Vicini, se serve</small></span></li>
+      </ul>
     </div>
   </section>
 
@@ -60,7 +72,7 @@
     </div>
     <div class="campionario__pista">
     <ul class="campionario__lista">
-      <li><div class="campione">
+      <li><a class="campione" href="servizi.html#decorative">
         <picture>
           <source type="image/avif" srcset="immagini/finitura-01-spatolato-320.avif 320w, immagini/finitura-01-spatolato-520.avif 520w, immagini/finitura-01-spatolato-800.avif 800w" sizes="(min-width: 62.0625rem) 210px, 38vw">
           <img class="campione__superficie" src="immagini/finitura-01-spatolato-520.webp"
@@ -68,9 +80,9 @@
                width="1600" height="1600" loading="lazy" decoding="async"
                alt="Campione di spatolato veneziano bianco perla: superficie lucida percorsa da larghe velature di cazzuola.">
         </picture>
-        <span class="campione__targa"><b>01</b>Spatolato veneziano</span>
-      </div></li>
-      <li><div class="campione">
+        <span class="campione__targa"><b>01</b>Spatolato veneziano<span class="campione__nota">Liscio, lucido, profondo.</span></span>
+      </a></li>
+      <li><a class="campione" href="servizi.html#decorative">
         <picture>
           <source type="image/avif" srcset="immagini/finitura-02-velatura-320.avif 320w, immagini/finitura-02-velatura-520.avif 520w, immagini/finitura-02-velatura-800.avif 800w" sizes="(min-width: 62.0625rem) 210px, 38vw">
           <img class="campione__superficie" src="immagini/finitura-02-velatura-520.webp"
@@ -78,9 +90,9 @@
                width="1600" height="1600" loading="lazy" decoding="async"
                alt="Campione di velatura verde salvia: due toni sfumati uno nell'altro, con riflessi morbidi.">
         </picture>
-        <span class="campione__targa"><b>02</b>Velatura</span>
-      </div></li>
-      <li><div class="campione">
+        <span class="campione__targa"><b>02</b>Velatura<span class="campione__nota">Sfumature morbide a mano.</span></span>
+      </a></li>
+      <li><a class="campione" href="servizi.html#decorative">
         <picture>
           <source type="image/avif" srcset="immagini/finitura-03-stucco-320.avif 320w, immagini/finitura-03-stucco-520.avif 520w, immagini/finitura-03-stucco-800.avif 800w" sizes="(min-width: 62.0625rem) 210px, 38vw">
           <img class="campione__superficie" src="immagini/finitura-03-stucco-520.webp"
@@ -88,9 +100,9 @@
                width="1600" height="1600" loading="lazy" decoding="async"
                alt="Campione di stucco lucido terracotta: fondo compatto e lucente, con le tracce della spatola in luce radente.">
         </picture>
-        <span class="campione__targa"><b>03</b>Stucco lucido</span>
-      </div></li>
-      <li><div class="campione">
+        <span class="campione__targa"><b>03</b>Stucco lucido<span class="campione__nota">Compatto e luminoso.</span></span>
+      </a></li>
+      <li><a class="campione" href="servizi.html#decorative">
         <picture>
           <source type="image/avif" srcset="immagini/finitura-04-sabbiato-320.avif 320w, immagini/finitura-04-sabbiato-520.avif 520w, immagini/finitura-04-sabbiato-800.avif 800w" sizes="(min-width: 62.0625rem) 210px, 38vw">
           <img class="campione__superficie" src="immagini/finitura-04-sabbiato-520.webp"
@@ -98,9 +110,9 @@
                width="1600" height="1600" loading="lazy" decoding="async"
                alt="Campione di effetto sabbiato ocra: superficie opaca e granulosa, dall'aspetto vellutato.">
         </picture>
-        <span class="campione__targa"><b>04</b>Effetto sabbiato</span>
-      </div></li>
-      <li><div class="campione">
+        <span class="campione__targa"><b>04</b>Effetto sabbiato<span class="campione__nota">Materico e vellutato.</span></span>
+      </a></li>
+      <li><a class="campione" href="servizi.html#decorative">
         <picture>
           <source type="image/avif" srcset="immagini/finitura-05-cemento-320.avif 320w, immagini/finitura-05-cemento-520.avif 520w, immagini/finitura-05-cemento-800.avif 800w" sizes="(min-width: 62.0625rem) 210px, 38vw">
           <img class="campione__superficie" src="immagini/finitura-05-cemento-520.webp"
@@ -108,8 +120,8 @@
                width="1600" height="1600" loading="lazy" decoding="async"
                alt="Campione di effetto cemento grigio perla: superficie liscia e nuvolata, dai toni freddi.">
         </picture>
-        <span class="campione__targa"><b>05</b>Effetto cemento</span>
-      </div></li>
+        <span class="campione__targa"><b>05</b>Effetto cemento<span class="campione__nota">Opaco, urbano, essenziale.</span></span>
+      </a></li>
     </ul>
     </div>
     <div class="contenitore">
@@ -218,18 +230,14 @@
     <div class="contenitore zona__interno">
       <div>
         <p class="etichetta">Dove lavoriamo</p>
-        <h2 class="sezione__titolo" id="zona-titolo">Bassa Veronese.</h2>
+        <h2 class="sezione__titolo" id="zona-titolo">{{zona}}.</h2>
         <p class="sezione__frase">
           Lavoriamo dove riusciamo ad arrivare in mattinata e a tornare se serve
           un ritocco. Se il tuo comune non è in elenco, chiedi lo stesso: dipende
           da quanto è grande il lavoro.
         </p>
       </div>
-      <ul class="zona__elenco">
-        <li>Legnago</li><li>Cerea</li><li>Bovolone</li><li>Nogara</li>
-        <li>Sanguinetto</li><li>Casaleone</li><li>Minerbe</li><li>Villa Bartolomea</li>
-        <li>Roverchiara</li><li>Isola della Scala</li><li>Oppeano</li><li>Angiari</li>
-      </ul>
+      <ul class="zona__elenco">{{comuni-html}}</ul>
     </div>
   </section>
 

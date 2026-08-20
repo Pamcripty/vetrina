@@ -1,0 +1,45 @@
+{
+  "nome": "Mano di Fondo",
+  "mestiere": "Tinteggiature e decorazioni",
+  "citta": "Legnago",
+  "zona": "Bassa Veronese",
+  "zonaEstesa": "Legnago, Bassa Veronese e comuni limitrofi",
+  "comuni": [
+    "Legnago",
+    "Cerea",
+    "Bovolone",
+    "Nogara",
+    "Sanguinetto",
+    "Casaleone",
+    "Minerbe",
+    "Villa Bartolomea",
+    "Roverchiara",
+    "Isola della Scala",
+    "Oppeano",
+    "Angiari"
+  ],
+  "url": "https://pamcripty.github.io/vetrina/imbianchino/",
+  "autoreNome": "Sito in Vista",
+  "autoreUrl": "https://pamcripty.github.io/sito-in-vista/",
+  "immagineSocial": "immagini/hero-soggiorno-1200.jpg",
+  "demo": true,
+  "contatti": {
+    "telefono": "",
+    "whatsapp": "",
+    "email": ""
+  },
+  "prezzi": {
+    "liscia": [7, 11],
+    "decorativa": [28, 48],
+    "facciata": [18, 30],
+    "minimo": 250
+  },
+  "colori": {
+    "calce": "#F4F1EA",
+    "gesso": "#FFFFFF",
+    "grafite": "#23211E",
+    "fumo": "#6E6A63",
+    "terra": "#B4553A",
+    "terraTesto": "#AF5238"
+  }
+}

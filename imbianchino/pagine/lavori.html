@@ -1,5 +1,5 @@
-<!--@ titolo: Lavori — Mano di Fondo -->
-<!--@ descrizione: Prima e dopo di tinteggiature e finiture decorative nella Bassa Veronese. Stessa inquadratura, nessun ritocco. Progetto dimostrativo di Sito in Vista. -->
+<!--@ titolo: Lavori — {{nome}} -->
+<!--@ descrizione: Prima e dopo di tinteggiature, facciate e finiture decorative nella {{zona}}. Stessa inquadratura, nessun ritocco. Progetto dimostrativo di {{autore-nome}}. -->
 <!--@ qui-lavori: aria-current="page" -->
 <!doctype html>
 <html lang="it">
@@ -19,7 +19,7 @@
   <section class="intestazione">
     <div class="contenitore">
       <p class="etichetta">Lavori</p>
-      <h1 class="intestazione__titolo">Le stesse stanze,<br>la stessa inquadratura.</h1>
+      <h1 class="intestazione__titolo">Le stesse case,<br>la stessa inquadratura.</h1>
       <p class="intestazione__frase">
         Le fotografie prima e dopo sono scattate dallo stesso punto, con la stessa
         luce. Nessun ritocco all'inquadratura: cambia soltanto ciò che abbiamo
@@ -59,6 +59,7 @@
         <div class="caso__testo">
           <h2 class="caso__titolo">Soggiorno, appartamento anni Settanta</h2>
           <p class="caso__sommario">Tinteggiatura completa e parete d'accento in terracotta</p>
+          <ul class="caso__dati" aria-label="Dati principali del lavoro"><li>3 giorni</li><li>72 m²</li><li>{{citta}}</li></ul>
         <dl class="scheda">
           <div class="scheda__voce">
             <dt class="scheda__voce-nome">Il punto di partenza</dt>
@@ -107,6 +108,7 @@
         <div class="caso__testo">
           <h2 class="caso__titolo">Camera da letto</h2>
           <p class="caso__sommario">Tinteggiatura e parete della testiera in blu polvere</p>
+          <ul class="caso__dati" aria-label="Dati principali del lavoro"><li>2 giorni</li><li>45 m²</li><li>Cerea</li></ul>
         <dl class="scheda">
           <div class="scheda__voce">
             <dt class="scheda__voce-nome">Il punto di partenza</dt>
@@ -125,6 +127,104 @@
             <dd class="scheda__voce-testo">Il colore scuro sta solo dietro la testiera: su tutte e quattro le pareti avrebbe fatto sembrare la camera più piccola di quello che è.</dd>
           </div>
         </dl>
+        </div>
+      </article>
+
+      <article class="caso">
+        <figure class="lavoro">
+          <div class="confronto" data-confronto style="--pos:50%">
+            <picture>
+              <source type="image/avif" srcset="immagini/pd-03-dopo-600.avif 600w, immagini/pd-03-dopo-900.avif 900w, immagini/pd-03-dopo-1200.avif 1200w" sizes="(min-width: 75rem) 1200px, 100vw">
+              <source type="image/webp" srcset="immagini/pd-03-dopo-600.webp 600w, immagini/pd-03-dopo-900.webp 900w, immagini/pd-03-dopo-1200.webp 1200w" sizes="(min-width: 75rem) 1200px, 100vw">
+              <img class="confronto__foto" src="immagini/pd-03-dopo-1200.jpg" width="1536" height="1024" loading="lazy" decoding="async"
+                   alt="La stessa casa dopo l'intervento: facciata color avorio uniforme e persiane verde salvia.">
+            </picture>
+            <div class="confronto__prima">
+              <picture>
+                <source type="image/avif" srcset="immagini/pd-03-prima-600.avif 600w, immagini/pd-03-prima-900.avif 900w, immagini/pd-03-prima-1200.avif 1200w" sizes="(min-width: 75rem) 1200px, 100vw">
+                <source type="image/webp" srcset="immagini/pd-03-prima-600.webp 600w, immagini/pd-03-prima-900.webp 900w, immagini/pd-03-prima-1200.webp 1200w" sizes="(min-width: 75rem) 1200px, 100vw">
+                <img class="confronto__foto" src="immagini/pd-03-prima-1200.jpg" width="1536" height="1024" loading="lazy" decoding="async"
+                     alt="Casa di campagna prima dell'intervento: facciata scolorita, segni di umidità e intonaco stanco.">
+              </picture>
+            </div>
+            <span class="confronto__linea" aria-hidden="true"><i></i></span>
+            <span class="confronto__targhetta confronto__targhetta--sinistra" aria-hidden="true">Prima</span>
+            <span class="confronto__targhetta confronto__targhetta--destra" aria-hidden="true">Dopo</span>
+            <input class="confronto__cursore" type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Confronto prima e dopo della facciata: trascina per rivelare">
+          </div>
+        </figure>
+        <div class="caso__testo">
+          <h2 class="caso__titolo">Facciata, casa di campagna</h2>
+          <p class="caso__sommario">Riprese dell'intonaco e tinteggiatura esterna color avorio</p>
+          <ul class="caso__dati" aria-label="Dati principali del lavoro"><li>6 giorni</li><li>165 m²</li><li>{{zona}}</li></ul>
+          <dl class="scheda">
+            <div class="scheda__voce">
+              <dt class="scheda__voce-nome">Il punto di partenza</dt>
+              <dd class="scheda__voce-testo">Vecchia pittura scolorita, aloni sotto il tetto e intonaco sfarinato nella fascia più vicina al cortile.</dd>
+            </div>
+            <div class="scheda__voce">
+              <dt class="scheda__voce-nome">Che cosa abbiamo fatto</dt>
+              <dd class="scheda__voce-testo">Lavaggio, riprese localizzate, fondo consolidante e due mani di finitura minerale color avorio, compatibile con la parete.</dd>
+            </div>
+            <div class="scheda__voce">
+              <dt class="scheda__voce-nome">Quanto è durato</dt>
+              <dd class="scheda__voce-testo">Sei giornate di bel tempo, rispettando l'asciugatura fra il fondo e le mani successive.</dd>
+            </div>
+            <div class="scheda__voce">
+              <dt class="scheda__voce-nome">Il dettaglio a cui teniamo</dt>
+              <dd class="scheda__voce-testo">Le persiane sono rimaste quelle originali: il tono avorio è stato scelto apposta per far risaltare il verde salvia.</dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="caso">
+        <figure class="lavoro">
+          <div class="confronto" data-confronto style="--pos:50%">
+            <picture>
+              <source type="image/avif" srcset="immagini/pd-04-dopo-600.avif 600w, immagini/pd-04-dopo-900.avif 900w, immagini/pd-04-dopo-1200.avif 1200w" sizes="(min-width: 75rem) 1200px, 100vw">
+              <source type="image/webp" srcset="immagini/pd-04-dopo-600.webp 600w, immagini/pd-04-dopo-900.webp 900w, immagini/pd-04-dopo-1200.webp 1200w" sizes="(min-width: 75rem) 1200px, 100vw">
+              <img class="confronto__foto" src="immagini/pd-04-dopo-1200.jpg" width="1536" height="1024" loading="lazy" decoding="async"
+                   alt="La stessa sala da pranzo dopo l'intervento: una parete decorativa materica color terracotta.">
+            </picture>
+            <div class="confronto__prima">
+              <picture>
+                <source type="image/avif" srcset="immagini/pd-04-prima-600.avif 600w, immagini/pd-04-prima-900.avif 900w, immagini/pd-04-prima-1200.avif 1200w" sizes="(min-width: 75rem) 1200px, 100vw">
+                <source type="image/webp" srcset="immagini/pd-04-prima-600.webp 600w, immagini/pd-04-prima-900.webp 900w, immagini/pd-04-prima-1200.webp 1200w" sizes="(min-width: 75rem) 1200px, 100vw">
+                <img class="confronto__foto" src="immagini/pd-04-prima-1200.jpg" width="1536" height="1024" loading="lazy" decoding="async"
+                     alt="Sala da pranzo prima dell'intervento: parete chiara, piatta e con qualche segno del tempo.">
+              </picture>
+            </div>
+            <span class="confronto__linea" aria-hidden="true"><i></i></span>
+            <span class="confronto__targhetta confronto__targhetta--sinistra" aria-hidden="true">Prima</span>
+            <span class="confronto__targhetta confronto__targhetta--destra" aria-hidden="true">Dopo</span>
+            <input class="confronto__cursore" type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Confronto prima e dopo della parete decorativa: trascina per rivelare">
+          </div>
+        </figure>
+        <div class="caso__testo">
+          <h2 class="caso__titolo">Sala da pranzo, parete d'accento</h2>
+          <p class="caso__sommario">Finitura materica alla calce in una tonalità terracotta</p>
+          <ul class="caso__dati" aria-label="Dati principali del lavoro"><li>2 giorni</li><li>14 m²</li><li>{{citta}}</li></ul>
+          <dl class="scheda">
+            <div class="scheda__voce">
+              <dt class="scheda__voce-nome">Il punto di partenza</dt>
+              <dd class="scheda__voce-testo">Una zona pranzo luminosa ma senza un punto focale: parete bianca uniforme e qualche piccola imperfezione.</dd>
+            </div>
+            <div class="scheda__voce">
+              <dt class="scheda__voce-nome">Che cosa abbiamo fatto</dt>
+              <dd class="scheda__voce-testo">Rasatura fine, fondo minerale e finitura decorativa a calce applicata in strati sottili, lavorati a mano.</dd>
+            </div>
+            <div class="scheda__voce">
+              <dt class="scheda__voce-nome">Quanto è durato</dt>
+              <dd class="scheda__voce-testo">Due giorni: il primo per preparare, il secondo per la finitura e i dettagli attorno ai bordi.</dd>
+            </div>
+            <div class="scheda__voce">
+              <dt class="scheda__voce-nome">Il dettaglio a cui teniamo</dt>
+              <dd class="scheda__voce-testo">Il color terra non è piatto: le leggere velature prendono la luce in modo diverso a ogni ora.</dd>
+            </div>
+          </dl>
         </div>
       </article>
 

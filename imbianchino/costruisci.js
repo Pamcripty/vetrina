@@ -25,6 +25,46 @@ const QUI = path.dirname(fileURLToPath(import.meta.url));
 const FUORI = path.join(QUI, 'sito');
 
 const leggi = (p) => readFile(path.join(QUI, p), 'utf8');
+const proteggiHtml = (testo) => String(testo)
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;');
+
+/* I dati che cambiano da un artigiano all'altro stanno in un solo
+   posto: nome, zona, colori e listino. Il progetto dimostrativo non
+   espone recapiti inventati. */
+async function valoriComuni() {
+  const dati = JSON.parse(await leggi('dati-sito.json'));
+  const colori = dati.colori;
+
+  return {
+    nome: proteggiHtml(dati.nome),
+    mestiere: proteggiHtml(dati.mestiere),
+    citta: proteggiHtml(dati.citta),
+    zona: proteggiHtml(dati.zona),
+    'zona-estesa': proteggiHtml(dati.zonaEstesa),
+    'autore-nome': proteggiHtml(dati.autoreNome),
+    'autore-url': proteggiHtml(dati.autoreUrl),
+    'url-base': dati.url,
+    'url-social': new URL(dati.immagineSocial, dati.url).href,
+    'comuni-html': dati.comuni.map((comune) => `<li>${proteggiHtml(comune)}</li>`).join(''),
+    'comuni-brevi': dati.comuni.slice(0, 4).map(proteggiHtml).join(', '),
+    'prezzo-liscia-min': dati.prezzi.liscia[0],
+    'prezzo-liscia-max': dati.prezzi.liscia[1],
+    'prezzo-decorativa-min': dati.prezzi.decorativa[0],
+    'prezzo-decorativa-max': dati.prezzi.decorativa[1],
+    'prezzo-facciata-min': dati.prezzi.facciata[0],
+    'prezzo-facciata-max': dati.prezzi.facciata[1],
+    'colore-calce': colori.calce,
+    'colore-gesso': colori.gesso,
+    'colore-grafite': colori.grafite,
+    'colore-fumo': colori.fumo,
+    'colore-terra': colori.terra,
+    'colore-terra-testo': colori.terraTesto,
+    'configurazione-client': JSON.stringify({ prezzi: dati.prezzi }).replaceAll('<', '\\u003c'),
+  };
+}
 
 /* --- valori dichiarati in testa alla pagina --------------------- */
 function estraiValori(testo) {
@@ -58,10 +98,21 @@ async function costruisci() {
   await rm(FUORI, { recursive: true, force: true });
   await mkdir(FUORI, { recursive: true });
 
+  const comuni = await valoriComuni();
   const pagine = (await readdir(path.join(QUI, 'pagine'))).filter((f) => f.endsWith('.html'));
   for (const file of pagine) {
     const { valori, corpo } = estraiValori(await leggi(path.join('pagine', file)));
-    const html = await risolvi(corpo, valori);
+    const sostituzioni = {
+      ...comuni,
+      ...valori,
+      'url-pagina': new URL(file === 'index.html' ? '' : file, comuni['url-base']).href,
+    };
+    for (const [chiave, valore] of Object.entries(sostituzioni)) {
+      if (typeof valore === 'string') {
+        sostituzioni[chiave] = valore.replace(/\{\{([\w-]+)\}\}/g, (t, k) => sostituzioni[k] ?? '');
+      }
+    }
+    const html = await risolvi(corpo, sostituzioni);
     const rimasti = html.match(/\{\{[\w-]+\}\}|<!--@parte /g);
     if (rimasti) throw new Error(`${file}: rimasti da risolvere → ${[...new Set(rimasti)].join(', ')}`);
     await writeFile(path.join(FUORI, file), html);

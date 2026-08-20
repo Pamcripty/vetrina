@@ -13,12 +13,13 @@
    Uso:  node imbianchino/strumenti/immagini.js
    ================================================================= */
 
-import sharp from 'sharp';
+import { createRequire } from 'node:module';
 import { readdir, mkdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const QUI = path.dirname(fileURLToPath(import.meta.url));
+const sharp = createRequire(import.meta.url)('sharp');
 const RADICE = path.join(QUI, '..');
 const MASTER = path.join(RADICE, 'master');
 const FUORI = path.join(RADICE, 'immagini');
@@ -34,6 +35,11 @@ const PIANO = {
   'pd-01-dopo': { larghezze: [1800, 1200, 900, 600] },
   'pd-02-prima': { larghezze: [1800, 1200, 900, 600] },
   'pd-02-dopo': { larghezze: [1800, 1200, 900, 600] },
+  'pd-03-prima': { larghezze: [1200, 900, 600] },
+  'pd-03-dopo': { larghezze: [1200, 900, 600] },
+  'pd-04-prima': { larghezze: [1200, 900, 600] },
+  'pd-04-dopo': { larghezze: [1200, 900, 600] },
+  'metodo-mani': { larghezze: [1200, 900, 600] },
 
   /* I campioni di finitura compaiono in una striscia: al massimo
      260 px di lato, quindi 800 basta e avanza anche sui telefoni

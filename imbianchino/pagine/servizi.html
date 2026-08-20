@@ -1,5 +1,5 @@
-<!--@ titolo: Servizi — Mano di Fondo -->
-<!--@ descrizione: Tinteggiature interne, finiture decorative, facciate, infissi, cartongesso. Che cosa comprende ogni lavorazione e quanto costa più o meno. Progetto dimostrativo di Sito in Vista. -->
+<!--@ titolo: Servizi — {{nome}} -->
+<!--@ descrizione: Tinteggiature interne, finiture decorative, facciate, infissi, cartongesso. Che cosa comprende ogni lavorazione e quanto costa più o meno. Progetto dimostrativo di {{autore-nome}}. -->
 <!--@ qui-servizi: aria-current="page" -->
 <!doctype html>
 <html lang="it">
@@ -27,6 +27,35 @@
     </div>
   </section>
 
+  <section class="vetrina-servizi" aria-label="Alcune lavorazioni">
+    <div class="contenitore vetrina-servizi__griglia">
+      <a class="vetrina-servizi__scheda vetrina-servizi__scheda--principale" href="#decorative">
+        <picture>
+          <source type="image/avif" srcset="immagini/pd-04-dopo-600.avif 600w, immagini/pd-04-dopo-900.avif 900w, immagini/pd-04-dopo-1200.avif 1200w" sizes="(min-width: 62rem) 52vw, 100vw">
+          <source type="image/webp" srcset="immagini/pd-04-dopo-600.webp 600w, immagini/pd-04-dopo-900.webp 900w, immagini/pd-04-dopo-1200.webp 1200w" sizes="(min-width: 62rem) 52vw, 100vw">
+          <img src="immagini/pd-04-dopo-1200.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Una parete decorativa color terra scalda la zona pranzo.">
+        </picture>
+        <span><b>Una parete cambia la stanza.</b> Finiture decorative</span>
+      </a>
+      <a class="vetrina-servizi__scheda" href="#esterni">
+        <picture>
+          <source type="image/avif" srcset="immagini/pd-03-dopo-600.avif 600w, immagini/pd-03-dopo-900.avif 900w, immagini/pd-03-dopo-1200.avif 1200w" sizes="(min-width: 62rem) 30vw, 100vw">
+          <source type="image/webp" srcset="immagini/pd-03-dopo-600.webp 600w, immagini/pd-03-dopo-900.webp 900w, immagini/pd-03-dopo-1200.webp 1200w" sizes="(min-width: 62rem) 30vw, 100vw">
+          <img src="immagini/pd-03-dopo-1200.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Facciata color avorio appena restaurata, con persiane verde salvia.">
+        </picture>
+        <span><b>Fuori, come nuova.</b> Facciate</span>
+      </a>
+      <a class="vetrina-servizi__scheda" href="#interni">
+        <picture>
+          <source type="image/avif" srcset="immagini/metodo-mani-600.avif 600w, immagini/metodo-mani-900.avif 900w, immagini/metodo-mani-1200.avif 1200w" sizes="(min-width: 62rem) 30vw, 100vw">
+          <source type="image/webp" srcset="immagini/metodo-mani-600.webp 600w, immagini/metodo-mani-900.webp 900w, immagini/metodo-mani-1200.webp 1200w" sizes="(min-width: 62rem) 30vw, 100vw">
+          <img src="immagini/metodo-mani-1200.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="La mano dell'artigiano rifinisce con attenzione una parete color terracotta.">
+        </picture>
+        <span><b>Il lavoro fatto a mano.</b> Interni</span>
+      </a>
+    </div>
+  </section>
+
   <section class="servizi">
     <div class="contenitore">
       <article class="servizio" id="interni">
@@ -46,7 +75,7 @@
         </div>
         <div class="servizio__prezzo">
           <p class="servizio__titoletto">Indicativamente</p>
-          <p class="servizio__cifra">7 – 11 € al m² di superficie tinteggiata</p>
+          <p class="servizio__cifra">{{prezzo-liscia-min}} – {{prezzo-liscia-max}} € al m² di superficie tinteggiata</p>
           <p class="servizio__nota">Una stanza di 20 m² con i soffitti fa circa 72 m² di superficie.</p>
         </div>
       </article>
@@ -68,7 +97,7 @@
         </div>
         <div class="servizio__prezzo">
           <p class="servizio__titoletto">Indicativamente</p>
-          <p class="servizio__cifra">28 – 48 € al m² secondo la finitura</p>
+          <p class="servizio__cifra">{{prezzo-decorativa-min}} – {{prezzo-decorativa-max}} € al m² secondo la finitura</p>
           <p class="servizio__nota">Una parete d'accento di 12 m² sta di solito fra 340 e 580 €.</p>
         </div>
       </article>
@@ -90,7 +119,7 @@
         </div>
         <div class="servizio__prezzo">
           <p class="servizio__titoletto">Indicativamente</p>
-          <p class="servizio__cifra">18 – 30 € al m² di facciata</p>
+          <p class="servizio__cifra">{{prezzo-facciata-min}} – {{prezzo-facciata-max}} € al m² di facciata</p>
           <p class="servizio__nota">Il ponteggio si conta a parte: dipende da quanto resta montato.</p>
         </div>
       </article>
