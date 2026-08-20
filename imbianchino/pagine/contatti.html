@@ -1,5 +1,5 @@
-<!--@ titolo: Contatti — Mano di Fondo -->
-<!--@ descrizione: Come chiederci un preventivo, che cosa mandarci e in che zona lavoriamo. Progetto dimostrativo di Sito in Vista. -->
+<!--@ titolo: Contatti — {{nome}} -->
+<!--@ descrizione: Come chiederci un preventivo, che cosa mandarci e in che zona lavoriamo. Progetto dimostrativo di {{autore-nome}}. -->
 <!--@ qui-contatti: aria-current="page" -->
 <!doctype html>
 <html lang="it">
@@ -80,25 +80,17 @@
     </div>
   </section>
 
-<!--@parte preventivo-->
-
-  <!-- ======================== la zona ========================= -->
-  <section class="zona" aria-labelledby="zona-titolo">
-    <div class="contenitore zona__interno">
-      <div>
-        <p class="etichetta">Dove lavoriamo</p>
-        <h2 class="sezione__titolo" id="zona-titolo">Bassa Veronese.</h2>
-        <p class="sezione__frase">
-          Lavoriamo dove riusciamo ad arrivare in mattinata e a tornare se serve
-          un ritocco. Se il tuo comune non è in elenco, chiedi lo stesso:
-          dipende da quanto è grande il lavoro.
-        </p>
+  <section class="invito-contatti" aria-labelledby="invito-contatti-titolo">
+    <div class="contenitore">
+      <div class="invito-contatti__interno">
+        <div>
+          <p class="etichetta">Prima vuoi capire quanto costa?</p>
+          <h2 class="invito-contatti__titolo" id="invito-contatti-titolo">Parti da una stima semplice.</h2>
+          <p class="invito-contatti__testo">Quattro domande, nessuna registrazione: ti fai un'idea prima ancora di scriverci.</p>
+          <p class="invito-contatti__zona">{{zona-estesa}} · Sopralluogo gratuito.</p>
+        </div>
+        <a class="bottone bottone--pieno" href="index.html#preventivo">Calcola la stima</a>
       </div>
-      <ul class="zona__elenco">
-        <li>Legnago</li><li>Cerea</li><li>Bovolone</li><li>Nogara</li>
-        <li>Sanguinetto</li><li>Casaleone</li><li>Minerbe</li><li>Villa Bartolomea</li>
-        <li>Roverchiara</li><li>Isola della Scala</li><li>Oppeano</li><li>Angiari</li>
-      </ul>
     </div>
   </section>
 

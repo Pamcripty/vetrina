@@ -163,6 +163,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .menu__voce-tasto { font-family: inherit; color: inherit; cursor: pointer; }
 .menu a:hover,
 .menu__voce-tasto:hover { border-bottom-color: var(--grafite); }
+.menu a[aria-current='page'] {
+  color: var(--terra-testo);
+  border-bottom-color: var(--terra);
+}
 
 .testata__coda { display: flex; align-items: center; gap: var(--s2); flex: none; }
 
@@ -182,6 +186,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   letter-spacing: .01em; border: 2px solid var(--grafite);
   transition: background-color .2s ease, color .2s ease;
   text-align: center;
+  border-radius: .45rem;
 }
 .bottone--pieno { background: var(--grafite); color: var(--calce); }
 .bottone--pieno:hover { background: #3a362f; border-color: #3a362f; }
@@ -280,6 +285,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: grid; grid-template-rows: auto 1fr; gap: 0; height: 100%;
   background: var(--gesso);
   border: 1px solid var(--linea);
+  overflow: hidden;
+  border-radius: .8rem;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.campione:hover {
+  transform: translateY(-3px);
+  border-color: rgba(180, 85, 58, .42);
+  box-shadow: 0 14px 32px rgba(35, 33, 30, .1);
 }
 /* La superficie è una fotografia: le serve area, non un filo di colore.
    height: auto è indispensabile — gli attributi width/height dell'immagine
@@ -296,6 +309,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .campione__targa b {
   font-size: .68rem; font-weight: 700; font-stretch: 88%;
   letter-spacing: .14em; color: var(--fumo);
+}
+.campione__nota {
+  margin-top: .28rem;
+  font-size: .76rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--fumo);
 }
 
 @media (max-width: 62rem) {
@@ -346,6 +366,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   overflow: hidden;
   background: var(--gesso);
   border: 1px solid var(--linea);
+  border-radius: 1rem;
+  box-shadow: 0 18px 45px -30px rgba(35, 33, 30, .35);
   touch-action: pan-y;          /* trascinare il cursore non blocca lo scorrimento */
 }
 .confronto__foto {
@@ -931,3 +953,219 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .azioni .bottone { width: 100%; }
 }
 .caso__sommario { margin-top: .4rem; color: var(--fumo); }
+
+/* =================================================================
+   Ritmo visivo: garanzie concrete, fotografie editoriali e dettagli
+   più morbidi. Stessi colori e stessa struttura, più respiro.
+   ================================================================= */
+.promesse { position: relative; z-index: 2; margin-top: -1.9rem; }
+.promesse__elenco {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: .65rem;
+  background: var(--gesso);
+  border: 1px solid rgba(35, 33, 30, .08);
+  border-radius: 1rem;
+  box-shadow: 0 18px 48px -30px rgba(35, 33, 30, .4);
+}
+.promessa {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  min-width: 0;
+  padding: 1rem .9rem;
+  font-size: .84rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.promessa + .promessa { border-left: 1px solid var(--linea); }
+.promessa__segno {
+  flex: none;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  background: rgba(180, 85, 58, .1);
+  border-radius: 50%;
+  color: var(--terra-testo);
+  font-size: .68rem;
+  letter-spacing: .06em;
+}
+.promessa small {
+  display: block;
+  margin-top: .25rem;
+  color: var(--fumo);
+  font-size: .73rem;
+  font-weight: 400;
+}
+
+.passi { gap: var(--s2); background: transparent; border: 0; }
+.passo {
+  background: var(--gesso);
+  border: 1px solid rgba(35, 33, 30, .09);
+  border-radius: .9rem;
+  box-shadow: 0 12px 28px -26px rgba(35, 33, 30, .4);
+}
+.stima__esito,
+.via,
+.servizio__prezzo { border-radius: .85rem; }
+.servizio__prezzo { box-shadow: 0 13px 28px -24px rgba(35, 33, 30, .34); }
+
+.caso__dati {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin-top: var(--s2);
+}
+.caso__dati li {
+  padding: .42rem .78rem;
+  background: var(--gesso);
+  border: 1px solid rgba(35, 33, 30, .11);
+  border-radius: 999px;
+  color: var(--fumo);
+  font-size: .79rem;
+  font-weight: 500;
+}
+.caso__dati li:first-child {
+  background: rgba(180, 85, 58, .09);
+  border-color: rgba(180, 85, 58, .14);
+  color: var(--terra-testo);
+}
+
+.vetrina-servizi { padding-block: var(--s2) var(--s3); }
+.vetrina-servizi__griglia {
+  display: grid;
+  grid-template-columns: 1.12fr .88fr;
+  grid-template-rows: repeat(2, minmax(11rem, 1fr));
+  gap: var(--s2);
+}
+.vetrina-servizi__scheda {
+  position: relative;
+  display: grid;
+  min-height: 11rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--grafite);
+}
+.vetrina-servizi__scheda--principale { grid-row: span 2; }
+.vetrina-servizi__scheda picture,
+.vetrina-servizi__scheda img {
+  width: 100%;
+  height: 100%;
+}
+.vetrina-servizi__scheda img {
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+.vetrina-servizi__scheda:hover img { transform: scale(1.035); }
+.vetrina-servizi__scheda > span {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2.3rem 1.15rem 1.05rem;
+  background: linear-gradient(transparent, rgba(35, 33, 30, .8));
+  color: var(--gesso);
+  font-size: .85rem;
+}
+.vetrina-servizi__scheda > span b {
+  display: block;
+  margin-bottom: .12rem;
+  font-size: 1.04rem;
+}
+
+.racconto { padding-block: var(--s2) var(--s3); }
+.racconto__interno {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, .82fr);
+  align-items: center;
+}
+.racconto__foto { overflow: hidden; border-radius: 1.1rem; }
+.racconto__foto img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.racconto__parole {
+  position: relative;
+  margin-left: -3.7rem;
+  padding: clamp(1.3rem, 3vw, 2.3rem);
+  background: var(--gesso);
+  border-radius: .95rem;
+  box-shadow: 0 22px 55px -38px rgba(35, 33, 30, .44);
+}
+.racconto__titolo {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  font-stretch: 110%;
+  line-height: 1.08;
+  letter-spacing: -.022em;
+}
+.racconto__testo { margin-top: var(--s2); color: #43403a; line-height: 1.65; }
+
+.tappe__elenco { position: relative; }
+.tappe__elenco::before {
+  position: absolute;
+  top: 4.5rem;
+  bottom: 4.5rem;
+  left: 1.17rem;
+  width: 1px;
+  background: rgba(180, 85, 58, .22);
+  content: '';
+}
+.tappa__numero {
+  position: relative;
+  z-index: 1;
+  border-radius: 50%;
+  background: var(--terra-testo);
+}
+
+.invito-contatti { padding-block: var(--s5); }
+.invito-contatti__interno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+  background: var(--gesso);
+  border: 1px solid rgba(35, 33, 30, .08);
+  border-radius: 1rem;
+  box-shadow: 0 18px 42px -36px rgba(35, 33, 30, .35);
+}
+.invito-contatti__titolo {
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -.018em;
+}
+.invito-contatti__testo { margin-top: .55rem; max-width: 52ch; color: #43403a; }
+.invito-contatti__zona { margin-top: var(--s2); color: var(--terra-testo); font-size: .88rem; font-weight: 500; }
+.invito-contatti__interno > .bottone { flex: none; }
+
+@media (max-width: 62rem) {
+  .promesse__elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .promessa:nth-child(3) { border-left: 0; }
+  .promessa:nth-child(n + 3) { border-top: 1px solid var(--linea); }
+}
+
+@media (max-width: 52rem) {
+  .promesse { margin-top: var(--s3); }
+  .racconto__interno { grid-template-columns: 1fr; }
+  .racconto__parole { margin: -2rem var(--s2) 0; }
+}
+
+@media (max-width: 46rem) {
+  .vetrina-servizi__griglia {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    gap: .7rem;
+  }
+  .vetrina-servizi__scheda--principale { grid-column: 1 / -1; grid-row: auto; }
+  .vetrina-servizi__scheda--principale img { aspect-ratio: 3 / 2; }
+  .vetrina-servizi__scheda:not(.vetrina-servizi__scheda--principale) { min-height: 12rem; }
+  .vetrina-servizi__scheda > span { padding-inline: .75rem; font-size: .75rem; }
+  .vetrina-servizi__scheda > span b { font-size: .88rem; }
+  .tappe__elenco::before { display: none; }
+  .invito-contatti__interno { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 34rem) {
+  .promesse__elenco { padding: .35rem; }
+  .promessa { gap: .55rem; padding: .9rem .55rem; font-size: .76rem; }
+  .promessa__segno { width: 1.7rem; height: 1.7rem; }
+  .promessa small { font-size: .68rem; }
+  .racconto__parole { margin-inline: .75rem; padding: 1.15rem; }
+}

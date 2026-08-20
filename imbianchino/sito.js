@@ -85,14 +85,14 @@
      fascia prima di far perdere tempo a qualcuno.
 
      I prezzi sono al metro quadro di superficie tinteggiata, non di
-     pavimento. Stanno tutti qui, in chiaro, così si cambiano in un
-     posto solo.                                                  */
-  var PREZZI = {
-    liscia: [7, 11],        // opaco lavabile, interni
-    decorativa: [28, 48],   // finitura a mano, la sola parete d'accento
-    facciata: [18, 30],     // esterni, ponteggio escluso
-  };
-  var MINIMO = 250;         // sotto, non conviene muoversi
+     pavimento. Arrivano da dati-sito.json, lo stesso file usato
+     dalla pagina servizi: non possono andare fuori sincronia.    */
+  var elementoConfigurazione = document.getElementById('configurazione-sito');
+  var configurazione = elementoConfigurazione
+    ? JSON.parse(elementoConfigurazione.textContent)
+    : { prezzi: { liscia: [7, 11], decorativa: [28, 48], facciata: [18, 30], minimo: 250 } };
+  var PREZZI = configurazione.prezzi;
+  var MINIMO = PREZZI.minimo;
 
   var OPERE = {
     stanza: {

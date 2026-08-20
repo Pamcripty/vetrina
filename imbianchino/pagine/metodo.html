@@ -1,5 +1,5 @@
-<!--@ titolo: Come lavoriamo — Mano di Fondo -->
-<!--@ descrizione: Dal sopralluogo alla consegna: le sette tappe di un lavoro, e le domande che ci fanno più spesso. Progetto dimostrativo di Sito in Vista. -->
+<!--@ titolo: Come lavoriamo — {{nome}} -->
+<!--@ descrizione: Dal sopralluogo alla consegna: le sette tappe di un lavoro, e le domande che ci fanno più spesso. Progetto dimostrativo di {{autore-nome}}. -->
 <!--@ qui-metodo: aria-current="page" -->
 <!doctype html>
 <html lang="it">
@@ -24,6 +24,21 @@
         polvere, i mobili spostati e non sapere quando finisce. Qui c'è scritto
         che cosa succede, tappa per tappa, e che cosa chiediamo a te.
       </p>
+    </div>
+  </section>
+
+  <section class="racconto" aria-label="La cura del lavoro artigiano">
+    <div class="contenitore racconto__interno">
+      <picture class="racconto__foto">
+        <source type="image/avif" srcset="immagini/metodo-mani-600.avif 600w, immagini/metodo-mani-900.avif 900w, immagini/metodo-mani-1200.avif 1200w" sizes="(min-width: 62rem) 62vw, 100vw">
+        <source type="image/webp" srcset="immagini/metodo-mani-600.webp 600w, immagini/metodo-mani-900.webp 900w, immagini/metodo-mani-1200.webp 1200w" sizes="(min-width: 62rem) 62vw, 100vw">
+        <img src="immagini/metodo-mani-1200.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Una mano esperta rifinisce una parete color terra, proteggendo con cura gli angoli.">
+      </picture>
+      <div class="racconto__parole">
+        <p class="etichetta">Un mestiere paziente</p>
+        <h2 class="racconto__titolo">La differenza<br>si vede da vicino.</h2>
+        <p class="racconto__testo">Una linea pulita, il fondo preparato bene, una mano data quando l'altra è asciutta. Sono dettagli piccoli, ma restano sul muro per anni.</p>
+      </div>
     </div>
   </section>
 
