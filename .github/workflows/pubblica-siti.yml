@@ -1,0 +1,71 @@
+name: Pubblica siti dimostrativi
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "riflesso/**"
+      - "imbianchino/**"
+      - "idraulico/**"
+      - "estetica/**"
+      - "package.json"
+      - "package-lock.json"
+      - "vetrina-index.html"
+      - ".github/workflows/pubblica-siti.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+
+      - name: Prepara Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Genera i siti
+        run: |
+          node imbianchino/costruisci.js
+          node idraulico/costruisci.js
+          node estetica/costruisci.js
+
+      - name: Prepara le cartelle pubbliche
+        run: |
+          mkdir -p _site/riflesso _site/imbianchino _site/idraulico _site/estetica
+          cp vetrina-index.html _site/index.html
+          cp -R riflesso/. _site/riflesso/
+          cp -R imbianchino/sito/. _site/imbianchino/
+          cp -R idraulico/sito/. _site/idraulico/
+          cp -R estetica/sito/. _site/estetica/
+          touch _site/.nojekyll
+
+      - name: Configura GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Carica il sito costruito
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Pubblica su GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
