@@ -25,20 +25,19 @@ const FUORI = path.join(RADICE, 'immagini');
 
 /* --- che cosa generare da ogni master --------------------------- */
 const PIANO = {
-  /* L'apertura e l'ambiente: a tutta larghezza, quindi servono le
-     misure grandi. Un ritaglio verticale per il telefono, perché in
-     16:9 su uno schermo stretto non si vedrebbe più la stanza. */
-  'hero-cabina': {
-    larghezze: [2400, 1800, 1200, 900],
-    verticale: { rapporto: 4 / 5, larghezze: [1080, 810, 640] },
-  },
-  'il-centro': { larghezze: [2400, 1800, 1200, 900] },
+  /* Il hero resta affiancato al testo anche su schermi grandi; sotto
+     i 760 px passa invece a tutta larghezza. */
+  'peach-hero': { larghezze: [1800, 1400, 1000, 700] },
+  'peach-studio': { larghezze: [1500, 1200, 900, 640] },
 
-  /* Le nature morte stanno dentro schede larghe al massimo 560 px. */
-  'gruppo-viso': { larghezze: [1200, 800, 560], senzaRiserva: true },
-  'gruppo-corpo': { larghezze: [1200, 800, 560], senzaRiserva: true },
-  'gruppo-epilazione': { larghezze: [1200, 800, 560], senzaRiserva: true },
-  'gruppo-mani-piedi': { larghezze: [1200, 800, 560], senzaRiserva: true },
+  /* Foto di servizio e galleria: abbastanza grandi anche per le
+     schede in evidenza, senza spedire il master PNG al browser. */
+  'peach-nails': { larghezze: [1200, 800, 560], senzaRiserva: true },
+  'peach-brows': { larghezze: [1200, 800, 560], senzaRiserva: true },
+  'peach-lashes': { larghezze: [1200, 800, 560], senzaRiserva: true },
+  'peach-skin': { larghezze: [1200, 800, 560], senzaRiserva: true },
+  'peach-laser': { larghezze: [1200, 800, 560], senzaRiserva: true },
+  'peach-friends': { larghezze: [1200, 800, 560], senzaRiserva: true },
 };
 
 const FORMATI = [

@@ -1,5 +1,5 @@
 /* =================================================================
-   L'Ora Buona — comportamenti di pagina.
+   PEACH CLUB — comportamenti di pagina.
    Nessuna libreria. Senza questo file il sito resta leggibile: il
    listino completo è in pagina, il menu è aperto.
    ================================================================= */
@@ -13,31 +13,34 @@
 
      durata in minuti, prezzo in euro.                           */
   var LISTINO = [
-    { id: 'viso', gruppo: 'Viso', voci: [
-      ['Pulizia del viso', 60, 55],
-      ['Trattamento idratante', 50, 45],
-      ['Trattamento anti-età', 75, 70],
-      ['Maschera e massaggio viso', 30, 30],
+    { id: 'nails', gruppo: 'Nails', voci: [
+      ['Manicure express', 30, 22],
+      ['Semipermanente color', 60, 30],
+      ['Semipermanente rinforzato', 70, 35],
+      ['Gel refill', 90, 45],
+      ['Nail art', 15, 10],
+      ['Pedicure color', 60, 38],
     ]},
-    { id: 'corpo', gruppo: 'Corpo e massaggi', voci: [
-      ['Massaggio rilassante', 50, 50],
-      ['Massaggio decontratturante', 50, 55],
-      ['Trattamento drenante', 60, 55],
-      ['Scrub corpo', 40, 40],
+    { id: 'brows-lashes', gruppo: 'Brows & lashes', voci: [
+      ['Brow shape', 20, 15],
+      ['Brow shape e tinta', 30, 22],
+      ['Laminazione sopracciglia', 50, 50],
+      ['Laminazione ciglia', 60, 55],
+      ['Lash & brow combo', 90, 85],
     ]},
-    { id: 'epilazione', gruppo: 'Epilazione', voci: [
-      ['Gambe complete', 40, 28],
-      ['Mezza gamba', 25, 18],
-      ['Inguine', 20, 15],
-      ['Ascelle', 15, 10],
-      ['Sopracciglia', 15, 10],
-      ['Baffetto', 10, 8],
+    { id: 'skin', gruppo: 'Skin glow', voci: [
+      ['Pulizia viso smart', 50, 45],
+      ['Glow facial', 55, 49],
+      ['Hydra boost', 60, 55],
+      ['Teen skin reset', 50, 42],
     ]},
-    { id: 'mani-piedi', gruppo: 'Mani e piedi', voci: [
-      ['Manicure', 40, 22],
-      ['Manicure con semipermanente', 70, 35],
-      ['Pedicure estetico', 50, 30],
-      ['Ricostruzione unghie', 120, 55],
+    { id: 'smooth', gruppo: 'Smooth skin', voci: [
+      ['Ceretta gambe complete', 40, 28],
+      ['Ceretta inguine', 20, 15],
+      ['Laser viso small', 15, 19],
+      ['Laser ascelle', 20, 29],
+      ['Laser inguine', 25, 39],
+      ['Laser gambe', 45, 69],
     ]},
   ];
 
@@ -121,9 +124,9 @@
 
       if (minuti > SEDUTA_LUNGA) {
         avviso.hidden = false;
-        avviso.textContent = 'Sono più di due ore e mezza di fila: di solito ' +
-          'conviene dividerle in due appuntamenti. Scrivici lo stesso e ' +
-          'troviamo il modo migliore.';
+        avviso.textContent = 'Il tuo beauty mix supera le due ore e mezza: ' +
+          'potrebbe essere più comodo dividerlo in due appuntamenti. ' +
+          'Nella richiesta resta comunque tutto segnato.';
       } else {
         avviso.hidden = true;
       }
@@ -137,9 +140,9 @@
       var scelti = [].slice.call(forma.querySelectorAll('input[type="checkbox"]:checked'));
       var momento = forma.querySelector('input[name="momento"]:checked');
       var minuti = scelti.reduce(function (s, c) { return s + Number(c.dataset.minuti); }, 0);
-      var testo = 'Buongiorno, vorrei prenotare: ' +
+      var testo = 'Ciao PEACH CLUB! Vorrei prenotare: ' +
         scelti.map(function (c) { return c.value.toLowerCase(); }).join(', ') +
-        '. In tutto sono ' + durata(minuti) + '. Preferirei ' +
+        '. Il tempo indicativo è ' + durata(minuti) + '. Preferirei ' +
         (momento ? momento.value : "quando c'è posto") + '.';
       apriPannello(testo);
     });

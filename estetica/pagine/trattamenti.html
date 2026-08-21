@@ -1,5 +1,5 @@
-<!--@ titolo: Trattamenti e listino — L'Ora Buona -->
-<!--@ descrizione: Viso, corpo, epilazione, mani e piedi: ogni trattamento con la sua durata e il suo prezzo. Progetto dimostrativo di Sito in Vista. -->
+<!--@ titolo: Servizi e prezzi — PEACH CLUB -->
+<!--@ descrizione: Il menu completo di PEACH CLUB: nails, ciglia e sopracciglia, skin glow, ceretta e laser, sempre con durata e prezzo. -->
 <!--@ qui-trattamenti: aria-current="page" -->
 <!doctype html>
 <html lang="it">
@@ -7,86 +7,98 @@
 <!--@parte testa-->
 </head>
 <body>
-
 <a class="salta" href="#contenuto">Salta al contenuto</a>
-
 <!--@parte avviso-->
 <!--@parte testata-->
 
 <main id="contenuto">
-
-  <section class="intestazione">
-    <div class="contenitore">
-      <p class="etichetta">Trattamenti</p>
-      <h1 class="intestazione__titolo">Il listino,<br>con i tempi accanto.</h1>
-      <p class="intestazione__frase">
-        Il prezzo da solo dice metà della cosa: l'altra metà è quanto ci
-        vuole. Qui ci sono tutti e due, così puoi incastrare l'appuntamento
-        nella giornata prima ancora di scriverci.
+  <section class="pagina-hero pagina-hero--lilla">
+    <div class="contenitore pagina-hero__griglia">
+      <div>
+        <p class="etichetta">The beauty menu</p>
+        <h1 class="pagina-hero__titolo">Scegli il risultato.<br><em>Il prezzo è già qui.</em></h1>
+      </div>
+      <p class="pagina-hero__frase">
+        Nessuna voce misteriosa e nessun “a partire da” lasciato senza spiegazioni.
+        Ogni servizio mostra durata e prezzo indicativo del progetto.
       </p>
     </div>
   </section>
+
+  <nav class="salta-gruppi" aria-label="Vai alla categoria">
+    <div class="contenitore salta-gruppi__interno">
+      <a href="#nails">Nails</a>
+      <a href="#brows-lashes">Brows &amp; lashes</a>
+      <a href="#skin">Skin glow</a>
+      <a href="#smooth">Smooth skin</a>
+    </div>
+  </nav>
 
   <section class="listino">
     <div class="contenitore" data-listino>
-      <noscript>
-        <p class="nota-piccola">
-          Il listino si carica con la pagina. Se non lo vedi, scrivici e
-          te lo diciamo: durate e prezzi sono quelli qui sotto.
-        </p>
-      </noscript>
+      <noscript><p class="nota-piccola">Per vedere il listino completo attiva JavaScript oppure scrivici dal pulsante Prenota.</p></noscript>
     </div>
   </section>
 
-  <section class="riquadri">
-    <div class="contenitore riquadri__interno">
-      <div class="riquadro">
-        <h2 class="riquadro__titolo">Perché non ci sono i pacchetti</h2>
-        <p class="riquadro__testo">
-          Dieci sedute pagate in anticipo convengono a noi, non a te: ti
-          legano a un centro prima di sapere se ti trovi bene. Preferiamo
-          che torni perché vuoi tornare. Se fai lo stesso trattamento
-          spesso ne parliamo, ma dopo la prima volta.
-        </p>
+  <section class="extra">
+    <div class="contenitore">
+      <div class="sezione__testa sezione__testa--riga">
+        <div>
+          <p class="etichetta">Prima di scegliere</p>
+          <h2 class="sezione__titolo">Piccole cose che fanno chiarezza.</h2>
+        </div>
       </div>
-      <div class="riquadro">
-        <h2 class="riquadro__titolo">Quando i prezzi cambiano</h2>
-        <p class="riquadro__testo">
-          Sono prezzi di listino, non preventivi. Se la zona è più estesa
-          del solito, se una ricostruzione parte da unghie molto rovinate
-          o se serve più tempo di quello previsto, te lo diciamo
-          <b>prima di cominciare</b>. Mai a lavoro finito.
-        </p>
-      </div>
-      <div class="riquadro">
-        <h2 class="riquadro__titolo">Igiene</h2>
-        <p class="riquadro__testo">
-          Spatole della cera monouso, mai reimmerse nel barattolo.
-          Strumenti di manicure e pedicure sterilizzati in autoclave dopo
-          ogni cliente. Teli monouso sul lettino. Sono cose che non si
-          vedono, ed è proprio per questo che le scriviamo.
-        </p>
+      <div class="extra__griglia">
+        <article class="extra__card extra__card--pesca">
+          <span>Color stories</span>
+          <h3>La nail art è un extra</h3>
+          <p>Il supplemento indicato copre decorazioni semplici. Disegni complessi e più unghie decorate si valutano prima dell'appuntamento.</p>
+        </article>
+        <article class="extra__card extra__card--menta">
+          <span>First time</span>
+          <h3>Non sai cosa scegliere?</h3>
+          <p>Prenota il servizio più vicino alla tua idea e allega una foto nel messaggio. La conferma arriva solo dopo aver chiarito il risultato.</p>
+        </article>
+        <article class="extra__card extra__card--lilla">
+          <span>Under 18</span>
+          <h3>Se sei minorenne</h3>
+          <p>Per alcuni servizi serve il consenso di un genitore. Nel progetto dimostrativo lo segnaliamo già, così non lo scopri alla porta.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="chiusura">
+  <section class="foto-doppia">
+    <div class="contenitore foto-doppia__griglia">
+      <picture>
+        <source type="image/avif" srcset="immagini/peach-lashes-560.avif 560w, immagini/peach-lashes-800.avif 800w, immagini/peach-lashes-1200.avif 1200w" sizes="(min-width: 48rem) 47vw, 94vw">
+        <img src="immagini/peach-lashes-800.webp" srcset="immagini/peach-lashes-560.webp 560w, immagini/peach-lashes-800.webp 800w, immagini/peach-lashes-1200.webp 1200w" sizes="(min-width: 48rem) 47vw, 94vw" width="1536" height="1024" loading="lazy" decoding="async" alt="Lash artist pettina delicatamente le ciglia durante un trattamento.">
+      </picture>
+      <div class="foto-doppia__testo">
+        <p class="etichetta">Less guessing, more glow</p>
+        <h2 class="sezione__titolo">Una foto aiuta. Una consulenza decide.</h2>
+        <p>
+          Salva pure il look che ti piace: ci serve per capire la direzione.
+          Forma dell'occhio, unghia naturale, pelle e manutenzione cambiano
+          però il risultato possibile. Te lo diciamo prima, con sincerità.
+        </p>
+        <a class="bottone bottone--prugna" href="prenota.html">Componi l'appuntamento</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="chiusura chiusura--corallo">
     <div class="contenitore chiusura__interno">
-      <h2 class="chiusura__titolo">Sai già<br>cosa vorresti?</h2>
-      <p class="chiusura__frase">
-        Segnalo e vedi quanto tempo ti serve in tutto, prima di scrivere.
-      </p>
-      <div class="azioni">
-        <a class="bottone bottone--lume bottone--grande" href="prenota.html">Componi la richiesta</a>
-      </div>
+      <p class="etichetta">Pick, mix, book</p>
+      <h2 class="chiusura__titolo">Hai trovato il tuo mix?</h2>
+      <p class="chiusura__frase">Seleziona i servizi e lascia che il sito calcoli tutto.</p>
+      <a class="bottone bottone--prugna bottone--grande" href="prenota.html">Crea la richiesta</a>
     </div>
   </section>
-
 </main>
 
 <!--@parte pannello-->
 <!--@parte piede-->
 <!--@parte coda-->
-
 </body>
 </html>
