@@ -46,15 +46,20 @@ jobs:
 
       - name: Prepara le cartelle pubbliche
         run: |
-          mkdir -p _site/riflesso _site/imbianchino _site/idraulico _site/estetica _site/fiorista _site/barberia
+          mkdir -p _site/riflesso _site/car-detailing _site/imbianchino _site/idraulico _site/estetica _site/estetista _site/fiorista _site/barberia
           cp vetrina-index.html _site/index.html
           cp -R riflesso/. _site/riflesso/
+          cp -R riflesso/. _site/car-detailing/
           cp -R imbianchino/sito/. _site/imbianchino/
           cp -R idraulico/sito/. _site/idraulico/
           cp -R estetica/sito/. _site/estetica/
+          cp -R estetica/sito/. _site/estetista/
           cp -R fiorista/sito/. _site/fiorista/
           cp -R barberia/. _site/barberia/
           touch _site/.nojekyll
+          for sito in riflesso car-detailing imbianchino idraulico estetica estetista fiorista barberia; do
+            test -s "_site/$sito/index.html" || { echo "Homepage mancante: $sito"; exit 1; }
+          done
 
       - name: Configura GitHub Pages
         uses: actions/configure-pages@v5
