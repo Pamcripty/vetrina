@@ -9,6 +9,7 @@ on:
       - "idraulico/**"
       - "estetica/**"
       - "fiorista/**"
+      - "barberia/**"
       - "package.json"
       - "package-lock.json"
       - "vetrina-index.html"
@@ -45,13 +46,14 @@ jobs:
 
       - name: Prepara le cartelle pubbliche
         run: |
-          mkdir -p _site/riflesso _site/imbianchino _site/idraulico _site/estetica _site/fiorista
+          mkdir -p _site/riflesso _site/imbianchino _site/idraulico _site/estetica _site/fiorista _site/barberia
           cp vetrina-index.html _site/index.html
           cp -R riflesso/. _site/riflesso/
           cp -R imbianchino/sito/. _site/imbianchino/
           cp -R idraulico/sito/. _site/idraulico/
           cp -R estetica/sito/. _site/estetica/
           cp -R fiorista/sito/. _site/fiorista/
+          cp -R barberia/. _site/barberia/
           touch _site/.nojekyll
 
       - name: Configura GitHub Pages
