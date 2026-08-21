@@ -16,20 +16,31 @@
 <main id="contenuto">
 
   <section class="guida-testa">
-    <div class="contenitore">
-      <p class="etichetta etichetta--urgenza">Prima che arrivi</p>
-      <h1 class="guida-testa__titolo">I primi cinque minuti<br>contano più di me.</h1>
-      <p class="guida-testa__frase">
-        Fra la tua telefonata e il mio furgone passa del tempo. Quello che fai
-        adesso decide se domani asciughi un pavimento o rifai un soffitto.
-        Leggi solo il punto che ti serve.
-      </p>
-      <div class="guida-testa__scorciatoie">
-        <a class="pillola" href="#acqua">Perde acqua</a>
-        <a class="pillola" href="#gas">Odore di gas</a>
-        <a class="pillola" href="#scarico">Scarico che risale</a>
-        <a class="pillola" href="#caldaia">Caldaia bloccata</a>
+    <div class="contenitore guida-testa__interno">
+      <div class="guida-testa__contenuto">
+        <p class="etichetta etichetta--urgenza">Prima che arrivi</p>
+        <h1 class="guida-testa__titolo">I primi cinque minuti<br>contano più di me.</h1>
+        <p class="guida-testa__frase">
+          Fra la tua telefonata e il mio furgone passa del tempo. Quello che fai
+          adesso decide se domani asciughi un pavimento o rifai un soffitto.
+          Leggi solo il punto che ti serve.
+        </p>
+        <div class="guida-testa__scorciatoie">
+          <a class="pillola" href="#acqua">Perde acqua</a>
+          <a class="pillola" href="#gas">Odore di gas</a>
+          <a class="pillola" href="#scarico">Scarico che risale</a>
+          <a class="pillola" href="#caldaia">Caldaia bloccata</a>
+        </div>
       </div>
+
+      <figure class="guida-testa__immagine">
+        <picture>
+          <source type="image/avif" srcset="immagini/rubinetto-generale-420.avif 420w, immagini/rubinetto-generale-760.avif 760w, immagini/rubinetto-generale-1200.avif 1200w" sizes="(max-width: 62rem) calc(100vw - 2.5rem), 40vw">
+          <source type="image/webp" srcset="immagini/rubinetto-generale-420.webp 420w, immagini/rubinetto-generale-760.webp 760w, immagini/rubinetto-generale-1200.webp 1200w" sizes="(max-width: 62rem) calc(100vw - 2.5rem), 40vw">
+          <img src="immagini/rubinetto-generale-1200.jpg" width="1200" height="800" alt="Rubinetto generale dell'acqua all'interno di un mobile" fetchpriority="high" decoding="async">
+        </picture>
+        <figcaption>Prima individua il generale. Poi leggi il punto che ti serve.</figcaption>
+      </figure>
     </div>
   </section>
 

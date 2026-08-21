@@ -1,9 +1,9 @@
 /* =================================================================
    A Piombo — progetto dimostrativo di Sito in Vista.
 
-   Direzione: "istruzioni ben stampate". Niente fotografie: chi cerca
-   un idraulico non guarda le immagini, cerca due numeri e una
-   risposta. Comandano la griglia, i bordi e le cifre.
+   Direzione: "il mestiere, da vicino". Le fotografie mostrano lavoro,
+   attrezzi e ambienti reali senza rallentare chi sta cercando due
+   numeri e una risposta. Comandano ancora la griglia e le cifre.
 
    Il colore fa un lavoro, non decora: rosso ciò che è urgente, blu
    ciò che si programma — come i segni caldo e freddo su un rubinetto.
@@ -212,9 +212,127 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .bottone--grande { padding: 1rem 1.6rem; font-size: 1.05rem; }
 
 /* =================================================================
+   Prima schermata — la persona si vede al lavoro, il mestiere e
+   il prezzo si capiscono prima ancora di iniziare a scorrere.
+   ================================================================= */
+.eroe {
+  position: relative;
+  padding-block: clamp(3.25rem, 7vw, 6.75rem) clamp(4rem, 8vw, 7rem);
+  background: linear-gradient(160deg, #fafafa 0%, #eef1f4 68%, #e7ecf0 100%);
+}
+.eroe__interno {
+  max-width: 1240px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.8rem);
+}
+.eroe__testo { min-width: 0; }
+.eroe__luogo {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--profondo);
+}
+.eroe__luogo::before {
+  content: '';
+  width: .65rem;
+  height: .65rem;
+  border-radius: 50%;
+  background: var(--segnale);
+  flex: none;
+}
+.eroe__titolo {
+  margin-top: 1.2rem;
+  max-width: 13ch;
+  font-size: clamp(2.5rem, 5.5vw, 4.4rem);
+  font-weight: 600;
+  line-height: 1.01;
+  letter-spacing: -.055em;
+  color: var(--inchiostro);
+}
+.eroe__titolo span { color: var(--profondo); }
+.eroe__frase {
+  margin-top: 1.35rem;
+  max-width: 46ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--testo);
+}
+.eroe__azioni {
+  margin-top: 1.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .9rem 1.4rem;
+}
+.eroe__azioni .bottone { padding: .95rem 1.15rem; font-size: .95rem; }
+.eroe__collegamento {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding-block: .35rem;
+  border-bottom: 1px solid var(--riga-forte);
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--profondo);
+}
+.eroe__collegamento:hover { color: var(--segnale); border-bottom-color: var(--segnale); }
+.eroe__dati {
+  margin-top: 2.3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--riga);
+  display: grid;
+  grid-template-columns: 1fr .78fr 1.15fr;
+  gap: 1rem;
+}
+.eroe__dati p { display: grid; gap: .2rem; align-content: start; }
+.eroe__dati b { font-size: 1.04rem; line-height: 1.2; color: var(--inchiostro); }
+.eroe__dati p:first-child b, .eroe__dati p:nth-child(2) b {
+  font-family: var(--cifre);
+}
+.eroe__dati span { font-size: .76rem; line-height: 1.4; color: var(--acciaio); }
+.eroe__immagine {
+  min-width: 0;
+  padding: .55rem;
+  background: var(--pannello);
+  box-shadow: 0 26px 55px -42px rgba(16, 20, 24, .5);
+}
+.eroe__immagine picture {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #dfe5e9;
+}
+.eroe__immagine img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 44% 50%;
+}
+.eroe__immagine figcaption {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: 1rem .65rem .45rem;
+  font-size: .78rem;
+  color: var(--acciaio);
+}
+.eroe__immagine figcaption span {
+  width: 1.25rem;
+  height: 2px;
+  flex: none;
+  background: var(--segnale);
+}
+
+/* =================================================================
    Il bivio — due strade, colorate come i segni di un rubinetto
    ================================================================= */
-.bivio { padding-block: var(--s4) var(--s5); }
+.bivio { padding-block: clamp(4rem, 8vw, 6.5rem); background: var(--pannello); }
 .bivio__titolo {
   margin-top: .4rem;
   font-size: clamp(2rem, 5.5vw, 3.4rem);
@@ -227,15 +345,33 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .via {
   display: grid; align-content: start; gap: .5rem;
-  padding: var(--s3);
+  padding: 0 0 var(--s3);
   background: var(--pannello);
   border: 1px solid var(--riga);
   border-top: 5px solid var(--tinta);
   transition: border-color .2s ease, transform .2s ease;
+  overflow: hidden;
 }
 .via:hover { transform: translateY(-2px); border-inline-color: var(--riga-forte); border-bottom-color: var(--riga-forte); }
 .via--urgenza { --tinta: var(--segnale); }
 .via--programmato { --tinta: var(--profondo); }
+.via__immagine {
+  display: block;
+  aspect-ratio: 16 / 8;
+  overflow: hidden;
+  margin-bottom: var(--s2);
+  background: #dfe5e9;
+}
+.via__immagine img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .45s ease;
+}
+.via:hover .via__immagine img { transform: scale(1.035); }
+.via__etichetta, .via__titolo, .via__testo, .via__azione {
+  margin-inline: var(--s3);
+}
 .via__etichetta {
   font-size: .72rem; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; color: var(--tinta);
@@ -253,7 +389,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* =================================================================
    L'emergenza in breve — tre passi, numeri grossi
    ================================================================= */
-.adesso { padding-block: var(--s5) 0; }
+.adesso { padding-block: clamp(4rem, 8vw, 6.5rem); }
 .adesso__testa { max-width: 56ch; margin-bottom: var(--s3); }
 .passi-rapidi {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2);
@@ -277,7 +413,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* =================================================================
    Le tariffe — la domanda che nessuno fa volentieri
    ================================================================= */
-.costi { padding-block: var(--s5) 0; }
+.costi { padding-block: clamp(4rem, 8vw, 6.5rem); background: #fff; }
 .tariffe {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px;
   background: var(--riga); border: 1px solid var(--riga);
@@ -320,12 +456,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* =================================================================
    Gli interventi
    ================================================================= */
-.interventi { padding-block: var(--s5) 0; }
+.interventi { padding-block: clamp(4rem, 8vw, 6.5rem); }
 .interventi__elenco {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px;
   background: var(--riga); border: 1px solid var(--riga);
 }
-.intervento { background: var(--pannello); padding: var(--s3); display: grid; align-content: start; }
+.intervento {
+  background: var(--pannello);
+  padding: var(--s3);
+  display: grid;
+  align-content: start;
+  overflow: hidden;
+}
+.intervento__immagine {
+  display: block;
+  aspect-ratio: 16 / 10;
+  margin: calc(var(--s3) * -1) calc(var(--s3) * -1) var(--s2);
+  overflow: hidden;
+  background: #dfe5e9;
+}
+.intervento__immagine img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .45s ease;
+}
+.intervento:hover .intervento__immagine img { transform: scale(1.035); }
 .intervento__nome {
   font-size: 1.15rem; font-weight: 600; line-height: 1.25; color: var(--inchiostro);
 }
@@ -342,9 +498,50 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* =================================================================
+   Il mestiere da vicino — una galleria dichiaratamente illustrativa,
+   senza recensioni, clienti o cantieri di fantasia.
+   ================================================================= */
+.lavori {
+  padding-block: clamp(4.5rem, 9vw, 7rem);
+  background: var(--inchiostro);
+  color: var(--carta);
+}
+.lavori__testa {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--s3);
+  margin-bottom: var(--s3);
+}
+.lavori .etichetta { color: #9baab8; }
+.lavori .sezione__titolo { color: #fff; }
+.lavori__nota { max-width: 29ch; font-size: .88rem; line-height: 1.6; color: #b5bec7; }
+.lavori__griglia {
+  min-height: 39rem;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: var(--s2);
+}
+.lavoro {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: 0;
+  background: #1a2026;
+}
+.lavoro--grande { grid-row: span 2; }
+.lavoro picture { display: block; min-height: 0; overflow: hidden; background: #2d353c; }
+.lavoro img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.lavoro:hover img { transform: scale(1.025); }
+.lavoro figcaption { display: grid; gap: .18rem; padding: 1rem 1.1rem 1.15rem; }
+.lavoro figcaption b { font-size: .98rem; font-weight: 600; color: #fff; }
+.lavoro figcaption span { font-size: .82rem; color: #aeb8c1; }
+
+/* =================================================================
    La zona — si scrive il comune, si ha la risposta
    ================================================================= */
-.zona { padding-block: var(--s5) 0; }
+.zona { padding-block: clamp(4.5rem, 9vw, 7rem) 0; }
 .zona__forma { margin-top: var(--s3); max-width: 30rem; }
 .zona__campo { display: block; }
 .zona__testo {
@@ -495,7 +692,27 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* =================================================================
    Pagina della guida
    ================================================================= */
-.guida-testa { padding-block: var(--s4) var(--s3); }
+.guida-testa { padding-block: clamp(3.25rem, 7vw, 6rem); }
+.guida-testa__interno {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+.guida-testa__contenuto { min-width: 0; }
+.guida-testa__immagine {
+  padding: .5rem;
+  background: var(--pannello);
+  box-shadow: 0 24px 48px -40px rgba(16, 20, 24, .45);
+}
+.guida-testa__immagine picture { display: block; aspect-ratio: 4 / 3; overflow: hidden; }
+.guida-testa__immagine img { width: 100%; height: 100%; object-fit: cover; }
+.guida-testa__immagine figcaption {
+  padding: .8rem .5rem .35rem;
+  font-size: .77rem;
+  line-height: 1.5;
+  color: var(--acciaio);
+}
 .guida-testa__titolo {
   margin-top: .4rem;
   font-size: clamp(1.9rem, 5vw, 3.1rem);
@@ -646,6 +863,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .chiamata { margin-inline-start: auto; }
   .chiamata__testo b { font-size: .9rem; }
 
+  .eroe__interno { grid-template-columns: 1fr; gap: 2rem; }
+  .eroe__testo { max-width: 48rem; }
+  .eroe__titolo { max-width: 16ch; font-size: clamp(2.5rem, 7vw, 4.15rem); }
+  .eroe__immagine { max-width: 48rem; }
+  .eroe__immagine picture { aspect-ratio: 16 / 10; }
+  .guida-testa__interno { grid-template-columns: 1fr; gap: 2rem; }
+  .guida-testa__immagine { max-width: 38rem; }
   .interventi__elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tariffe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .zona__elenco { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -660,9 +884,26 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 @media (max-width: 46rem) {
+  .eroe { padding-block: 3rem 3.5rem; }
+  .eroe__titolo { font-size: clamp(2.4rem, 10vw, 3.55rem); }
+  .eroe__titolo br { display: none; }
+  .eroe__frase { font-size: 1rem; }
+  .eroe__azioni { align-items: stretch; }
+  .eroe__azioni .bottone { width: 100%; }
+  .eroe__collegamento { width: fit-content; }
+  .eroe__dati { gap: .75rem; }
+  .eroe__dati b { font-size: .93rem; }
+  .eroe__dati span { font-size: .72rem; }
+  .bivio, .adesso, .costi, .interventi, .lavori { padding-block: 4rem; }
   .bivio__vie { grid-template-columns: 1fr; }
   .passi-rapidi { grid-template-columns: 1fr; }
   .interventi__elenco { grid-template-columns: 1fr; }
+  .intervento__immagine { aspect-ratio: 16 / 8.5; }
+  .lavori__testa { display: grid; gap: .8rem; }
+  .lavori__nota { max-width: 40ch; }
+  .lavori__griglia { min-height: 0; grid-template-columns: 1fr; grid-template-rows: none; }
+  .lavoro, .lavoro--grande { grid-row: auto; grid-template-rows: minmax(13rem, 52vw) auto; }
+  .lavoro--grande { grid-template-rows: minmax(17rem, 72vw) auto; }
   .zona__elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .piede__interno { grid-template-columns: 1fr; }
   /* la nota sotto "Chiama ora" ruba larghezza al marchio */
@@ -671,6 +912,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 @media (max-width: 34rem) {
+  .eroe__dati { grid-template-columns: 1fr .85fr; }
+  .eroe__dati p:last-child { grid-column: 1 / -1; }
+  .via__etichetta, .via__titolo, .via__testo, .via__azione { margin-inline: 1.1rem; }
   .tariffe { grid-template-columns: 1fr; }
   .marchio__mestiere { display: none; }
   .chiamata__testo b { font-size: 0; }

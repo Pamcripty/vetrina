@@ -121,10 +121,12 @@ Rigenera solo ciò che manca o è più vecchio del master.
 ## Il sito dell'idraulico
 
 Due pagine: la principale e **Prima che arrivi**, la guida da aprire
-col telefono in mano mentre esce acqua. Nessuna immagine da generare:
-i disegni sono SVG scritti dentro la pagina.
+col telefono in mano mentre esce acqua. Le fotografie mostrano interventi,
+attrezzi e ambienti domestici; il disegno della valvola resta un SVG scritto
+dentro la pagina perché deve spiegare con precisione aperto e chiuso.
 
 ```bash
+node idraulico/strumenti/immagini.js  # dalle foto master genera AVIF e WebP
 node idraulico/costruisci.js
 ```
 
@@ -136,6 +138,9 @@ node idraulico/costruisci.js
 | `idraulico/parti/` | testata, piede, verifica della zona, chiamata |
 | `idraulico/stile.css` | tutto il foglio di stile |
 | `idraulico/sito.js` | verifica della zona, orario, menu, pannello |
+| `idraulico/master/` | fotografie originali da cui ricavare nuovi tagli |
+| `idraulico/immagini/` | immagini leggere AVIF, WebP e JPEG di riserva |
+| `idraulico/strumenti/immagini.js` | genera le versioni responsive |
 
 ### Le tariffe
 
