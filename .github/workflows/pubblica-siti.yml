@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: 24
 
-      - name: Genera i siti
+      - name: Genera tutti i siti multipagina per GitHub Pages
         run: |
           node imbianchino/costruisci.js
           node idraulico/costruisci.js
