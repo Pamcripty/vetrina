@@ -10,7 +10,7 @@ propri contenuti, propri file. Nessun modello riciclato fra un settore e l'altro
 |---|---|---|
 | `imbianchino/` | Tinteggiature e decorazioni | Sito Professionale |
 | `idraulico/` | Idraulica e riscaldamento | Sito Essenziale |
-| `estetica/` | Estetica e benessere | Lancio in Vista |
+| `estetica/` | PEACH CLUB · beauty bar | Lancio in Vista |
 
 I tre siti non si somigliano di proposito, e la differenza parte da come
 si vende quel mestiere.
@@ -189,7 +189,7 @@ node estetica/costruisci.js
 | `estetica/parti/` | testata, piede, compositore della richiesta |
 | `estetica/stile.css` | tutto il foglio di stile |
 | `estetica/sito.js` | listino, compositore, menu, pannello |
-| `estetica/master/` | le sei fotografie originali |
+| `estetica/master/` | le otto fotografie originali di PEACH CLUB |
 
 ### Il listino
 
@@ -200,8 +200,8 @@ controllo che verifica che mostrino le stesse voci.
 
 ```js
 var LISTINO = [
-  { id: 'viso', gruppo: 'Viso', voci: [
-    ['Pulizia del viso', 60, 55],
+  { id: 'nails', gruppo: 'Nails', voci: [
+    ['Semipermanente color', 60, 30],
     // …
   ]},
 ];
@@ -248,7 +248,7 @@ Lo strumento fa due cose diverse:
 |---|---|
 | FammiUnKilo | online, screenshot consegnati a mano |
 | ZumBox | online, screenshot consegnati a mano |
-| Mano di Fondo · A Piombo · L'Ora Buona | dimostrativi, fotografati dallo strumento |
+| Mano di Fondo · A Piombo · PEACH CLUB | dimostrativi, fotografati dallo strumento |
 
 ---
 

@@ -1,5 +1,5 @@
-<!--@ titolo: Prenota un'ora — L'Ora Buona -->
-<!--@ descrizione: Scegli i trattamenti e scopri quanto dura e quanto viene, poi manda la richiesta già scritta. Disdette, ritardi e orari. Progetto dimostrativo di Sito in Vista. -->
+<!--@ titolo: Prenota — PEACH CLUB -->
+<!--@ descrizione: Scegli uno o più servizi PEACH CLUB, controlla durata e prezzo e prepara la richiesta di appuntamento. -->
 <!--@ qui-regole: aria-current="page" -->
 <!doctype html>
 <html lang="it">
@@ -7,107 +7,76 @@
 <!--@parte testa-->
 </head>
 <body>
-
 <a class="salta" href="#contenuto">Salta al contenuto</a>
-
 <!--@parte avviso-->
 <!--@parte testata-->
 
 <main id="contenuto">
-
-  <section class="intestazione">
-    <div class="contenitore">
-      <p class="etichetta">Prenota</p>
-      <h1 class="intestazione__titolo">Prenotare<br>senza rimpalli.</h1>
-      <p class="intestazione__frase">
-        Il giro di messaggi «quanto dura?», «quanto viene?», «che giorni
-        hai?» fa perdere tempo a tutti e due. Segna cosa vorresti e il
-        messaggio si scrive da sé.
+  <section class="pagina-hero pagina-hero--corallo">
+    <div class="contenitore pagina-hero__griglia">
+      <div>
+        <p class="etichetta">Book your mood</p>
+        <h1 class="pagina-hero__titolo">Un messaggio solo.<br><em>Con dentro già tutto.</em></h1>
+      </div>
+      <p class="pagina-hero__frase">
+        Seleziona i servizi, indica quando preferisci e controlla il riepilogo.
+        Nel sito reale la richiesta partirebbe su WhatsApp già compilata.
       </p>
     </div>
   </section>
 
 <!--@parte compositore-->
 
-  <!-- ========================= le regole ======================= -->
   <section class="regole" id="regole">
     <div class="contenitore">
-      <div class="sezione__testa">
-        <p class="etichetta">Come funziona</p>
-        <h2 class="sezione__titolo">Quattro regole,<br>dette prima.</h2>
-        <p class="sezione__frase">
-          Non sono cavilli: sono le cose che, se non si dicono all'inizio,
-          diventano discussioni imbarazzanti alla fine.
-        </p>
+      <div class="sezione__testa sezione__testa--riga">
+        <div>
+          <p class="etichetta">Good to know</p>
+          <h2 class="sezione__titolo">Quattro cose prima di prenotare.</h2>
+        </div>
+        <p class="sezione__frase">Poche regole, scritte con chiarezza e senza tono da contratto.</p>
       </div>
-
       <div class="regole__elenco">
-        <article class="regola">
-          <h3 class="regola__nome">Disdette</h3>
-          <p class="regola__testo">
-            Un'ora prenotata è un'ora tolta a qualcun altro. Se non puoi
-            venire, avvisaci con <b>almeno 24 ore</b>: si libera il posto e
-            non è successo niente. Sotto le 24 ore capita, e capiamo — ma se
-            capita spesso ne parliamo.
-          </p>
-        </article>
-        <article class="regola">
-          <h3 class="regola__nome">Ritardi</h3>
-          <p class="regola__testo">
-            Fino a <b>dieci minuti</b> recuperiamo. Oltre, il trattamento si
-            accorcia: non possiamo far aspettare chi viene dopo. Se sai in
-            anticipo che farai tardi, un messaggio ci permette di
-            riorganizzare.
-          </p>
-        </article>
-        <article class="regola">
-          <h3 class="regola__nome">Conferma</h3>
-          <p class="regola__testo">
-            La richiesta non è ancora un appuntamento: te lo confermiamo noi
-            con giorno e ora. Di solito rispondiamo in giornata, e se
-            l'orario che chiedi è occupato ti proponiamo il più vicino.
-          </p>
-        </article>
-        <article class="regola">
-          <h3 class="regola__nome">Pagamento</h3>
-          <p class="regola__testo">
-            Alla fine del trattamento, in contanti o con bancomat. Niente
-            anticipi e niente tessere da caricare. Se il prezzo dovesse
-            cambiare rispetto al listino lo sai prima di iniziare.
-          </p>
-        </article>
+        <article class="regola"><span>01</span><h3 class="regola__nome">La richiesta va confermata</h3><p class="regola__testo">Il messaggio non blocca ancora l'orario. La prenotazione è valida quando ricevi giorno e ora confermati.</p></article>
+        <article class="regola"><span>02</span><h3 class="regola__nome">Se cambi idea, avvisa</h3><p class="regola__testo">Con almeno 24 ore possiamo riorganizzare l'agenda. I ritardi oltre dieci minuti possono ridurre il servizio.</p></article>
+        <article class="regola"><span>03</span><h3 class="regola__nome">Segnala ciò che conta</h3><p class="regola__testo">Allergie, farmaci, trattamenti recenti, gravidanza o prodotti già presenti vanno comunicati prima.</p></article>
+        <article class="regola"><span>04</span><h3 class="regola__nome">Il prezzo si chiarisce prima</h3><p class="regola__testo">Se una rimozione o una nail art richiede un extra, viene confermato prima del lavoro.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- ========================== orari ========================== -->
   <section class="orari">
-    <div class="contenitore orari__interno">
-      <div>
-        <p class="etichetta">Orari</p>
-        <h2 class="sezione__titolo">Quando siamo aperte.</h2>
-        <p class="sezione__frase">
-          Il lunedì siamo chiuse. Il sabato si riempie con anticipo: se ti
-          serve, chiedilo con qualche giorno di margine.
-        </p>
+    <div class="contenitore orari__griglia">
+      <div class="orari__testo">
+        <p class="etichetta">Opening hours</p>
+        <h2 class="sezione__titolo">Quando trovi il Club acceso.</h2>
+        <p>Il giovedì resta aperto fino alle 21. Il sabato è il giorno più richiesto: meglio prenotare con anticipo.</p>
+        <a class="collegamento" href="il-centro.html#domande">Leggi le FAQ <span aria-hidden="true">→</span></a>
       </div>
       <dl class="orari__tabella">
-        <div class="orari__riga"><dt>Lunedì</dt><dd class="orari__chiuso">chiuso</dd></div>
-        <div class="orari__riga"><dt>Martedì</dt><dd>9–13 · 14.30–19</dd></div>
-        <div class="orari__riga"><dt>Mercoledì</dt><dd>9–13 · 14.30–19</dd></div>
-        <div class="orari__riga"><dt>Giovedì</dt><dd>9–13 · 14.30–21</dd></div>
-        <div class="orari__riga"><dt>Venerdì</dt><dd>9–13 · 14.30–19</dd></div>
-        <div class="orari__riga"><dt>Sabato</dt><dd>8.30–17</dd></div>
-        <div class="orari__riga"><dt>Domenica</dt><dd class="orari__chiuso">chiuso</dd></div>
+        <div><dt>Lunedì</dt><dd>Chiuso</dd></div>
+        <div><dt>Martedì</dt><dd>9–13 · 14.30–19</dd></div>
+        <div><dt>Mercoledì</dt><dd>9–13 · 14.30–19</dd></div>
+        <div><dt>Giovedì</dt><dd>9–13 · 14.30–21</dd></div>
+        <div><dt>Venerdì</dt><dd>9–13 · 14.30–19</dd></div>
+        <div><dt>Sabato</dt><dd>8.30–17</dd></div>
+        <div><dt>Domenica</dt><dd>Chiuso</dd></div>
       </dl>
     </div>
   </section>
 
+  <section class="chiusura chiusura--menta">
+    <div class="contenitore chiusura__interno">
+      <p class="etichetta">Still choosing?</p>
+      <h2 class="chiusura__titolo">Salva il look che ti piace.</h2>
+      <p class="chiusura__frase">Una reference chiara ci aiuta a capire subito forma, colore e livello di nail art che immagini.</p>
+      <a class="bottone bottone--prugna bottone--grande" href="trattamenti.html">Torna ai servizi</a>
+    </div>
+  </section>
 </main>
 
 <!--@parte pannello-->
 <!--@parte piede-->
 <!--@parte coda-->
-
 </body>
 </html>
