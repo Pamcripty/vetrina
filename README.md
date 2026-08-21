@@ -11,8 +11,9 @@ propri contenuti, propri file. Nessun modello riciclato fra un settore e l'altro
 | `imbianchino/` | Tinteggiature e decorazioni | Sito Professionale |
 | `idraulico/` | Idraulica e riscaldamento | Sito Essenziale |
 | `estetica/` | PEACH CLUB · beauty bar | Lancio in Vista |
+| `fiorista/` | DALIA · atelier floreale | Sito Professionale |
 
-I tre siti non si somigliano di proposito, e la differenza parte da come
+I quattro siti non si somigliano di proposito, e la differenza parte da come
 si vende quel mestiere.
 
 - **Imbianchino** — si vende con le fotografie: carta color calce,
@@ -23,6 +24,8 @@ si vende quel mestiere.
 - **Centro estetico** — si vende a tempo e si svolge in penombra: fondo
   scuro caldo, Fraunces, fotografie d'ambiente, e il tempo scritto
   accanto a ogni voce.
+- **Fiorista boutique** — vende composizioni sartoriali ed emozioni:
+  rosa cipria, avorio, fotografia editoriale e richiesta personalizzata.
 
 ---
 
@@ -45,6 +48,7 @@ Ogni cartella ha il proprio assemblatore e si costruisce da sola:
 node imbianchino/costruisci.js     # → imbianchino/sito/
 node idraulico/costruisci.js       # → idraulico/sito/
 node estetica/costruisci.js        # → estetica/sito/
+node fiorista/costruisci.js        # → fiorista/sito/
 ```
 
 Il costruttore, alla fine, verifica che ogni riferimento locale delle
@@ -60,6 +64,7 @@ python3 -m http.server 4180
 # → http://localhost:4180/imbianchino/sito/
 # → http://localhost:4180/idraulico/sito/
 # → http://localhost:4180/estetica/sito/
+# → http://localhost:4180/fiorista/sito/
 ```
 
 ---
@@ -218,6 +223,24 @@ Sono chiare e ariose, il sito è scuro. Non vengono scurite con un filtro
 sul lato del testo a portarle dentro la pagina; nelle schede la luce
 delle nature morte contro il fondo scuro le fa sembrare oggetti
 illuminati in una stanza buia.
+
+---
+
+## Il sito della boutique floreale
+
+Sei pagine: home, collezioni, matrimoni ed eventi, atelier, consegne
+e richiesta personalizzata. La boutique **DALIA** è un'attività
+dimostrativa ambientata nel centro storico di Verona.
+
+```bash
+node fiorista/strumenti/immagini.js   # genera AVIF, WebP e JPEG di riserva
+node fiorista/costruisci.js
+```
+
+Le nove fotografie originali sono in `fiorista/master/`; le immagini
+ottimizzate per il sito sono in `fiorista/immagini/`. Il configuratore
+di `fiorista/sito.js` compone bouquet, palette, consegna ed extra e
+mostra il prezzo indicativo prima di preparare il messaggio.
 
 ---
 
