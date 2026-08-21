@@ -11,7 +11,7 @@ propri contenuti, propri file. Nessun modello riciclato fra un settore e l'altro
 | `imbianchino/` | Tinteggiature e decorazioni | Sito Professionale |
 | `idraulico/` | Idraulica e riscaldamento | Sito Essenziale |
 | `estetica/` | PEACH CLUB · beauty bar | Lancio in Vista |
-| `fiorista/` | DALIA · atelier floreale | Sito Professionale |
+| `fiorista/` | FIORÈ MILANO · boutique floreale | Sito Professionale |
 
 I quattro siti non si somigliano di proposito, e la differenza parte da come
 si vende quel mestiere.
@@ -228,9 +228,10 @@ illuminati in una stanza buia.
 
 ## Il sito della boutique floreale
 
-Sei pagine: home, collezioni, matrimoni ed eventi, atelier, consegne
-e richiesta personalizzata. La boutique **DALIA** è un'attività
-dimostrativa ambientata nel centro storico di Verona.
+Diciotto pagine: home, collezioni, occasioni, San Valentino, compleanni,
+nascite, anniversari, ringraziamenti, condoglianze, matrimoni, atelier,
+consegne, servizi, abbonamenti, workshop, ricorrenze e bouquet personalizzati.
+La boutique **FIORÈ MILANO** è un’attività dimostrativa ambientata a Milano.
 
 ```bash
 node fiorista/strumenti/immagini.js   # genera AVIF, WebP e JPEG di riserva
