@@ -14,34 +14,80 @@
 
 <main id="contenuto">
 
+  <!-- ========================= prima schermata ==================
+       Il mestiere si capisce prima di leggere il resto; la fotografia
+       mostra un intervento normale, non un artigiano inventato. -->
+  <section class="eroe">
+    <div class="contenitore eroe__interno">
+      <div class="eroe__testo">
+        <p class="eroe__luogo">Idraulico a Bovolone, Legnago e nella Bassa Veronese</p>
+        <h1 class="eroe__titolo">Quando serve un idraulico,<br><span>sai già cosa aspettarti.</span></h1>
+        <p class="eroe__frase">
+          Perdite, scarichi, caldaie e bagni. Ti dico il costo dell'uscita prima
+          di partire e, se il problema è urgente, cosa fare mentre arrivo.
+        </p>
+        <div class="eroe__azioni">
+          <button class="bottone bottone--pieno bottone--grande" type="button" data-chiamata>
+            Ho bisogno di un idraulico
+          </button>
+          <a class="eroe__collegamento" href="#costi">Quanto costa l'uscita <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="eroe__dati" aria-label="Informazioni principali">
+          <p><b>45 €</b><span>uscita + prima mezz'ora</span></p>
+          <p><b>7–21</b><span>tutti i giorni</span></p>
+          <p><b>Bassa Veronese</b><span>zona di intervento</span></p>
+        </div>
+      </div>
+
+      <figure class="eroe__immagine">
+        <picture>
+          <source type="image/avif" srcset="immagini/hero-artigiano-420.avif 420w, immagini/hero-artigiano-760.avif 760w, immagini/hero-artigiano-1200.avif 1200w" sizes="(max-width: 62rem) calc(100vw - 2.5rem), 52vw">
+          <source type="image/webp" srcset="immagini/hero-artigiano-420.webp 420w, immagini/hero-artigiano-760.webp 760w, immagini/hero-artigiano-1200.webp 1200w" sizes="(max-width: 62rem) calc(100vw - 2.5rem), 52vw">
+          <img src="immagini/hero-artigiano-1200.jpg" width="1200" height="800" alt="Artigiano al lavoro sotto il lavello di una cucina" fetchpriority="high" decoding="async">
+        </picture>
+        <figcaption><span aria-hidden="true"></span> Interventi concreti, spiegati senza giri di parole.</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ========================= il bivio =========================
        Chi arriva qui è in una di due situazioni, e non si somigliano:
        o ha l'acqua per terra adesso, o sta pensando al bagno nuovo.
        La pagina si divide subito. -->
   <section class="bivio">
     <div class="contenitore">
-      <p class="soprattitolo">Bovolone, Legnago e Bassa Veronese</p>
-      <h1 class="bivio__titolo">Che cosa ti è successo?</h1>
+      <p class="soprattitolo">Una cosa alla volta</p>
+      <h2 class="bivio__titolo">Che cosa ti è successo?</h2>
 
       <div class="bivio__vie">
         <a class="via via--urgenza" href="#adesso">
+          <picture class="via__immagine">
+            <source type="image/avif" srcset="immagini/intervento-perdita-420.avif 420w, immagini/intervento-perdita-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 45vw">
+            <source type="image/webp" srcset="immagini/intervento-perdita-420.webp 420w, immagini/intervento-perdita-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 45vw">
+            <img src="immagini/intervento-perdita-1200.jpg" width="1200" height="800" alt="Riparazione di una perdita sotto un lavandino" loading="lazy" decoding="async">
+          </picture>
           <span class="via__etichetta">Sta succedendo adesso</span>
           <span class="via__titolo">Perdita, allagamento,<br>scarico otturato</span>
           <span class="via__testo">
             Chiama e intanto guarda cosa fare per limitare i danni.
-            In zona arriviamo di solito entro un'ora.
+            In zona arrivo di solito entro un'ora.
           </span>
           <span class="via__azione">Cosa fare subito <span aria-hidden="true">→</span></span>
         </a>
 
         <a class="via via--programmato" href="#interventi">
+          <picture class="via__immagine">
+            <source type="image/avif" srcset="immagini/bagno-rifatto-420.avif 420w, immagini/bagno-rifatto-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 45vw">
+            <source type="image/webp" srcset="immagini/bagno-rifatto-420.webp 420w, immagini/bagno-rifatto-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 45vw">
+            <img src="immagini/bagno-rifatto-1200.jpg" width="1200" height="800" alt="Bagno ristrutturato con doccia e sanitari moderni" loading="lazy" decoding="async">
+          </picture>
           <span class="via__etichetta">Ci posso pensare</span>
           <span class="via__titolo">Bagno da rifare,<br>caldaia, impianto</span>
           <span class="via__testo">
-            Sopralluogo e preventivo scritto, gratuiti. Ti diciamo
+            Sopralluogo e preventivo scritto, gratuiti. Ti dico
             quanto costa e quanti giorni ci vogliono.
           </span>
-          <span class="via__azione">Cosa facciamo <span aria-hidden="true">→</span></span>
+          <span class="via__azione">Cosa posso fare <span aria-hidden="true">→</span></span>
         </a>
       </div>
     </div>
@@ -110,7 +156,7 @@
         <div class="tariffa">
           <p class="tariffa__voce">Sera, domenica e festivi</p>
           <p class="tariffa__cifra">+50%</p>
-          <p class="tariffa__nota">Dopo le 21 e nei festivi. Te lo dico al telefono prima di partire, non dopo.</p>
+          <p class="tariffa__nota">Dalle 18 alle 21, la domenica e nei festivi. Te lo dico al telefono prima di partire, non dopo.</p>
         </div>
         <div class="tariffa">
           <p class="tariffa__voce">Materiali</p>
@@ -140,31 +186,61 @@
 
       <div class="interventi__elenco">
         <article class="intervento">
+          <picture class="intervento__immagine">
+            <source type="image/avif" srcset="immagini/intervento-perdita-420.avif 420w, immagini/intervento-perdita-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <source type="image/webp" srcset="immagini/intervento-perdita-420.webp 420w, immagini/intervento-perdita-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <img src="immagini/intervento-perdita-1200.jpg" width="1200" height="800" alt="Riparazione di un raccordo che perde" loading="lazy" decoding="async">
+          </picture>
           <h3 class="intervento__nome">Perdite e riparazioni</h3>
           <p class="intervento__testo">Rubinetti che gocciolano, cassette che non tengono, tubi che perdono dentro il muro. Cerco il punto con il rilevatore prima di aprire, così si demolisce il meno possibile.</p>
           <p class="intervento__tempo"><span class="intervento__etichetta">Di solito</span> mezza giornata</p>
         </article>
         <article class="intervento">
+          <picture class="intervento__immagine">
+            <source type="image/avif" srcset="immagini/scarico-lavello-420.avif 420w, immagini/scarico-lavello-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <source type="image/webp" srcset="immagini/scarico-lavello-420.webp 420w, immagini/scarico-lavello-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <img src="immagini/scarico-lavello-1200.jpg" width="1200" height="800" alt="Ispezione del sifone di un lavello" loading="lazy" decoding="async">
+          </picture>
           <h3 class="intervento__nome">Scarichi otturati</h3>
           <p class="intervento__testo">Lavelli, docce, water, colonne condominiali. Sonda e, quando serve, telecamera: se il problema è una radice o un tubo rotto, è meglio saperlo prima di ripetere il disotturante ogni mese.</p>
           <p class="intervento__tempo"><span class="intervento__etichetta">Di solito</span> 1–2 ore</p>
         </article>
         <article class="intervento">
+          <picture class="intervento__immagine">
+            <source type="image/avif" srcset="immagini/manutenzione-caldaia-420.avif 420w, immagini/manutenzione-caldaia-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <source type="image/webp" srcset="immagini/manutenzione-caldaia-420.webp 420w, immagini/manutenzione-caldaia-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <img src="immagini/manutenzione-caldaia-1200.jpg" width="1200" height="800" alt="Controllo di una caldaia domestica" loading="lazy" decoding="async">
+          </picture>
           <h3 class="intervento__nome">Caldaie e scaldabagni</h3>
           <p class="intervento__testo">Manutenzione annuale, riparazione, sostituzione. Se la caldaia ha più di quindici anni ti dico onestamente quando conviene ripararla e quando no.</p>
           <p class="intervento__tempo"><span class="intervento__etichetta">Manutenzione</span> circa un'ora</p>
         </article>
         <article class="intervento">
+          <picture class="intervento__immagine">
+            <source type="image/avif" srcset="immagini/bagno-rifatto-420.avif 420w, immagini/bagno-rifatto-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <source type="image/webp" srcset="immagini/bagno-rifatto-420.webp 420w, immagini/bagno-rifatto-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <img src="immagini/bagno-rifatto-1200.jpg" width="1200" height="800" alt="Bagno ristrutturato con doccia a filo pavimento" loading="lazy" decoding="async">
+          </picture>
           <h3 class="intervento__nome">Bagni e rifacimenti</h3>
           <p class="intervento__testo">Dalla sostituzione della vasca con il piatto doccia al bagno rifatto da zero. Mi coordino io con piastrellista ed elettricista, così non devi fare tu il capocantiere.</p>
           <p class="intervento__tempo"><span class="intervento__etichetta">Bagno completo</span> 1–2 settimane</p>
         </article>
         <article class="intervento">
+          <picture class="intervento__immagine">
+            <source type="image/avif" srcset="immagini/impianto-tubazioni-420.avif 420w, immagini/impianto-tubazioni-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <source type="image/webp" srcset="immagini/impianto-tubazioni-420.webp 420w, immagini/impianto-tubazioni-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <img src="immagini/impianto-tubazioni-1200.jpg" width="1200" height="800" alt="Collettore e tubazioni di un impianto domestico" loading="lazy" decoding="async">
+          </picture>
           <h3 class="intervento__nome">Riscaldamento</h3>
           <p class="intervento__testo">Radiatori che restano freddi, valvole termostatiche, spurgo dell'impianto, riparazione di perdite sotto pavimento.</p>
           <p class="intervento__tempo"><span class="intervento__etichetta">Sfiato impianto</span> 1–2 ore</p>
         </article>
         <article class="intervento">
+          <picture class="intervento__immagine">
+            <source type="image/avif" srcset="immagini/attrezzi-furgone-420.avif 420w, immagini/attrezzi-furgone-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <source type="image/webp" srcset="immagini/attrezzi-furgone-420.webp 420w, immagini/attrezzi-furgone-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), (max-width: 62rem) 45vw, 30vw">
+            <img src="immagini/attrezzi-furgone-1200.jpg" width="1200" height="800" alt="Attrezzatura e raccordi per un intervento idraulico" loading="lazy" decoding="async">
+          </picture>
           <h3 class="intervento__nome">Autoclave e pompe</h3>
           <p class="intervento__testo">Poca pressione ai piani alti, pompe di rilancio, addolcitori. Prima misuro la pressione: a volte il problema non è la pompa.</p>
           <p class="intervento__tempo"><span class="intervento__etichetta">Diagnosi</span> circa un'ora</p>
@@ -176,6 +252,50 @@
         aperto non posso saperlo con certezza. Se mi accorgo che ci vuole di più,
         te lo dico prima di continuare.
       </p>
+    </div>
+  </section>
+
+  <!-- ======================== il lavoro da vicino ===============
+       Sono fotografie dimostrative, non lavori attribuiti a clienti,
+       case o comuni che non esistono. -->
+  <section class="lavori" id="lavori">
+    <div class="contenitore">
+      <div class="lavori__testa">
+        <div>
+          <p class="etichetta">Il mestiere, da vicino</p>
+          <h2 class="sezione__titolo">Non solo tubi.<br>Case che tornano a funzionare.</h2>
+        </div>
+        <p class="lavori__nota">Immagini illustrative del tipo di intervento: ogni casa ha la sua storia.</p>
+      </div>
+
+      <div class="lavori__griglia">
+        <figure class="lavoro lavoro--grande">
+          <picture>
+            <source type="image/avif" srcset="immagini/bagno-rifatto-420.avif 420w, immagini/bagno-rifatto-760.avif 760w, immagini/bagno-rifatto-1200.avif 1200w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 58vw">
+            <source type="image/webp" srcset="immagini/bagno-rifatto-420.webp 420w, immagini/bagno-rifatto-760.webp 760w, immagini/bagno-rifatto-1200.webp 1200w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 58vw">
+            <img src="immagini/bagno-rifatto-1200.jpg" width="1200" height="800" alt="Bagno rinnovato con doccia, lavabo e sanitari" loading="lazy" decoding="async">
+          </picture>
+          <figcaption><b>Un bagno rimesso a nuovo</b><span>Impianto, scarichi e sanitari</span></figcaption>
+        </figure>
+
+        <figure class="lavoro">
+          <picture>
+            <source type="image/avif" srcset="immagini/impianto-tubazioni-420.avif 420w, immagini/impianto-tubazioni-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 34vw">
+            <source type="image/webp" srcset="immagini/impianto-tubazioni-420.webp 420w, immagini/impianto-tubazioni-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 34vw">
+            <img src="immagini/impianto-tubazioni-1200.jpg" width="1200" height="800" alt="Raccordi e distribuzione ordinata dell'acqua" loading="lazy" decoding="async">
+          </picture>
+          <figcaption><b>Prima si guarda bene</b><span>Tubazioni e raccordi</span></figcaption>
+        </figure>
+
+        <figure class="lavoro">
+          <picture>
+            <source type="image/avif" srcset="immagini/manutenzione-caldaia-420.avif 420w, immagini/manutenzione-caldaia-760.avif 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 34vw">
+            <source type="image/webp" srcset="immagini/manutenzione-caldaia-420.webp 420w, immagini/manutenzione-caldaia-760.webp 760w" sizes="(max-width: 46rem) calc(100vw - 2.5rem), 34vw">
+            <img src="immagini/manutenzione-caldaia-1200.jpg" width="1200" height="800" alt="Tecnico durante il controllo di una caldaia" loading="lazy" decoding="async">
+          </picture>
+          <figcaption><b>La manutenzione che serve</b><span>Caldaie e acqua calda</span></figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -212,15 +332,15 @@
 
       <div class="domande__elenco">
         <details class="domanda">
-          <summary class="domanda__testa"><span>Venite anche di notte?</span></summary>
+          <summary class="domanda__testa"><span>Vieni anche di notte?</span></summary>
           <div class="domanda__corpo"><p>Rispondo dalle 7 alle 21, tutti i giorni. Di notte no: preferisco dirlo che lasciare il telefono a squillare. Se ti succede qualcosa alle tre di notte, chiudi il rubinetto generale — la guida spiega dove trovarlo — e ci sentiamo la mattina presto.</p></div>
         </details>
         <details class="domanda">
-          <summary class="domanda__testa"><span>Se poi non riuscite a risolvere, pago lo stesso?</span></summary>
+          <summary class="domanda__testa"><span>Se poi non riesci a risolvere, pago lo stesso?</span></summary>
           <div class="domanda__corpo"><p>L'uscita sì, perché il tempo e il viaggio ci sono stati. Ma se il problema è fuori dalla mia portata — per esempio serve un muratore o è una cosa del condominio — te lo dico entro la prima mezz'ora e paghi solo quella.</p></div>
         </details>
         <details class="domanda">
-          <summary class="domanda__testa"><span>Fate fattura?</span></summary>
+          <summary class="domanda__testa"><span>Fai fattura?</span></summary>
           <div class="domanda__corpo"><p>Sempre, anche per l'intervento da quarantacinque euro. Serve a te per la garanzia e per le detrazioni quando spettano, e a me per lavorare in regola.</p></div>
         </details>
         <details class="domanda">
@@ -232,7 +352,7 @@
           <div class="domanda__corpo"><p>Puoi, e a volte conviene. Ti avviso di una cosa sola: sui pezzi che porti tu la garanzia resta tua, e se quello che hai comprato non è adatto bisogna ricomprarlo. Su rubinetteria e sanitari succede spesso.</p></div>
         </details>
         <details class="domanda">
-          <summary class="domanda__testa"><span>Lavorate anche per i condomìni?</span></summary>
+          <summary class="domanda__testa"><span>Lavori anche per i condomìni?</span></summary>
           <div class="domanda__corpo"><p>Sì, per colonne di scarico e centrali termiche. Con gli amministratori lavoro a preventivo scritto e con rapportino firmato a fine intervento, così non ci sono discussioni sulle ore.</p></div>
         </details>
         <details class="domanda">
