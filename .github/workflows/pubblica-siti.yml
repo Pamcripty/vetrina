@@ -1,4 +1,4 @@
-name: Pubblica siti dimostrativi
+name: Pubblica siti dimostrativi\n# Aggiornamento homepage Sito in Vista
 
 on:
   push:
